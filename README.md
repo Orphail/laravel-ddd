@@ -1,4 +1,4 @@
-# Yet another Laravel DDD interpretation
+# Yet another Laravel 9 DDD interpretation
 
 ## Introduction
 I want to share with you yet another Laravel DDD interpretation, my approach for what could be a clean architecture design without having to give away most of the features we love from Laravel.
@@ -9,7 +9,7 @@ Some of my inspirations have been these remarkable articles:
 - https://ntorga.com/the-presentation-layer-clean-architecture-and-domain-driven-design-on-php/
 - https://ntorga.com/the-domain-layer-clean-architecture-and-domain-driven-design-on-php/
 
-First, I want to say that this is my own personal interpretation, which is also very open to suggestions and opinions. One of the things I have learned along this time is that what we call clean architectures, DDD, hexagonal architectures, etc. is interpreted differently from author to author although most of them refer to Uncle Bob, Martin Fowler, Eric Evans and Vaughn Vernon as the most influential on this topic. So, if you want to delve into this topic, I recommend reading about them.
+First, I want to say that this is my own personal interpretation, which is also very open to suggestions and opinions. One of the things I have learned along this time is that what we call clean architectures, DDD, hexagonal architectures, etc. is interpreted differently from author to author although most of them refer to Uncle Bob, Martin Fowler, Eric Evans and Vaughn Vernon as the most influential on this topic. So, if you want to delve into it, I recommend reading about them.
 
 ## Current features
 - Authentication with [Tymon's JWT Auth](https://github.com/tymondesigns/jwt-auth)
