@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'internal-api',
         'passwords' => 'users',
     ],
 
@@ -40,11 +40,16 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'internal-api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+            'hash' => false,
+        ],
     ],
 
     /*
     |--------------------------------------------------------------------------
-    | User Providers
+    | UserEloquentModel Providers
     |--------------------------------------------------------------------------
     |
     | All authentication drivers have a user provider. This defines how the
@@ -62,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => \Src\User\Infrastructure\EloquentModels\UserEloquentModel::class,
         ],
 
         // 'users' => [

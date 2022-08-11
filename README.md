@@ -1,64 +1,87 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Yet another Laravel DDD interpretation
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Introduction
+I want to share with you yet another Laravel DDD interpretation, my approach for what could be a clean architecture design without having to give away most of the features we love from Laravel.
 
-## About Laravel
+Some of my inspirations have been these remarkable articles:
+- https://www.hibit.dev/posts/43/domain-driven-design-with-laravel-9
+- https://lorisleiva.com/conciliating-laravel-and-ddd
+- https://ntorga.com/the-presentation-layer-clean-architecture-and-domain-driven-design-on-php/
+- https://ntorga.com/the-domain-layer-clean-architecture-and-domain-driven-design-on-php/
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+First, I want to say that this is my own personal interpretation, which is also very open to suggestions and opinions. One of the things I have learned along this time is that what we call clean architectures, DDD, hexagonal architectures, etc. is interpreted differently from author to author although most of them refer to Uncle Bob, Martin Fowler, Eric Evans and Vaughn Vernon as the most influential on this topic. So, if you want to delve into this topic, I recommend reading about them.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Current features
+- Authentication with [Tymon's JWT Auth](https://github.com/tymondesigns/jwt-auth)
+- Feature tests for User and Auth
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## First steps
+1. ```composer install```
+2. ```php artisan key:generate```
+3. ```php artisan jwt:secret```
+4. ```php artisan test```
+5. For new domains, use this command: ```php artisan make:domain {Bounded Context} {Domain}``` (e.g. ```php artisan make:domain Blog Post```)
 
-## Learning Laravel
+## Why use this approach?
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Okay, let’s suppose that you want to program an app with Laravel that you expect to be mid-to-large size. You may have been working on some of these big projects but dealt with bloated controllers, monstrous models, etc. So for this one, you want to keep your sanity.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+You hear about clean architecture and would like to try it, but its practices kind of break with the Laravel Way™ of building things, so either you have to stick with Laravel or create almost all of the core functionalities with that permanent feeling of reinventing the wheel at every step.
 
-## Laravel Sponsors
+I don’t have a perfect solution for this, and I haven’t heard of anyone having it, but I found a way that allows me to build things by having a more controlled planning and structure of my project despite having to deal with some extra boilerplate.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Structure particularities
 
-### Premium Partners
+Inside the "src/" directory we will keep our Bounded Contexts, which are the delimitations of around a set of domains that share functionalities and the same ubiquitous language. There is a special Bounded Context that I have named “Common”, where I keep the resources that I will be sharing with many domains, and where I will keep our Laravel-specific logic as an infrastructure detail.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+> <sub>By the way, the "src/" directory is somewhat the "app/" directory we are used to in Laravel. I changed its name because I do not feel comfortable working with a folder that shares the name of a conventional Laravel app when this is not.</sub>
 
-## Contributing
+Also, I prefer to group the directory structure by domain, contrary to many examples I saw where some authors prefer grouping by layer. For example, a typical structure would be:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+...
+├── Domain
+│   ├── User
+│   └── Post
+├── Application
+│   ├── UserRepository
+│   ├── PostRepository
+│   └── ...
+├── Interfaces
+│   ├── UserController
+│   ├── PostController
+│   └── ...
+├── Infrastructure
+│   ├── UserEloquent
+│   ├── PostEloquent
+│   └── ...
+```
 
-## Code of Conduct
+While I prefer:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+...
+├── User
+│   ├── Domain
+│   ├── Application
+│   ├── Interfaces
+│   └── Infrastructure
+├── Post
+│   ├── Domain
+│   ├── Application
+│   ├── Interfaces
+│   └── Infrastructure
+...
+```
 
-## Security Vulnerabilities
+I find it cleaner this way, although it may have repeated directories, I think it is more readable and is better for large applications.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Another aspect of this approach is that we have to break with the MVC pattern. Our controllers will be at the Interface layer (also called Presentation), directly attending to the requests and passing the data to an inner layer, receiving a response and giving it back to the client. The views can be rendered from the controller, as always, although I prefer using a separated frontend app (like Vue, React, Svelte, etc).
 
-## License
+This approach also needs to define a specific ServiceProvider for each domain to bind out abstractions to the implementations. These providers will need to be registered in the "config/app.php" file in order to work.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Finally, what we consider a model in Laravel has been changed to what I called an EloquentModel, which will be an infrastructure detail. This is because Laravel uses an active record pattern for its models, and we want our models to be decoupled from the database, so we cannot put them in the domain. We can still benefit from Eloquent and other features using it inside the Application/Repository/Eloquent implementation while keeping it out from our domain.
+
+## Other considerations
+
+As stated before, this repository has been created and made public for anyone who can find it practical and inspiring. It is a very early concept, so any contributions to improve it are more than welcome.
