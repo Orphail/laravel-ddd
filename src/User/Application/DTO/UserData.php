@@ -4,9 +4,9 @@ namespace Src\User\Application\DTO;
 
 use Illuminate\Http\Request;
 use Src\User\Domain\Model\User;
-use Src\User\Domain\Model\ValueObject\Avatar;
-use Src\User\Domain\Model\ValueObject\Email;
-use Src\User\Domain\Model\ValueObject\Name;
+use Src\User\Domain\Model\ValueObjects\Avatar;
+use Src\User\Domain\Model\ValueObjects\Email;
+use Src\User\Domain\Model\ValueObjects\Name;
 use Src\User\Domain\Repositories\AvatarRepositoryInterface;
 use Src\User\Infrastructure\EloquentModels\UserEloquentModel;
 
@@ -19,8 +19,8 @@ class UserData
             name: new Name($request->input('name')),
             email: new Email($request->input('email')),
             avatar: new Avatar($request->input('avatar')),
-            is_admin: $request->input('is_admin'),
-            is_active: $request->input('is_active'),
+            is_admin: $request->input('is_admin') ?? false,
+            is_active: $request->input('is_active') ?? true,
         );
     }
 
@@ -34,5 +34,19 @@ class UserData
             is_admin: $userEloquent->is_admin,
             is_active: $userEloquent->is_active
         );
+    }
+
+    public static function toEloquent(User $user): UserEloquentModel
+    {
+        $userEloquent = new UserEloquentModel();
+        if ($user->id) {
+            $userEloquent = UserEloquentModel::find($user->id);
+        }
+        $userEloquent->name = $user->name;
+        $userEloquent->email = $user->email;
+        $userEloquent->avatar = $user->avatar;
+        $userEloquent->is_admin = $user->is_admin;
+        $userEloquent->is_active = $user->is_active;
+        return $userEloquent;
     }
 }

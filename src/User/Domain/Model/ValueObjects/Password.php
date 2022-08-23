@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\User\Domain\Model\ValueObject;
+namespace Src\User\Domain\Model\ValueObjects;
 
 use Src\User\Domain\Exceptions\PasswordsDoNotMatchException;
 use Src\User\Domain\Exceptions\PasswordTooShortException;

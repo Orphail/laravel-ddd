@@ -5,7 +5,7 @@ namespace Src\User\Application\Repositories\Local;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Src\User\Domain\Model\ValueObject\Avatar;
+use Src\User\Domain\Model\ValueObjects\Avatar;
 use Src\User\Domain\Repositories\AvatarRepositoryInterface;
 
 class AvatarRepository implements AvatarRepositoryInterface

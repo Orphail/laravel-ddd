@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\User\Domain\Model\ValueObject;
+namespace Src\User\Domain\Model\ValueObjects;
 
 final class Avatar implements \JsonSerializable
 {

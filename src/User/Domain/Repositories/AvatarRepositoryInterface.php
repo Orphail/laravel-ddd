@@ -3,7 +3,7 @@
 namespace Src\User\Domain\Repositories;
 
 
-use Src\User\Domain\Model\ValueObject\Avatar;
+use Src\User\Domain\Model\ValueObjects\Avatar;
 
 interface AvatarRepositoryInterface
 {

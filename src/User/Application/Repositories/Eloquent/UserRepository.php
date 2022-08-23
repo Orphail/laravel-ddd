@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 use Src\User\Application\DTO\UserData;
 use Src\User\Application\Exceptions\EmailAlreadyUsedException;
 use Src\User\Domain\Model\User;
-use Src\User\Domain\Model\ValueObject\Password;
+use Src\User\Domain\Model\ValueObjects\Password;
 use Src\User\Domain\Repositories\AvatarRepositoryInterface;
 use Src\User\Domain\Repositories\UserRepositoryInterface;
 use Src\User\Infrastructure\EloquentModels\UserEloquentModel;
@@ -44,16 +44,13 @@ class UserRepository implements UserRepositoryInterface
 
     public function store(User $user, Password $password): User
     {
-        try {
-            if ($this->findByEmail($user->email())) {
-                throw new EmailAlreadyUsedException();
-            }
-        } catch (ModelNotFoundException $e) {
+        if (UserEloquentModel::where('email', $user->email)->exists()) {
+            throw new EmailAlreadyUsedException();
         }
 
-        $avatar = $user->avatar();
+        $avatar = $user->avatar;
         if ($avatar->isBinaryFile()) {
-            $filename = $this->avatarRepository->storeAvatarFile($avatar, $user->name());
+            $filename = $this->avatarRepository->storeAvatarFile($avatar, $user->name);
             $user->setAvatar($filename);
         }
 
@@ -66,9 +63,9 @@ class UserRepository implements UserRepositoryInterface
 
     public function update(User $user, Password $password, bool $updateAvatar): User
     {
-        $avatar = $user->avatar();
+        $avatar = $user->avatar;
         if ($avatar->isBinaryFile()) {
-            $filename = $this->avatarRepository->storeAvatarFile($avatar, $user->name());
+            $filename = $this->avatarRepository->storeAvatarFile($avatar, $user->name);
             $user->setAvatar($filename);
         }
 
@@ -76,7 +73,7 @@ class UserRepository implements UserRepositoryInterface
         if ($password->isNotEmpty()) {
             $userArray['password'] = $password->value();
         }
-        $userEloquent = UserEloquentModel::findOrFail($user->id());
+        $userEloquent = UserEloquentModel::findOrFail($user->id);
         $userEloquent->fill($userArray);
         $userEloquent->save();
 

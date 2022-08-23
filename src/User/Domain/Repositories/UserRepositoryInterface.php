@@ -6,7 +6,7 @@ namespace Src\User\Domain\Repositories;
 
 use Illuminate\Support\Collection;
 use Src\User\Domain\Model\User;
-use Src\User\Domain\Model\ValueObject\Password;
+use Src\User\Domain\Model\ValueObjects\Password;
 
 interface UserRepositoryInterface
 {

@@ -17,10 +17,11 @@ First, I want to say that this is my own personal interpretation, which is also 
 
 ## First steps
 1. ```composer install```
-2. ```php artisan key:generate```
-3. ```php artisan jwt:secret```
-4. ```php artisan test```
-5. For new domains, use this command: ```php artisan make:domain {Bounded Context} {Domain}``` (e.g. ```php artisan make:domain Blog Post```)
+2. ```cp .env.example .env```
+3. ```php artisan key:generate```
+4. ```php artisan jwt:secret```
+5. ```php artisan test```
+6. For new domains, use this command: ```php artisan make:domain {Bounded Context} {Domain}``` (e.g. ```php artisan make:domain Blog Post```)
 
 ## Why use this approach?
 

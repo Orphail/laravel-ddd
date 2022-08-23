@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Src\User\Application\DTO\UserData;
 use Src\User\Domain\Factories\UserFactory;
-use Src\User\Infrastructure\EloquentModels\UserEloquentModel;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 use Tests\WithLogin;
@@ -233,7 +233,9 @@ class UserTest extends TestCase
     {
         foreach (range(1, $usersNumber) as $_) {
             $user = UserFactory::new();
-            UserEloquentModel::create(array_merge($user->toArray(), ['password' => $this->faker->password(8)]));
+            $userEloquentModel = UserData::toEloquent($user);
+            $userEloquentModel->password = $this->faker->password(8);
+            $userEloquentModel->save();
         }
     }
 }

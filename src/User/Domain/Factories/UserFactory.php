@@ -3,9 +3,9 @@
 namespace Src\User\Domain\Factories;
 
 use Src\User\Domain\Model\User;
-use Src\User\Domain\Model\ValueObject\Avatar;
-use Src\User\Domain\Model\ValueObject\Email;
-use Src\User\Domain\Model\ValueObject\Name;
+use Src\User\Domain\Model\ValueObjects\Avatar;
+use Src\User\Domain\Model\ValueObjects\Email;
+use Src\User\Domain\Model\ValueObjects\Name;
 
 class UserFactory
 {
