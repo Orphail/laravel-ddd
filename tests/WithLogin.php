@@ -14,10 +14,10 @@ trait WithLogin
     /**
      * Create a new user instance.
      */
-    private function validCredentials(): array
+    private function validCredentials(array $attributes = null): array
     {
         $password = $this->faker->password(8);
-        $user = UserFactory::new();
+        $user = UserFactory::new($attributes);
         $userEloquentModel = UserData::toEloquent($user);
         $userEloquentModel->password = $password;
         $userEloquentModel->save();
@@ -28,9 +28,16 @@ trait WithLogin
         ];
     }
 
-    private function loginAndGetToken(): string
+    private function adminLoginAndGetToken(): string
     {
-        $credentials = $this->validCredentials();
+        $credentials = $this->validCredentials(['is_admin' => true]);
+        $response = $this->post('auth/login', $credentials);
+        return $this->getToken($response);
+    }
+
+    private function userLoginAndGetToken(): string
+    {
+        $credentials = $this->validCredentials(['is_admin' => false]);
         $response = $this->post('auth/login', $credentials);
         return $this->getToken($response);
     }

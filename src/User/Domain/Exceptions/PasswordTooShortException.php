@@ -6,6 +6,6 @@ final class PasswordTooShortException extends \DomainException
 {
     public function __construct()
     {
-        parent::__construct('La contraseña debe tener al menos 8 caracteres');
+        parent::__construct('The password needs to be at least 8 characters long');
     }
 }

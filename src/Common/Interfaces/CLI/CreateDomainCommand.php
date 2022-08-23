@@ -48,6 +48,7 @@ class CreateDomainCommand extends Command
             'Exceptions',
             'Factories',
             'Model',
+            'Policies',
             'Repositories',
             'Services'
         ];

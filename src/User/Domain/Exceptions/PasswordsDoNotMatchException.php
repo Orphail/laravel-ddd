@@ -6,6 +6,6 @@ final class PasswordsDoNotMatchException extends \DomainException
 {
     public function __construct()
     {
-        parent::__construct('Las contraseñas no coinciden');
+        parent::__construct('Passwords do not match');
     }
 }

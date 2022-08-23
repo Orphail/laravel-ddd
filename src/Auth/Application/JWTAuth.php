@@ -10,6 +10,7 @@ use Src\User\Domain\Model\ValueObjects\Email;
 use Src\User\Domain\Model\ValueObjects\Name;
 use Src\User\Domain\Repositories\AvatarRepositoryInterface;
 use Src\Auth\Domain\AuthInterface;
+use Src\User\Infrastructure\EloquentModels\UserEloquentModel;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth as TymonJWTAuth;
 
@@ -24,7 +25,10 @@ class JWTAuth implements AuthInterface
 
     public function login(array $credentials): string
     {
-        if (!$token = auth()->attempt($credentials)) {
+        $user = UserEloquentModel::where('email', $credentials['email'])->first();
+        if (!$user || !$user->is_active) {
+            throw new AuthenticationException();
+        } elseif (!$token = auth()->attempt($credentials)) {
             throw new AuthenticationException();
         }
         return $token;

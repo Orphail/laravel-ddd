@@ -5,13 +5,10 @@ namespace Src\User\Interfaces\HTTP;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Src\User\Application\DTO\UserData;
-use Src\User\Domain\Model\User;
-use Src\User\Domain\Model\ValueObjects\Avatar;
-use Src\User\Domain\Model\ValueObjects\Email;
-use Src\User\Domain\Model\ValueObjects\Name;
 use Src\User\Domain\Model\ValueObjects\Password;
 use Src\User\Domain\Repositories\AvatarRepositoryInterface;
 use Src\User\Domain\Repositories\UserRepositoryInterface;
+use Src\Common\Exceptions\UnauthorizedUserException;
 use Src\Common\Infrastructure\Laravel\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -32,7 +29,11 @@ class UserController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json($this->repository->findAll());
+        try {
+            return response()->json($this->repository->findAll());
+        } catch (UnauthorizedUserException $unauthorizedUserException) {
+            return response()->json(['error' => $unauthorizedUserException->getMessage()], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**
@@ -47,6 +48,8 @@ class UserController extends Controller
             return response()->json($user->toArray(), Response::HTTP_CREATED);
         } catch (\DomainException $domainException) {
             return response()->json(['error' => $domainException->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+        } catch (UnauthorizedUserException $unauthorizedUserException) {
+            return response()->json(['error' => $unauthorizedUserException->getMessage()], Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -62,10 +65,12 @@ class UserController extends Controller
         try {
             $userData = UserData::fromRequest($request, $user_id);
             $password = new Password($request->input('password'), $request->input('password_confirmation'));
-            $user = $this->repository->update($userData, $password, $request->get('update_avatar'));
+            $user = $this->repository->update($userData, $password, (bool)$request->get('update_avatar'));
             return response()->json($user->toArray(), Response::HTTP_OK);
         } catch (\DomainException $domainException) {
             return response()->json(['error' => $domainException->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+        } catch (UnauthorizedUserException $unauthorizedUserException) {
+            return response()->json(['error' => $unauthorizedUserException->getMessage()], Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -78,8 +83,12 @@ class UserController extends Controller
      */
     public function destroy(int $user_id, Request $request): JsonResponse
     {
-        $this->repository->delete($user_id);
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+        try {
+            $this->repository->delete($user_id);
+            return response()->json(null, Response::HTTP_NO_CONTENT);
+        } catch (UnauthorizedUserException $unauthorizedUserException) {
+            return response()->json(['error' => $unauthorizedUserException->getMessage()], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**
@@ -90,7 +99,11 @@ class UserController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        return response()->json($this->repository->findById($id)->toArray());
+        try {
+            return response()->json($this->repository->findById($id)->toArray());
+        } catch (UnauthorizedUserException $unauthorizedUserException) {
+            return response()->json(['error' => $unauthorizedUserException->getMessage()], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function getRandomAvatar(): JsonResponse

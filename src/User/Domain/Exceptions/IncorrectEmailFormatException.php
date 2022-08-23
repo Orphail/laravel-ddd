@@ -6,6 +6,6 @@ final class IncorrectEmailFormatException extends \DomainException
 {
     public function __construct()
     {
-        parent::__construct('El campo debe ser un email válido');
+        parent::__construct('Must be a valid email');
     }
 }

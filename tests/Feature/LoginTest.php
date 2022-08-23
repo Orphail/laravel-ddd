@@ -3,10 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Testing\TestResponse;
 use Src\User\Domain\Model\User;
-use Src\User\Infrastructure\EloquentModels\UserEloquentModel;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 use Tests\WithLogin;
@@ -34,13 +31,13 @@ class LoginTest extends TestCase
         $this->logout_uri = '/auth/logout';
         $this->refresh_uri = '/auth/refresh';
         $this->me_uri = '/auth/me';
-        $this->token = $this->loginAndGetToken();
+        $this->token = $this->adminLoginAndGetToken();
     }
 
     /** @test */
-    function user_can_login()
+    function active_user_can_login()
     {
-        $credentials = $this->validCredentials();
+        $credentials = $this->validCredentials(['is_active' => true]);
 
         $this->post($this->login_uri, $credentials)
             ->assertSessionHasNoErrors()
@@ -48,6 +45,17 @@ class LoginTest extends TestCase
             ->assertSee(['accessToken']);
 
         $this->assertAuthenticated();
+    }
+
+    /** @test */
+    function inactive_user_cannot_login()
+    {
+        $credentials = $this->validCredentials(['is_active' => false]);
+
+        $this->post($this->login_uri, $credentials)
+            ->assertSessionHasNoErrors()
+            ->assertStatus(Response::HTTP_UNAUTHORIZED)
+            ->assertSee(['error' => 'Unauthorized']);
     }
 
     /** @test */
@@ -94,13 +102,13 @@ class LoginTest extends TestCase
 
         $this->post($this->login_uri, $credentials)
             ->assertStatus(Response::HTTP_UNAUTHORIZED)
-            ->assertSee(['error' => 'Unauthorized',]);
+            ->assertSee(['error' => 'Unauthorized']);
     }
 
     /** @test */
     public function user_can_get_his_own_info()
     {
-        $token = $this->loginAndGetToken();
+        $token = $this->adminLoginAndGetToken();
         $this->withHeaders(['Authorization' => 'Bearer ' . $token])
             ->get($this->me_uri)
             ->assertStatus(Response::HTTP_OK)
@@ -110,7 +118,7 @@ class LoginTest extends TestCase
     /** @test */
     public function logged_user_can_logout()
     {
-        $token = $this->loginAndGetToken();
+        $token = $this->adminLoginAndGetToken();
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $token])->post($this->logout_uri)
             ->assertStatus(Response::HTTP_OK)
@@ -122,7 +130,7 @@ class LoginTest extends TestCase
     /** @test */
     public function logged_user_can_refresh()
     {
-        $token = $this->loginAndGetToken();
+        $token = $this->adminLoginAndGetToken();
         $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])->post($this->refresh_uri)
             ->assertSessionHasNoErrors()
             ->assertStatus(Response::HTTP_OK)
