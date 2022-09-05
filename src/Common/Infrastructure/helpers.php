@@ -2,7 +2,7 @@
 
 /**  */
 
-use Src\Common\Exceptions\UnauthorizedUserException;
+use Src\Common\Domain\Exceptions\UnauthorizedUserException;
 
 if (! function_exists('authorize')) {
     /* @throws UnauthorizedUserException */

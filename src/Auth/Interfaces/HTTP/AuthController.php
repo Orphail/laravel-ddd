@@ -9,8 +9,6 @@ use Illuminate\Validation\ValidationException;
 use Src\Auth\Domain\AuthInterface;
 use Src\Common\Infrastructure\Laravel\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -45,7 +43,7 @@ class AuthController extends Controller
             return $this->respondWithToken($token);
         } catch (ValidationException $validationException) {
             return response()->json($validationException->errors(), Response::HTTP_BAD_REQUEST);
-        } catch (AuthenticationException $authenticationException) {
+        } catch (AuthenticationException) {
             return response()->json(['error' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED );
         }
     }

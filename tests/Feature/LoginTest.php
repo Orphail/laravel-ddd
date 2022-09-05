@@ -3,7 +3,10 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Src\User\Domain\Model\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Testing\TestResponse;
+use Src\Agenda\User\Domain\Model\User;
+use Src\Agenda\User\Infrastructure\EloquentModels\UserEloquentModel;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 use Tests\WithLogin;
@@ -31,7 +34,7 @@ class LoginTest extends TestCase
         $this->logout_uri = '/auth/logout';
         $this->refresh_uri = '/auth/refresh';
         $this->me_uri = '/auth/me';
-        $this->token = $this->adminLoginAndGetToken();
+        $this->token = $this->newLoggedAdmin()['token'];
     }
 
     /** @test */
@@ -108,8 +111,7 @@ class LoginTest extends TestCase
     /** @test */
     public function user_can_get_his_own_info()
     {
-        $token = $this->adminLoginAndGetToken();
-        $this->withHeaders(['Authorization' => 'Bearer ' . $token])
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->token])
             ->get($this->me_uri)
             ->assertStatus(Response::HTTP_OK)
             ->assertSee(['id', 'name', 'email', 'avatar', 'is_admin', 'is_active']);
@@ -118,9 +120,7 @@ class LoginTest extends TestCase
     /** @test */
     public function logged_user_can_logout()
     {
-        $token = $this->adminLoginAndGetToken();
-
-        $this->withHeaders(['Authorization' => 'Bearer ' . $token])->post($this->logout_uri)
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->token])->post($this->logout_uri)
             ->assertStatus(Response::HTTP_OK)
             ->assertSee(['message' => 'Successfully logged out']);
 
@@ -130,8 +130,7 @@ class LoginTest extends TestCase
     /** @test */
     public function logged_user_can_refresh()
     {
-        $token = $this->adminLoginAndGetToken();
-        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])->post($this->refresh_uri)
+        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $this->token])->post($this->refresh_uri)
             ->assertSessionHasNoErrors()
             ->assertStatus(Response::HTTP_OK)
             ->assertSee(['accessToken']);
@@ -139,7 +138,7 @@ class LoginTest extends TestCase
         $newToken = $this->getToken($response);
 
         // The previous token should be invalid.
-        $this->withHeaders(['Authorization' => 'Bearer ' . $token])->post($this->refresh_uri)
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->token])->post($this->refresh_uri)
             ->assertStatus(Response::HTTP_FORBIDDEN)
             ->assertSee(['status']);
 

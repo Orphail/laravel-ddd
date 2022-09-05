@@ -4,12 +4,12 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\TestResponse;
-use Src\User\Application\DTO\UserData;
-use Src\User\Domain\Factories\UserFactory;
+use Src\Agenda\User\Application\DTO\UserData;
+use Src\Agenda\User\Domain\Factories\UserFactory;
 
 trait WithLogin
 {
-    use WithFaker;
+    use WithFaker, WithCompanies;
 
     /**
      * Create a new user instance.
@@ -23,23 +23,26 @@ trait WithLogin
         $userEloquentModel->save();
 
         return [
-            'email'    => $user->email,
-            'password' => $password,
+            'id'        => $userEloquentModel->id,
+            'company_id' => $userEloquentModel->company_id,
+            'email'     => $user->email,
+            'password'  => $password,
         ];
     }
 
-    private function adminLoginAndGetToken(): string
+    private function newLoggedAdmin(): array
     {
         $credentials = $this->validCredentials(['is_admin' => true]);
         $response = $this->post('auth/login', $credentials);
-        return $this->getToken($response);
+        return ['token' => $this->getToken($response), ...$credentials];
     }
 
-    private function userLoginAndGetToken(): string
+    private function newLoggedUser(): array
     {
-        $credentials = $this->validCredentials(['is_admin' => false]);
+        $company = $this->newCompany();
+        $credentials = $this->validCredentials(['is_admin' => false, 'company_id' => $company->id]);
         $response = $this->post('auth/login', $credentials);
-        return $this->getToken($response);
+        return ['token' => $this->getToken($response), ...$credentials];
     }
 
     private function getToken(TestResponse $response)

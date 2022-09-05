@@ -2,16 +2,20 @@
 
 namespace Tests\Feature;
 
+use GuzzleHttp\Client;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Src\User\Application\DTO\UserData;
-use Src\User\Domain\Factories\UserFactory;
+use Src\Agenda\User\Application\DTO\UserData;
+use Src\Agenda\User\Application\Repositories\Local\AvatarRepository;
+use Src\Agenda\User\Domain\Factories\UserFactory;
+use Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
+use Tests\WithCompanies;
 use Tests\WithLogin;
 
 class UserTest extends TestCase
 {
-    use RefreshDatabase, WithLogin;
+    use RefreshDatabase, WithLogin, WithCompanies;
 
     protected function setUp(): void
     {
@@ -19,8 +23,9 @@ class UserTest extends TestCase
         $this->user_uri = '/user';
         $this->index_uri = $this->user_uri . '/index';
         $this->random_avatar_uri = $this->user_uri . '/random-avatar';
-        $this->adminToken = $this->adminLoginAndGetToken();
-        $this->userToken = $this->userLoginAndGetToken();
+        $this->adminToken = $this->newLoggedAdmin()['token'];
+        $this->userData = $this->newLoggedUser();
+        $this->userToken = $this->userData['token'];
     }
 
     /** @test */
@@ -76,10 +81,12 @@ class UserTest extends TestCase
     /** @test */
     public function admin_can_create_a_user()
     {
+        $company = $this->newCompany();
         $password = $this->faker->password(8);
         $requestBody = [
             'name' => $this->faker->name,
             'email' => $this->faker->safeEmail,
+            'company_id' => $company->id,
             'avatar' => 'https://doodleipsum.com/300/avatar-2?shape=circle',
             'password' => $password,
             'password_confirmation' => $password,
@@ -89,6 +96,7 @@ class UserTest extends TestCase
             'id' => 3,
             'name' => $requestBody['name'],
             'email' => $requestBody['email'],
+            'company_id' => $company->id,
             'is_admin' => false,
             'is_active' => true
         ];
@@ -108,10 +116,12 @@ class UserTest extends TestCase
     /** @test */
     public function user_cannot_create_user()
     {
+        $company = $this->newCompany();
         $password = $this->faker->password(8);
         $requestBody = [
             'name' => $this->faker->name,
             'email' => $this->faker->safeEmail,
+            'company_id' => $company->id,
             'avatar' => 'https://doodleipsum.com/300/avatar-2?shape=circle',
             'password' => $password,
             'password_confirmation' => $password,
@@ -123,14 +133,15 @@ class UserTest extends TestCase
             ->assertSee(['error' => 'The user is not authorized to access this resource']);
     }
 
-
     /** @test */
     public function cannot_create_user_with_invalid_email()
     {
+        $company = $this->newCompany();
         $password = $this->faker->password(8);
         $requestBodyInvalidEmail = [
             'name' => $this->faker->name,
             'email' => 'invalid-email',
+            'company_id' => $company->id,
             'avatar' => 'https://doodleipsum.com/300/avatar-2?shape=circle',
             'password' => $password,
             'password_confirmation' => $password,
@@ -145,10 +156,12 @@ class UserTest extends TestCase
     /** @test */
     public function cannot_create_user_with_invalid_password()
     {
+        $company = $this->newCompany();
         $password = $this->faker->password(8);
         $requestBody = [
             'name' => $this->faker->name,
             'email' => $this->faker->safeEmail,
+            'company_id' => $company->id,
             'avatar' => 'https://doodleipsum.com/300/avatar-2?shape=circle',
             'password' => $password,
             'password_confirmation' => $password,
@@ -197,7 +210,7 @@ class UserTest extends TestCase
         ];
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
-            ->patch($this->user_uri . '/' . $randomUserId, $requestBody)
+            ->put($this->user_uri . '/' . $randomUserId, $requestBody)
             ->assertStatus(Response::HTTP_OK)
             ->assertJson($expectedResponse);
     }
@@ -205,9 +218,6 @@ class UserTest extends TestCase
     /** @test */
     public function user_cannot_update_any_user_except_itself()
     {
-        $userCredentials = $this->validCredentials(['is_admin' => false]);
-        $userToken = $this->getToken($this->post('auth/login', $userCredentials));
-
         $numberUsers = $this->faker->numberBetween(1, 10);
         $this->createRandomUsers($numberUsers);
         $randomUserId = $this->faker->numberBetween(4, 4 + $numberUsers);
@@ -224,8 +234,8 @@ class UserTest extends TestCase
             'password_confirmation' => $password,
         ];
 
-        $this->withHeaders(['Authorization' => 'Bearer ' . $userToken])
-            ->patch($this->user_uri . '/' . $randomUserId, $requestBody)
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
+            ->put($this->user_uri . '/' . $randomUserId, $requestBody)
             ->assertStatus(Response::HTTP_UNAUTHORIZED)
             ->assertSee(['error' => 'The user is not authorized to access this resource']);
 
@@ -233,7 +243,7 @@ class UserTest extends TestCase
         $password = $this->faker->password(8);
         $requestBody = [
             'name' => $this->faker->name,
-            'email' => $userCredentials['email'],
+            'email' => $this->userData['email'],
             'avatar' => false,
             'is_active' => true,
             'update_avatar' => false,
@@ -242,15 +252,15 @@ class UserTest extends TestCase
         ];
 
         $expectedResponse = [
-            'id' => 3,
+            'id' => $this->userData['id'],
             'name' => $requestBody['name'],
             'email' => $requestBody['email'],
             'avatar' => $requestBody['avatar'],
             'is_active' => $requestBody['is_active']
         ];
 
-        $this->withHeaders(['Authorization' => 'Bearer ' . $userToken])
-            ->patch($this->user_uri . '/' . 3, $requestBody)
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
+            ->put($this->user_uri . '/' . $this->userData['id'], $requestBody)
             ->assertStatus(Response::HTTP_OK)
             ->assertJson($expectedResponse);
     }
@@ -267,7 +277,7 @@ class UserTest extends TestCase
             'name' => $this->faker->name,
             'email' => $this->faker->safeEmail,
             'avatar' => 'https://doodleipsum.com/300/avatar-2?shape=circle',
-            'is_active' => true,
+            'is_active' => false,
             'update_avatar' => true,
             'password' => $password,
             'password_confirmation' => $password,
@@ -276,16 +286,17 @@ class UserTest extends TestCase
         $requestBodyInvalidPassword = $requestBody;
         $requestBodyInvalidPassword['password'] = '1234';
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
-            ->patch($this->user_uri . '/' . $randomUserId, $requestBodyInvalidPassword)
+            ->put($this->user_uri . '/' . $randomUserId, $requestBodyInvalidPassword)
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJson(['error' => 'The password needs to be at least 8 characters long']);
 
         $requestBodyNoPasswordConfirmation = $requestBody;
         unset($requestBodyNoPasswordConfirmation['password_confirmation']);
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
-            ->patch($this->user_uri . '/' . $randomUserId, $requestBodyNoPasswordConfirmation)
+            ->put($this->user_uri . '/' . $randomUserId, $requestBodyNoPasswordConfirmation)
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJson(['error' => 'Passwords do not match']);
+
     }
 
     /** @test */
@@ -326,11 +337,22 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function can_get_random_image() // TODO - Mock HTTP request
+    public function can_get_random_image()
     {
+        $binaryDataStr = 'binary data';
+        $guzzleMock = \Mockery::mock(Client::class);
+        $guzzleMock
+            ->shouldReceive('request')
+            ->andReturn(new \GuzzleHttp\Psr7\Response(200, ['Content-Type' => 'image/png'], $binaryDataStr));
+
+        app()->bind(AvatarRepositoryInterface::class, function () use ($guzzleMock) {
+            return new AvatarRepository($guzzleMock);
+        });
+
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
             ->get($this->random_avatar_uri)
-            ->assertStatus(Response::HTTP_OK);
+            ->assertStatus(Response::HTTP_OK)
+            ->assertSee('data:image\/png;base64,' . base64_encode($binaryDataStr));
     }
 
     private function createRandomUsers($usersNumber = 1): void

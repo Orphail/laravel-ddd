@@ -3,7 +3,7 @@
 namespace Src\Auth\Domain;
 
 use Illuminate\Auth\AuthenticationException;
-use Src\User\Domain\Model\User;
+use Src\Agenda\User\Domain\Model\User;
 
 interface AuthInterface
 {

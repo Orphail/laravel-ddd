@@ -4,13 +4,11 @@ namespace Src\Auth\Application;
 
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Log;
-use Src\User\Domain\Model\User;
-use Src\User\Domain\Model\ValueObjects\Avatar;
-use Src\User\Domain\Model\ValueObjects\Email;
-use Src\User\Domain\Model\ValueObjects\Name;
-use Src\User\Domain\Repositories\AvatarRepositoryInterface;
+use Src\Agenda\User\Application\DTO\UserData;
+use Src\Agenda\User\Domain\Model\User;
+use Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface;
+use Src\Agenda\User\Infrastructure\EloquentModels\UserEloquentModel;
 use Src\Auth\Domain\AuthInterface;
-use Src\User\Infrastructure\EloquentModels\UserEloquentModel;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth as TymonJWTAuth;
 
@@ -25,7 +23,7 @@ class JWTAuth implements AuthInterface
 
     public function login(array $credentials): string
     {
-        $user = UserEloquentModel::where('email', $credentials['email'])->first();
+        $user = UserEloquentModel::query()->where('email', $credentials['email'])->first();
         if (!$user || !$user->is_active) {
             throw new AuthenticationException();
         } elseif (!$token = auth()->attempt($credentials)) {
@@ -41,15 +39,7 @@ class JWTAuth implements AuthInterface
 
     public function me(): User
     {
-        $eloquentUser = auth()->user();
-        return new User(
-            id: $eloquentUser->id,
-            name: new Name($eloquentUser->name),
-            email: new Email($eloquentUser->email),
-            avatar: $this->avatarRepository->retrieveAvatarFile(new Avatar($eloquentUser->avatar)),
-            is_admin: $eloquentUser->is_admin,
-            is_active: $eloquentUser->is_active
-        );
+        return UserData::fromAuth(auth()->user());
     }
 
     public function refresh(): string

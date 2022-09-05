@@ -27,7 +27,7 @@ class JwtMiddleware extends BaseMiddleware
             if (in_array($request->decodedPath(), ['auth/login', 'auth/refresh', 'login', 'refresh']) && $request->method() == 'POST') {
                 return $next($request);
             }
-            $user = JWTAuth::parseToken()->authenticate();
+            JWTAuth::parseToken()->authenticate();
         } catch (Exception $e) {
             if ($e instanceof TokenInvalidException){
                 return response()->json(['status' => 'Token is Invalid'], Response::HTTP_UNAUTHORIZED );
