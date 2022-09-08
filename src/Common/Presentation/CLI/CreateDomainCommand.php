@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Common\Interfaces\CLI;
+namespace Src\Common\Presentation\CLI;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
@@ -36,7 +36,10 @@ class CreateDomainCommand extends Command
             'Repositories/Eloquent',
             'Exceptions',
             'Jobs',
-            'Providers'
+            'Providers',
+            'Mappers',
+            'UseCases/Commands',
+            'UseCases/Queries',
         ];
         foreach ($applicationStructure as $applicationDirectory) {
             File::makeDirectory($basePath . '/Application/' . $applicationDirectory, 0755, true);
@@ -66,15 +69,15 @@ class CreateDomainCommand extends Command
             touch($basePath . '/Infrastructure/' . $infrastructureDirectory . '/.gitkeep');
         }
 
-        // Interfaces
-        $interfacesStructure = [
+        // Presentation
+        $presentationStructure = [
             'API',
             'CLI',
             'HTTP'
         ];
-        foreach ($interfacesStructure as $interfacesDirectory) {
-            File::makeDirectory($basePath . '/Interfaces/' . $interfacesDirectory, 0755, true);
-            touch($basePath . '/Interfaces/' . $interfacesDirectory . '/.gitkeep');
+        foreach ($presentationStructure as $presentationDirectory) {
+            File::makeDirectory($basePath . '/Presentation/' . $presentationDirectory, 0755, true);
+            touch($basePath . '/Presentation/' . $presentationDirectory . '/.gitkeep');
         }
 
         return 1;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Agenda\User\Interfaces\HTTP;
+namespace Src\Agenda\User\Presentation\HTTP;
 
 use Illuminate\Http\JsonResponse;
 use Src\Agenda\User\Application\UseCases\Commands\GetRandomAvatarCommand;

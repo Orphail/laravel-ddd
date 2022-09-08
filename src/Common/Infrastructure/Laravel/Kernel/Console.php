@@ -4,7 +4,7 @@ namespace Src\Common\Infrastructure\Laravel\Kernel;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Src\Common\Interfaces\CLI\CreateDomainCommand;
+use Src\Common\Presentation\CLI\CreateDomainCommand;
 
 class Console extends ConsoleKernel
 {

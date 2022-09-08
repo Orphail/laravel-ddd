@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Agenda\Company\Application\DTO;
+namespace Src\Agenda\Company\Application\Mappers;
 
 use Illuminate\Http\Request;
 use Src\Agenda\Company\Domain\Model\Entities\Contact;
@@ -10,7 +10,7 @@ use Src\Agenda\Company\Domain\Model\ValueObjects\Name;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Phone;
 use Src\Agenda\Company\Infrastructure\EloquentModels\ContactEloquentModel;
 
-class ContactData
+class ContactMapper
 {
     public static function fromRequest(Request $request, ?int $contact_id = null): Contact
     {

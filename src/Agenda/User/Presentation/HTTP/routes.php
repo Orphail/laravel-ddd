@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Agenda\User\Interfaces\HTTP\GetRandomAvatarController;
-use Src\Agenda\User\Interfaces\HTTP\UserController;
+use Src\Agenda\User\Presentation\HTTP\GetRandomAvatarController;
+use Src\Agenda\User\Presentation\HTTP\UserController;
 
 Route::group([
     'prefix' => 'user'

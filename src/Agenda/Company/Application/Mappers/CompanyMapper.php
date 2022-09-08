@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Agenda\Company\Application\DTO;
+namespace Src\Agenda\Company\Application\Mappers;
 
 use Illuminate\Http\Request;
 use Src\Agenda\Company\Domain\Model\Company;
@@ -9,7 +9,7 @@ use Src\Agenda\Company\Domain\Model\ValueObjects\SocialName;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Vat;
 use Src\Agenda\Company\Infrastructure\EloquentModels\CompanyEloquentModel;
 
-class CompanyData
+class CompanyMapper
 {
     public static function fromRequest(Request $request, ?int $company_id = null): Company
     {
@@ -19,13 +19,13 @@ class CompanyData
             social_name: new SocialName($request->input('social_name')),
             vat: new Vat($request->input('vat')),
             addresses: array_map(function ($address) {
-                return AddressData::fromArray($address);
+                return AddressMapper::fromArray($address);
             }, $request->input('addresses', [])),
             departments: array_map(function ($department) {
-                return DepartmentData::fromArray($department);
+                return DepartmentMapper::fromArray($department);
             }, $request->input('departments', [])),
             contacts: array_map(function ($contact) {
-                return ContactData::fromArray($contact);
+                return ContactMapper::fromArray($contact);
             }, $request->input('contacts', [])),
             is_active: $request->input('is_active'),
         );
@@ -39,13 +39,13 @@ class CompanyData
             social_name: new SocialName($companyEloquent->social_name),
             vat: new Vat($companyEloquent->vat),
             addresses: $with_addresses ? $companyEloquent->addresses?->each(function ($address) {
-                return AddressData::fromEloquent($address);
+                return AddressMapper::fromEloquent($address);
             })->toArray() ?? [] : [],
             departments: $with_departments ? $companyEloquent->departments?->each(function ($department) {
-                return DepartmentData::fromEloquent($department);
+                return DepartmentMapper::fromEloquent($department);
             })->toArray() ?? [] : [],
             contacts: $with_contacts ? $companyEloquent->contacts?->each(function ($contact) {
-                return ContactData::fromEloquent($contact);
+                return ContactMapper::fromEloquent($contact);
             })->toArray() ?? [] : [],
             is_active: $companyEloquent->is_active,
         );

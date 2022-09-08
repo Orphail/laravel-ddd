@@ -1,5 +1,5 @@
 <?php
-namespace Src\Auth\Interfaces\HTTP;
+namespace Src\Auth\Presentation\HTTP;
 
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;

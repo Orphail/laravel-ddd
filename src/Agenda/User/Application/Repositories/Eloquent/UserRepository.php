@@ -2,7 +2,7 @@
 
 namespace Src\Agenda\User\Application\Repositories\Eloquent;
 
-use Src\Agenda\User\Application\DTO\UserData;
+use Src\Agenda\User\Application\Mappers\UserMapper;
 use Src\Agenda\User\Domain\Model\User;
 use Src\Agenda\User\Domain\Model\ValueObjects\Password;
 use Src\Agenda\User\Domain\Repositories\UserRepositoryInterface;
@@ -14,7 +14,7 @@ class UserRepository implements UserRepositoryInterface
     {
         $users = [];
         foreach (UserEloquentModel::all() as $userEloquent) {
-            $users[] = UserData::fromEloquent($userEloquent);
+            $users[] = UserMapper::fromEloquent($userEloquent);
         }
         return $users;
     }
@@ -22,13 +22,13 @@ class UserRepository implements UserRepositoryInterface
     public function findById(string $userId): User
     {
         $userEloquent = UserEloquentModel::query()->findOrFail($userId);
-        return UserData::fromEloquent($userEloquent);
+        return UserMapper::fromEloquent($userEloquent);
     }
 
     public function findByEmail(string $email): User
     {
         $userEloquent = UserEloquentModel::query()->where('email', $email)->firstOrFail();
-        return UserData::fromEloquent($userEloquent);
+        return UserMapper::fromEloquent($userEloquent);
     }
 
     public function store(User $user, Password $password): User
@@ -37,7 +37,7 @@ class UserRepository implements UserRepositoryInterface
         $userEloquent->fill(array_merge($user->toArray(), ['password' => $password->value()]));
         $userEloquent->save();
 
-        return UserData::fromEloquent($userEloquent);
+        return UserMapper::fromEloquent($userEloquent);
     }
 
     public function update(User $user, Password $password): void

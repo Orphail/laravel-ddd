@@ -2,7 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
-use Src\Auth\Interfaces\HTTP\AuthController;
+use Src\Auth\Presentation\HTTP\AuthController;
 
 Route::group([
     'prefix' => 'auth'

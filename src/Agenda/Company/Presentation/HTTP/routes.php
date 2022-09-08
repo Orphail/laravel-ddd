@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Agenda\Company\Interfaces\HTTP\CompanyAddressController;
-use Src\Agenda\Company\Interfaces\HTTP\CompanyContactController;
-use Src\Agenda\Company\Interfaces\HTTP\CompanyController;
-use Src\Agenda\Company\Interfaces\HTTP\CompanyDepartmentController;
+use Src\Agenda\Company\Presentation\HTTP\CompanyAddressController;
+use Src\Agenda\Company\Presentation\HTTP\CompanyContactController;
+use Src\Agenda\Company\Presentation\HTTP\CompanyController;
+use Src\Agenda\Company\Presentation\HTTP\CompanyDepartmentController;
 
 Route::group([
     'prefix' => 'company'

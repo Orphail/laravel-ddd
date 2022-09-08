@@ -1,25 +1,26 @@
 <?php
 
-namespace Src\Agenda\Company\Interfaces\HTTP;
+namespace Src\Agenda\User\Presentation\HTTP;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Src\Agenda\Company\Application\DTO\CompanyData;
-use Src\Agenda\Company\Application\UseCases\Commands\DestroyCompanyCommand;
-use Src\Agenda\Company\Application\UseCases\Commands\StoreCompanyCommand;
-use Src\Agenda\Company\Application\UseCases\Commands\UpdateCompanyCommand;
-use Src\Agenda\Company\Application\UseCases\Queries\FindAllCompaniesQuery;
-use Src\Agenda\Company\Application\UseCases\Queries\FindCompanyByIdQuery;
+use Src\Agenda\User\Application\Mappers\UserMapper;
+use Src\Agenda\User\Application\UseCases\Commands\DestroyUserCommand;
+use Src\Agenda\User\Application\UseCases\Commands\StoreUserCommand;
+use Src\Agenda\User\Application\UseCases\Commands\UpdateUserCommand;
+use Src\Agenda\User\Application\UseCases\Queries\FindAllUsersQuery;
+use Src\Agenda\User\Application\UseCases\Queries\FindUserByIdQuery;
+use Src\Agenda\User\Domain\Model\ValueObjects\Password;
 use Src\Common\Domain\Exceptions\UnauthorizedUserException;
+use Src\Common\Infrastructure\Laravel\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class CompanyController
+class UserController extends Controller
 {
-
     public function index(): JsonResponse
     {
         try {
-            return response()->json((new FindAllCompaniesQuery())->handle());
+            return response()->json((new FindAllUsersQuery())->handle());
         } catch (UnauthorizedUserException $e) {
             return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
         }
@@ -28,7 +29,7 @@ class CompanyController
     public function show(int $id): JsonResponse
     {
         try {
-            return response()->json((new FindCompanyByIdQuery($id))->handle());
+            return response()->json((new FindUserByIdQuery($id))->handle());
         } catch (UnauthorizedUserException $e) {
             return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
         }
@@ -37,9 +38,11 @@ class CompanyController
     public function store(Request $request): JsonResponse
     {
         try {
-            $newCompany = CompanyData::fromRequest($request);
-            $company = (new StoreCompanyCommand($newCompany))->execute();
-            return response()->json($company, Response::HTTP_CREATED);
+            $userData = UserMapper::fromRequest($request);
+            $userData->validateNonAdminWithCompany();
+            $password = new Password($request->input('password'), $request->input('password_confirmation'));
+            $user = (new StoreUserCommand($userData, $password))->execute();
+            return response()->json($user->toArray(), Response::HTTP_CREATED);
         } catch (\DomainException $domainException) {
             return response()->json(['error' => $domainException->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (UnauthorizedUserException $e) {
@@ -47,12 +50,13 @@ class CompanyController
         }
     }
 
-    public function update(int $company_id, Request $request): JsonResponse
+    public function update(int $user_id, Request $request): JsonResponse
     {
         try {
-            $company = CompanyData::fromRequest($request, $company_id);
-            (new UpdateCompanyCommand($company))->execute();
-            return response()->json($company->toArray(), Response::HTTP_OK);
+            $user = UserMapper::fromRequest($request, $user_id);
+            $password = new Password($request->input('password'), $request->input('password_confirmation'));
+            (new UpdateUserCommand($user, $password))->execute();
+            return response()->json($user->toArray(), Response::HTTP_OK);
         } catch (\DomainException $domainException) {
             return response()->json(['error' => $domainException->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (UnauthorizedUserException $e) {
@@ -60,10 +64,10 @@ class CompanyController
         }
     }
 
-    public function destroy(int $company_id): JsonResponse
+    public function destroy(int $user_id): JsonResponse
     {
         try {
-            (new DestroyCompanyCommand($company_id))->execute();
+            (new DestroyUserCommand($user_id))->execute();
             return response()->json(null, Response::HTTP_NO_CONTENT);
         } catch (UnauthorizedUserException $e) {
             return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);

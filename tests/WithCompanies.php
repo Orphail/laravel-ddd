@@ -3,10 +3,10 @@
 namespace Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
-use Src\Agenda\Company\Application\DTO\AddressData;
-use Src\Agenda\Company\Application\DTO\CompanyData;
-use Src\Agenda\Company\Application\DTO\ContactData;
-use Src\Agenda\Company\Application\DTO\DepartmentData;
+use Src\Agenda\Company\Application\Mappers\AddressMapper;
+use Src\Agenda\Company\Application\Mappers\CompanyMapper;
+use Src\Agenda\Company\Application\Mappers\ContactMapper;
+use Src\Agenda\Company\Application\Mappers\DepartmentMapper;
 use Src\Agenda\Company\Domain\Factories\AddressFactory;
 use Src\Agenda\Company\Domain\Factories\CompanyFactory;
 use Src\Agenda\Company\Domain\Factories\ContactFactory;
@@ -23,14 +23,14 @@ trait WithCompanies
     public function newCompany(): Company
     {
         $company = CompanyFactory::new();
-        $companyEloquentModel = CompanyData::toEloquent($company);
+        $companyEloquentModel = CompanyMapper::toEloquent($company);
         $companyEloquentModel->save();
         foreach ($company->addresses as $address) {
-            $addressEloquentModel = AddressData::toEloquent($address);
+            $addressEloquentModel = AddressMapper::toEloquent($address);
             $addressEloquentModel->company_id = $companyEloquentModel->id;
             $addressEloquentModel->save();
         }
-        return CompanyData::fromEloquent($companyEloquentModel, true);
+        return CompanyMapper::fromEloquent($companyEloquentModel, true);
     }
 
     public function createRandomCompanies(int $companiesCount)
@@ -43,7 +43,7 @@ trait WithCompanies
     public function createAddress(int $company_id): Address
     {
         $address = AddressFactory::new();
-        $addressEloquentModel = AddressData::toEloquent($address);
+        $addressEloquentModel = AddressMapper::toEloquent($address);
         $addressEloquentModel->company_id = $company_id;
         $addressEloquentModel->save();
         $address->id($addressEloquentModel->id);
@@ -53,7 +53,7 @@ trait WithCompanies
     public function createDepartment(int $company_id): Department
     {
         $department = DepartmentFactory::new();
-        $departmentEloquentModel = DepartmentData::toEloquent($department);
+        $departmentEloquentModel = DepartmentMapper::toEloquent($department);
         $departmentEloquentModel->company_id = $company_id;
         $departmentEloquentModel->save();
         $department->id($departmentEloquentModel->id);
@@ -63,7 +63,7 @@ trait WithCompanies
     public function createContact(int $company_id): Contact
     {
         $contact = ContactFactory::new();
-        $contactEloquentModel = ContactData::toEloquent($contact);
+        $contactEloquentModel = ContactMapper::toEloquent($contact);
         $contactEloquentModel->company_id = $company_id;
         $contactEloquentModel->save();
         $contact->id($contactEloquentModel->id);

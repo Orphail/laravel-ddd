@@ -4,7 +4,7 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\TestResponse;
-use Src\Agenda\User\Application\DTO\UserData;
+use Src\Agenda\User\Application\Mappers\UserMapper;
 use Src\Agenda\User\Domain\Factories\UserFactory;
 
 trait WithLogin
@@ -18,7 +18,7 @@ trait WithLogin
     {
         $password = $this->faker->password(8);
         $user = UserFactory::new($attributes);
-        $userEloquentModel = UserData::toEloquent($user);
+        $userEloquentModel = UserMapper::toEloquent($user);
         $userEloquentModel->password = $password;
         $userEloquentModel->save();
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Agenda\Company\Application\DTO;
+namespace Src\Agenda\Company\Application\Mappers;
 
 use Illuminate\Http\Request;
 use Src\Agenda\Company\Domain\Model\Entities\Address;
@@ -13,7 +13,7 @@ use Src\Agenda\Company\Domain\Model\ValueObjects\ZipCode;
 use Src\Agenda\Company\Infrastructure\EloquentModels\AddressEloquentModel;
 use Src\Agenda\User\Domain\Model\ValueObjects\Email;
 
-class AddressData
+class AddressMapper
 {
     public static function fromRequest(Request $request, ?int $address_id = null): Address
     {

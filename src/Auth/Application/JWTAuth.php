@@ -4,7 +4,7 @@ namespace Src\Auth\Application;
 
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Log;
-use Src\Agenda\User\Application\DTO\UserData;
+use Src\Agenda\User\Application\Mappers\UserMapper;
 use Src\Agenda\User\Domain\Model\User;
 use Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface;
 use Src\Agenda\User\Infrastructure\EloquentModels\UserEloquentModel;
@@ -39,7 +39,7 @@ class JWTAuth implements AuthInterface
 
     public function me(): User
     {
-        return UserData::fromAuth(auth()->user());
+        return UserMapper::fromAuth(auth()->user());
     }
 
     public function refresh(): string

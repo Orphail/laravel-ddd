@@ -1,13 +1,13 @@
 <?php
 
-namespace Src\Agenda\Company\Application\DTO;
+namespace Src\Agenda\Company\Application\Mappers;
 
 use Illuminate\Http\Request;
 use Src\Agenda\Company\Domain\Model\Entities\Department;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Name;
 use Src\Agenda\Company\Infrastructure\EloquentModels\DepartmentEloquentModel;
 
-class DepartmentData
+class DepartmentMapper
 {
     public static function fromRequest(Request $request, ?int $department_id = null): Department
     {

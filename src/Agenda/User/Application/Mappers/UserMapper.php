@@ -1,18 +1,18 @@
 <?php
 
-namespace Src\Agenda\User\Application\DTO;
+namespace Src\Agenda\User\Application\Mappers;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 use Src\Agenda\User\Domain\Model\User;
 use Src\Agenda\User\Domain\Model\ValueObjects\Avatar;
-use Src\Agenda\User\Domain\Model\ValueObjects\Email;
 use Src\Agenda\User\Domain\Model\ValueObjects\CompanyId;
+use Src\Agenda\User\Domain\Model\ValueObjects\Email;
 use Src\Agenda\User\Domain\Model\ValueObjects\Name;
 use Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface;
 use Src\Agenda\User\Infrastructure\EloquentModels\UserEloquentModel;
 
-class UserData
+class UserMapper
 {
     public static function fromRequest(Request $request, ?int $user_id = null): User
     {

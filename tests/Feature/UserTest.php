@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use GuzzleHttp\Client;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Src\Agenda\User\Application\DTO\UserData;
+use Src\Agenda\User\Application\Mappers\UserMapper;
 use Src\Agenda\User\Application\Repositories\Local\AvatarRepository;
 use Src\Agenda\User\Domain\Factories\UserFactory;
 use Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface;
@@ -359,7 +359,7 @@ class UserTest extends TestCase
     {
         foreach (range(1, $usersNumber) as $_) {
             $user = UserFactory::new();
-            $userEloquentModel = UserData::toEloquent($user);
+            $userEloquentModel = UserMapper::toEloquent($user);
             $userEloquentModel->password = $this->faker->password(8);
             $userEloquentModel->save();
         }

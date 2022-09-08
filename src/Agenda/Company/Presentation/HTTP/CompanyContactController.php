@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Agenda\Company\Interfaces\HTTP;
+namespace Src\Agenda\Company\Presentation\HTTP;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Src\Agenda\Company\Application\DTO\ContactData;
+use Src\Agenda\Company\Application\Mappers\ContactMapper;
 use Src\Agenda\Company\Application\UseCases\Commands\PersistContactsCommand;
 use Src\Agenda\Company\Application\UseCases\Commands\RemoveContactCommand;
 use Src\Agenda\Company\Application\UseCases\Queries\FindCompanyByIdQuery;
@@ -18,7 +18,7 @@ class CompanyContactController
         try {
             $company = (new FindCompanyByIdQuery($company_id))->handle();
 
-            $contact = ContactData::fromRequest($request);
+            $contact = ContactMapper::fromRequest($request);
             $company->addContact($contact);
             (new PersistContactsCommand($company))->execute();
             return response()->json($contact->toArray(), Response::HTTP_OK);
@@ -34,7 +34,7 @@ class CompanyContactController
         try {
             $company = (new FindCompanyByIdQuery($company_id))->handle();
 
-            $contact = ContactData::fromRequest($request, $contact_id);
+            $contact = ContactMapper::fromRequest($request, $contact_id);
             $company->updateContact($contact);
             (new PersistContactsCommand($company))->execute();
             return response()->json($contact->toArray(), Response::HTTP_OK);

@@ -37,9 +37,9 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('internal_api')
                 ->group(function() {
-                    require base_path('src/Auth/Interfaces/HTTP/routes.php');
-                    require base_path('src/Agenda/User/Interfaces/HTTP/routes.php');
-                    require base_path('src/Agenda/Company/Interfaces/HTTP/routes.php');
+                    require base_path('src/Auth/Presentation/HTTP/routes.php');
+                    require base_path('src/Agenda/User/Presentation/HTTP/routes.php');
+                    require base_path('src/Agenda/Company/Presentation/HTTP/routes.php');
                 });
         });
     }
