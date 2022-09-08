@@ -4,7 +4,8 @@
 - Authentication with [Tymon's JWT Auth](https://github.com/tymondesigns/jwt-auth)
 - User's domain basic CRUD features with avatar from 3rd party API
 - Company's domain basic CRUD features with persist/remove Addresses, Departments and Contacts
-- Feature tests for User, Companies and Auth
+- Feature tests for User, Company and Auth
+- Integration test for User's avatar third party API
 
 ## 📘 Introduction
 I want to share with you yet another Laravel DDD interpretation, my approach for what could be a clean architecture design without having to give away most of the features we love from Laravel.
@@ -18,7 +19,7 @@ Some of my inspirations have been these remarkable articles:
 
 First, I want to say that this is my own personal interpretation, which is also very open to suggestions and opinions. One of the things I have learned along this time is that what we call clean architectures, DDD, hexagonal architectures, etc. is interpreted differently from author to author although most of them refer to Uncle Bob, Martin Fowler, Eric Evans and Vaughn Vernon as the most influential on this topic. So, if you want to delve into it, I recommend reading about them.
 
-## ❓ Why use this approach?
+## 🤔 Why use this approach?
 
 Okay, let’s suppose that you want to program an app with Laravel that you expect to be mid-to-large size. You may have been working on some of these big projects but dealt with bloated controllers, monstrous models, etc. So for this one, you want to keep your sanity.
 
@@ -123,6 +124,6 @@ Lastly, our Infrastructure layer will contain all the details related to the dat
 
 - **EloquentModels**: Laravel's Eloquent, along with its QueryBuilder interface, will allow us to create easy and simple queries to our databases. If you are coming from a Laravel background, this should be familiar to you.
 
-## Other considerations
+## 🧐 Other considerations
 
 As stated before, this repository has been created and made public for anyone who can find it practical and inspiring. It is a very early concept, so any contributions to improve it are more than welcome.
