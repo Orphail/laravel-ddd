@@ -10,19 +10,17 @@ use Src\Common\Domain\CommandInterface;
 class PersistAddressesCommand implements CommandInterface
 {
     private AddressRepositoryInterface $repository;
-    private CompanyPolicy $policy;
 
     public function __construct(
         private readonly Company $company
     )
     {
         $this->repository = app()->make(AddressRepositoryInterface::class);
-        $this->policy = new CompanyPolicy();
     }
 
     public function execute(): void
     {
-        authorize('persistAddresses', $this->policy);
+        authorize('persistAddresses', CompanyPolicy::class);
         $this->repository->upsertAll($this->company);
     }
 }

@@ -10,19 +10,17 @@ use Src\Common\Domain\QueryInterface;
 class FindUserByIdQuery implements QueryInterface
 {
     private UserRepositoryInterface $repository;
-    private UserPolicy $policy;
 
     public function __construct(
         private readonly int $id
     )
     {
         $this->repository = app()->make(UserRepositoryInterface::class);
-        $this->policy = new UserPolicy();
     }
 
     public function handle(): User
     {
-        authorize('findById', $this->policy);
+        authorize('findById', UserPolicy::class);
         return $this->repository->findById($this->id);
     }
 }

@@ -6,34 +6,39 @@ use Src\Agenda\User\Domain\Model\User;
 
 class UserPolicy
 {
-    public function findAll(): bool
+    public static function findAll(): bool
     {
         return auth()->user()?->is_admin ?? false;
     }
 
-    public function findById(): bool
+    public static function findById(): bool
     {
         return auth()->user()?->is_admin ?? false;
     }
 
-    public function findByEmail(): bool
+    public static function findByEmail(): bool
     {
         return auth()->user()?->is_admin ?? false;
     }
 
-    public function store(): bool
+    public static function store(): bool
     {
         return auth()->user()?->is_admin ?? false;
     }
 
-    public function update(User $user): bool
+    public static function update(User $user): bool
     {
         return auth()->user()?->is_admin || auth()->user()?->id == $user->id;
     }
 
-    public function delete(): bool
+    public static function delete(): bool
     {
         return auth()->user()?->is_admin ?? false;
+    }
+
+    public static function getRandomAvatar(): bool
+    {
+        return true;
     }
 
 }

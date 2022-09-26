@@ -9,7 +9,9 @@ interface AvatarRepositoryInterface
 {
     public function getRandomAvatar(?string $url): Avatar;
 
-    public function storeAvatarFile(Avatar $avatar, string $name): ?string;
+    public function storeAvatarFile(Avatar $avatar): ?string;
 
     public function retrieveAvatarFile(Avatar $avatar): Avatar;
+
+    public function deleteAvatarFile(Avatar $avatar): void;
 }

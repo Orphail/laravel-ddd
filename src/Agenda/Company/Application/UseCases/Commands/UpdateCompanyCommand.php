@@ -12,19 +12,17 @@ use Src\Common\Domain\CommandInterface;
 class UpdateCompanyCommand implements CommandInterface
 {
     private CompanyRepositoryInterface $repository;
-    private CompanyPolicy $policy;
 
     public function __construct(
         private readonly Company $company
     )
     {
         $this->repository = app()->make(CompanyRepositoryInterface::class);
-        $this->policy = new CompanyPolicy();
     }
 
     public function execute(): void
     {
-        authorize('update', $this->policy);
+        authorize('update', CompanyPolicy::class);
         if (CompanyEloquentModel::query()->where('vat', $this->company->vat)->where('id', '!=', $this->company->id)->exists()) {
             throw new VatAlreadyUsedException();
         }

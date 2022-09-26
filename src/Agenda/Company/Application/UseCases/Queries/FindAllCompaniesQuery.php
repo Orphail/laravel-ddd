@@ -9,17 +9,15 @@ use Src\Common\Domain\QueryInterface;
 class FindAllCompaniesQuery implements QueryInterface
 {
     private CompanyRepositoryInterface $repository;
-    private CompanyPolicy $policy;
 
     public function __construct()
     {
         $this->repository = app()->make(CompanyRepositoryInterface::class);
-        $this->policy = new CompanyPolicy();
     }
 
     public function handle(): array
     {
-        authorize('findAll', $this->policy);
+        authorize('findAll', CompanyPolicy::class);
         return $this->repository->findAll();
     }
 }

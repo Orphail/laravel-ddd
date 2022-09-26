@@ -4,7 +4,9 @@ namespace Src\Common\Infrastructure\Laravel\Kernel;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Src\Common\Presentation\CLI\CreateDomainCommand;
+use Src\Common\Presentation\CLI\CreateDomainCmd;
+use Src\Common\Presentation\CLI\CreateCommandCmd;
+use Src\Common\Presentation\CLI\CreateQueryCmd;
 
 class Console extends ConsoleKernel
 {
@@ -14,7 +16,9 @@ class Console extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        CreateDomainCommand::class,
+        CreateDomainCmd::class,
+        CreateCommandCmd::class,
+        CreateQueryCmd::class
     ];
 
     /**

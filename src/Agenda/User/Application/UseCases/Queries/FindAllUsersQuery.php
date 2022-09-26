@@ -9,17 +9,15 @@ use Src\Common\Domain\QueryInterface;
 class FindAllUsersQuery implements QueryInterface
 {
     private UserRepositoryInterface $repository;
-    private UserPolicy $policy;
 
     public function __construct()
     {
         $this->repository = app()->make(UserRepositoryInterface::class);
-        $this->policy = new UserPolicy();
     }
 
     public function handle(): array
     {
-        authorize('findAll', $this->policy);
+        authorize('findAll', UserPolicy::class);
         return $this->repository->findAll();
     }
 }

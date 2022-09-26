@@ -36,15 +36,15 @@ class ContactMapper
         );
     }
 
-    public static function fromEloquent(ContactEloquentModel $contactEloquentModel): Contact
+    public static function fromEloquent(ContactEloquentModel $contactEloquent): Contact
     {
         return new Contact(
-            id: $contactEloquentModel->id,
-            contact_role: ContactRole::from($contactEloquentModel->contact_role),
-            name: new Name($contactEloquentModel->name),
-            email: new Email($contactEloquentModel->email),
-            phone: new Phone($contactEloquentModel->phone),
-            address_id: $contactEloquentModel->address_id,
+            id: $contactEloquent->id,
+            contact_role: ContactRole::from($contactEloquent->contact_role),
+            name: new Name($contactEloquent->name),
+            email: new Email($contactEloquent->email),
+            phone: new Phone($contactEloquent->phone),
+            address_id: $contactEloquent->address_id,
         );
     }
 
@@ -55,7 +55,7 @@ class ContactMapper
             $contactEloquent = ContactEloquentModel::query()->find($contact->id);
         }
         $contactEloquent->address_id = $contact->address_id;
-        $contactEloquent->contact_role = $contact->contact_role;
+        $contactEloquent->contact_role = $contact->contact_role->value;
         $contactEloquent->name = $contact->name;
         $contactEloquent->email = $contact->email;
         $contactEloquent->phone = $contact->phone;

@@ -4,62 +4,62 @@ namespace Src\Agenda\Company\Domain\Policies;
 
 class CompanyPolicy
 {
-    public function findAll(): bool
+    public static function findAll(): bool
     {
         return auth()->user()->is_admin;
     }
 
-    public function findById(string $company_id): bool
+    public static function findById(string $company_id): bool
     {
         return auth()->user()->is_admin || auth()->user()->company_id == $company_id;
     }
 
-    public function findByVat(): bool
+    public static function findByVat(): bool
     {
         return auth()->user()->is_admin;
     }
 
-    public function store(): bool
+    public static function store(): bool
     {
         return auth()->user()->is_admin;
     }
 
-    public function update(): bool
+    public static function update(): bool
     {
         return auth()->user()->is_admin;
     }
 
-    public function delete(): bool
+    public static function delete(): bool
     {
         return auth()->user()->is_admin;
     }
 
-    public function persistAddresses(): bool
+    public static function persistAddresses(): bool
     {
         return auth()->user()->is_admin;
     }
 
-    public function removeAddress(): bool
+    public static function removeAddress(): bool
     {
         return auth()->user()->is_admin;
     }
 
-    public function persistDepartments(): bool
+    public static function persistDepartments(): bool
     {
         return auth()->user()->is_admin;
     }
 
-    public function removeDepartment(): bool
+    public static function removeDepartment(): bool
     {
         return auth()->user()->is_admin;
     }
 
-    public function persistContacts(): bool
+    public static function persistContacts(): bool
     {
         return auth()->user()->is_admin;
     }
 
-    public function removeContact(): bool
+    public static function removeContact(): bool
     {
         return auth()->user()->is_admin;
     }

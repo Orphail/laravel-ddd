@@ -10,19 +10,17 @@ use Src\Common\Domain\CommandInterface;
 class PersistContactsCommand implements CommandInterface
 {
     private ContactRepositoryInterface $repository;
-    private CompanyPolicy $policy;
 
     public function __construct(
         private readonly Company $company
     )
     {
         $this->repository = app()->make(ContactRepositoryInterface::class);
-        $this->policy = new CompanyPolicy();
     }
 
     public function execute(): void
     {
-        authorize('persistContacts', $this->policy);
+        authorize('persistContacts', CompanyPolicy::class);
         $this->repository->upsertAll($this->company);
     }
 }

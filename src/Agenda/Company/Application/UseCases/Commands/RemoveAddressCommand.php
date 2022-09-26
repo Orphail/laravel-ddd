@@ -9,19 +9,17 @@ use Src\Common\Domain\CommandInterface;
 class RemoveAddressCommand implements CommandInterface
 {
     private AddressRepositoryInterface $repository;
-    private CompanyPolicy $policy;
 
     public function __construct(
         private readonly int $address_id
     )
     {
         $this->repository = app()->make(AddressRepositoryInterface::class);
-        $this->policy = new CompanyPolicy();
     }
 
     public function execute(): void
     {
-        authorize('removeAddress', $this->policy);
+        authorize('removeAddress', CompanyPolicy::class);
         $this->repository->remove($this->address_id);
     }
 }

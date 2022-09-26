@@ -6,20 +6,15 @@ namespace Src\Agenda\User\Domain\Model\ValueObjects;
 
 final class CompanyId implements \JsonSerializable
 {
-    private ?int $companyId;
+    public readonly ?int $value;
 
     public function __construct(?int $companyId)
     {
-        $this->companyId = $companyId;
-    }
-
-    public function value(): ?int
-    {
-        return $this->companyId;
+        $this->value = $companyId;
     }
 
     public function jsonSerialize(): ?int
     {
-        return $this->value();
+        return $this->value;
     }
 }

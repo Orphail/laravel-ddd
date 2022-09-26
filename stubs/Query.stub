@@ -1,0 +1,26 @@
+<?php
+
+namespace Src\**BoundedContext**\**Domain**\Application\UseCases\Queries;
+
+use Src\Common\Domain\QueryInterface;
+use Src\**BoundedContext**\**Domain**\Application\DTO\**Domain**Data;
+use Src\**BoundedContext**\**Domain**\Domain\Policies\**Domain**Policy;
+use Src\**BoundedContext**\**Domain**\Domain\Repositories\**Domain**RepositoryInterface;
+
+class **QueryName** implements QueryInterface
+{
+    private **Domain**RepositoryInterface $repository;
+
+    public function __construct(
+        private readonly int $id,
+    )
+    {
+        $this->repository = app()->make(**Domain**RepositoryInterface::class);
+    }
+
+    public function handle(): **Domain**Data
+    {
+        authorize('**action**', **Domain**Policy::class);
+        return $this->repository->**action**($this->id);
+    }
+}

@@ -10,19 +10,17 @@ use Src\Common\Domain\QueryInterface;
 class FindCompanyByIdQuery implements QueryInterface
 {
     private CompanyRepositoryInterface $repository;
-    private CompanyPolicy $policy;
 
     public function __construct(
         private readonly int $id
     )
     {
         $this->repository = app()->make(CompanyRepositoryInterface::class);
-        $this->policy = new CompanyPolicy();
     }
 
     public function handle(): Company
     {
-        authorize('findById', $this->policy, ['company_id' => $this->id]);
+        authorize('findById', CompanyPolicy::class, ['company_id' => $this->id]);
         return $this->repository->findById($this->id);
     }
 }

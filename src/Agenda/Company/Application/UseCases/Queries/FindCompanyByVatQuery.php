@@ -9,19 +9,17 @@ use Src\Common\Domain\QueryInterface;
 class FindCompanyByVatQuery implements QueryInterface
 {
     private CompanyRepositoryInterface $repository;
-    private CompanyPolicy $policy;
 
     public function __construct(
         private readonly string $vat
     )
     {
         $this->repository = app()->make(CompanyRepositoryInterface::class);
-        $this->policy = new CompanyPolicy();
     }
 
     public function handle(): array
     {
-        authorize('findByVat', $this->policy);
+        authorize('findByVat', CompanyPolicy::class);
         return $this->repository->findByVat($this->vat)->toArray();
     }
 }

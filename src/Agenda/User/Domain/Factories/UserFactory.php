@@ -30,7 +30,7 @@ class UserFactory
             name: new Name($attributes['name']),
             email: new Email($attributes['email']),
             company_id: new CompanyId($attributes['company_id']),
-            avatar: new Avatar($attributes['avatar']),
+            avatar: new Avatar(binary_data: $attributes['avatar'], filename: null),
             is_admin: $attributes['is_admin'],
             is_active: $attributes['is_active']
         ))->validateNonAdminWithCompany();

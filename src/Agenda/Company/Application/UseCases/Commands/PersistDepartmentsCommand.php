@@ -10,19 +10,17 @@ use Src\Common\Domain\CommandInterface;
 class PersistDepartmentsCommand implements CommandInterface
 {
     private DepartmentRepositoryInterface $repository;
-    private CompanyPolicy $policy;
 
     public function __construct(
         private readonly Company $company
     )
     {
         $this->repository = app()->make(DepartmentRepositoryInterface::class);
-        $this->policy = new CompanyPolicy();
     }
 
     public function execute(): void
     {
-        authorize('persistDepartments', $this->policy);
+        authorize('persistDepartments', CompanyPolicy::class);
         $this->repository->upsertAll($this->company);
     }
 }

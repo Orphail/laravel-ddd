@@ -5,7 +5,7 @@ namespace Src\Common\Presentation\CLI;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
-class CreateDomainCommand extends Command
+class CreateDomainCmd extends Command
 {
     /**
      * The name and signature of the console command.
@@ -28,7 +28,9 @@ class CreateDomainCommand extends Command
      */
     public function handle()
     {
-        $basePath = 'src/' . $this->argument('boundedContext') . '/' . $this->argument('domainName');
+        $boundedContext = $this->argument('boundedContext');
+        $domainName = $this->argument('domainName');
+        $basePath = 'src/' . $boundedContext . '/' . $domainName;
 
         // Application
         $applicationStructure = [
@@ -53,10 +55,21 @@ class CreateDomainCommand extends Command
             'Model',
             'Policies',
             'Repositories',
-            'Services'
+            'ShipmentServices'
         ];
         foreach ($domainStructure as $domainDirectory) {
-            File::makeDirectory($basePath . '/Domain/' . $domainDirectory, 0755, true);
+            $path = $basePath . '/Domain/' . $domainDirectory;
+            File::makeDirectory($path, 0755, true);
+            if ($domainDirectory === 'Model') {
+                $stub = File::get('./stubs/DomainModel.stub');
+                $stubReplace = [
+                    '**BoundedContext**' => $boundedContext,
+                    '**Domain**' => $domainName,
+                ];
+                $file = strtr($stub, $stubReplace);
+                File::put($path . '/' . $domainName . '.php', $file);
+                continue;
+            }
             touch($basePath . '/Domain/' . $domainDirectory . '/.gitkeep');
         }
 

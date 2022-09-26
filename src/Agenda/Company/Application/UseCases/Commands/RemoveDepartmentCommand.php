@@ -9,19 +9,17 @@ use Src\Common\Domain\CommandInterface;
 class RemoveDepartmentCommand implements CommandInterface
 {
     private DepartmentRepositoryInterface $repository;
-    private CompanyPolicy $policy;
 
     public function __construct(
         private readonly int $department_id
     )
     {
         $this->repository = app()->make(DepartmentRepositoryInterface::class);
-        $this->policy = new CompanyPolicy();
     }
 
     public function execute(): void
     {
-        authorize('removeDepartment', $this->policy);
+        authorize('removeDepartment', CompanyPolicy::class);
         $this->repository->remove($this->department_id);
     }
 }

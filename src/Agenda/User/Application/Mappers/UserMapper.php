@@ -21,7 +21,7 @@ class UserMapper
             name: new Name($request->input('name')),
             email: new Email($request->input('email')),
             company_id: new CompanyId($request->input('company_id')),
-            avatar: new Avatar($request->input('avatar')),
+            avatar: new Avatar(binary_data: $request->input('avatar'), filename: null),
             is_admin: $request->input('is_admin') ?? false,
             is_active: $request->input('is_active') ?? true,
         );
@@ -30,12 +30,13 @@ class UserMapper
     public static function fromEloquent(UserEloquentModel $userEloquent): User
     {
         $avatarRepository = app()->make(AvatarRepositoryInterface::class);
+        $avatar = $avatarRepository->retrieveAvatarFile(new Avatar(binary_data: null, filename: $userEloquent->avatar));
         return new User(
             id: $userEloquent->id,
             name: new Name($userEloquent->name),
             email: new Email($userEloquent->email),
             company_id: new CompanyId($userEloquent->company_id),
-            avatar: $avatarRepository->retrieveAvatarFile(new Avatar($userEloquent->avatar)),
+            avatar: $avatar,
             is_admin: $userEloquent->is_admin,
             is_active: $userEloquent->is_active
         );
@@ -44,12 +45,13 @@ class UserMapper
     public static function fromAuth(Authenticatable $userEloquent): User
     {
         $avatarRepository = app()->make(AvatarRepositoryInterface::class);
+        $avatar = $avatarRepository->retrieveAvatarFile(new Avatar(binary_data: null, filename: $userEloquent->avatar));
         return new User(
             id: $userEloquent->id,
             name: new Name($userEloquent->name),
             email: new Email($userEloquent->email),
             company_id: new CompanyId($userEloquent->company_id),
-            avatar: $avatarRepository->retrieveAvatarFile(new Avatar($userEloquent->avatar)),
+            avatar: $avatar,
             is_admin: $userEloquent->is_admin,
             is_active: $userEloquent->is_active
         );
@@ -63,8 +65,8 @@ class UserMapper
         }
         $userEloquent->name = $user->name;
         $userEloquent->email = $user->email;
-        $userEloquent->company_id = $user->company_id->value();
-        $userEloquent->avatar = $user->avatar;
+        $userEloquent->company_id = $user->company_id->value;
+        $userEloquent->avatar = $user->avatar->filename;
         $userEloquent->is_admin = $user->is_admin;
         $userEloquent->is_active = $user->is_active;
         return $userEloquent;

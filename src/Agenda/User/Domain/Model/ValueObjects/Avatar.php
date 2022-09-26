@@ -4,51 +4,40 @@ namespace Src\Agenda\User\Domain\Model\ValueObjects;
 
 final class Avatar implements \JsonSerializable
 {
-    protected ?string $avatar;
+    public function __construct(
+        public ?string $binary_data,
+        public ?string $filename
+    )
+    {}
 
-    public function __construct(?string $avatar)
+    public function setBinaryData(?string $binary_data): void
     {
-        $this->avatar = $avatar;
-    }
-
-    public static function fromString(?string $avatar): self
-    {
-        return new self($avatar);
-    }
-
-    public function setValue(?string $avatar): void
-    {
-        $this->avatar = $avatar;
-    }
-
-    public function getPath(): ?string
-    {
-        return $this->avatar ?? '';
+        $this->binary_data = $binary_data;
     }
 
     public function getExtension(): ?string
     {
-        return pathinfo(storage_path('app/avatars/' . $this->avatar), PATHINFO_EXTENSION);
+        return pathinfo(storage_path('app/avatars/' . $this->filename), PATHINFO_EXTENSION);
     }
 
     public function isNull(): bool
     {
-        return $this->avatar === null;
+        return $this->binary_data === null;
     }
 
-    public function isBinaryFile(): bool
+    public function hasBinaryData(): bool
     {
-        return !$this->isNull() && str_starts_with($this->avatar, 'data:image');
+        return !$this->isNull() && str_starts_with($this->binary_data, 'data:image');
     }
 
     public function fileExists(): bool
     {
-        return $this->avatar && file_exists(storage_path('app/avatars/' . $this->avatar));
+        return $this->filename && file_exists(storage_path('app/avatars/' . $this->filename));
     }
 
     public function __toString(): string
     {
-        return $this->getPath() ?? '';
+        return $this->filename ?? '';
     }
 
     public function jsonSerialize(): string

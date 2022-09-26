@@ -15,7 +15,6 @@ class StoreUserCommand implements CommandInterface
 {
     private UserRepositoryInterface $repository;
     private AvatarRepositoryInterface $avatarRepository;
-    private UserPolicy $policy;
 
     public function __construct(
         private readonly User $user,
@@ -24,20 +23,19 @@ class StoreUserCommand implements CommandInterface
     {
         $this->repository = app()->make(UserRepositoryInterface::class);
         $this->avatarRepository = app()->make(AvatarRepositoryInterface::class);
-        $this->policy = new UserPolicy();
     }
 
     public function execute(): User
     {
-        authorize('store', $this->policy);
+        authorize('store', UserPolicy::class);
         if (UserEloquentModel::query()->where('email', $this->user->email)->exists()) {
             throw new EmailAlreadyUsedException();
         }
 
         $avatar = $this->user->avatar;
-        if ($avatar->isBinaryFile()) {
-            $filename = $this->avatarRepository->storeAvatarFile($avatar, $this->user->name);
-            $this->user->setAvatar($filename);
+        if ($avatar->hasBinaryData()) {
+            $filename = $this->avatarRepository->storeAvatarFile($avatar);
+            $this->user->setAvatar($avatar->binary_data, $filename);
         }
 
         return $this->repository->store($this->user, $this->password);

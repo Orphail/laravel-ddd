@@ -20,54 +20,51 @@ trait WithCompanies
 {
     use WithFaker;
 
-    public function newCompany(): Company
+    protected function newCompany(): Company
     {
         $company = CompanyFactory::new();
-        $companyEloquentModel = CompanyMapper::toEloquent($company);
-        $companyEloquentModel->save();
+        $companyEloquent = CompanyMapper::toEloquent($company);
+        $companyEloquent->save();
         foreach ($company->addresses as $address) {
-            $addressEloquentModel = AddressMapper::toEloquent($address);
-            $addressEloquentModel->company_id = $companyEloquentModel->id;
-            $addressEloquentModel->save();
+            $addressEloquent = AddressMapper::toEloquent($address);
+            $addressEloquent->company_id = $companyEloquent->id;
+            $addressEloquent->save();
         }
-        return CompanyMapper::fromEloquent($companyEloquentModel, true);
+        return CompanyMapper::fromEloquent($companyEloquent, true);
     }
 
-    public function createRandomCompanies(int $companiesCount)
+    protected function createRandomCompanies(int $companiesCount): void
     {
         foreach (range(1, $companiesCount) as $_) {
             $this->newCompany();
         }
     }
 
-    public function createAddress(int $company_id): Address
+    protected function createAddress(int $company_id): Address
     {
         $address = AddressFactory::new();
-        $addressEloquentModel = AddressMapper::toEloquent($address);
-        $addressEloquentModel->company_id = $company_id;
-        $addressEloquentModel->save();
-        $address->id($addressEloquentModel->id);
-        return $address;
+        $addressEloquent = AddressMapper::toEloquent($address);
+        $addressEloquent->company_id = $company_id;
+        $addressEloquent->save();
+        return AddressMapper::fromEloquent($addressEloquent);
     }
 
-    public function createDepartment(int $company_id): Department
+    protected function createDepartment(int $company_id): Department
     {
         $department = DepartmentFactory::new();
-        $departmentEloquentModel = DepartmentMapper::toEloquent($department);
-        $departmentEloquentModel->company_id = $company_id;
-        $departmentEloquentModel->save();
-        $department->id($departmentEloquentModel->id);
-        return $department;
+        $departmentEloquent = DepartmentMapper::toEloquent($department);
+        $departmentEloquent->company_id = $company_id;
+        $departmentEloquent->save();
+        return DepartmentMapper::fromEloquent($departmentEloquent);
     }
 
-    public function createContact(int $company_id): Contact
+    protected function createContact(int $company_id): Contact
     {
         $contact = ContactFactory::new();
-        $contactEloquentModel = ContactMapper::toEloquent($contact);
-        $contactEloquentModel->company_id = $company_id;
-        $contactEloquentModel->save();
-        $contact->id($contactEloquentModel->id);
-        return $contact;
+        $contactEloquent = ContactMapper::toEloquent($contact);
+        $contactEloquent->company_id = $company_id;
+        $contactEloquent->save();
+        return ContactMapper::fromEloquent($contactEloquent);
     }
 
 }

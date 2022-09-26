@@ -1,0 +1,26 @@
+<?php
+
+namespace Src\**BoundedContext**\**Domain**\Application\UseCases\Commands;
+
+use Src\Common\Domain\CommandInterface;
+use Src\**BoundedContext**\**Domain**\Domain\Model\**Domain**;
+use Src\**BoundedContext**\**Domain**\Domain\Policies\**Domain**Policy;
+use Src\**BoundedContext**\**Domain**\Domain\Repositories\**Domain**RepositoryInterface;
+
+class **CommandName** implements CommandInterface
+{
+    private **Domain**RepositoryInterface $repository;
+
+    public function __construct(
+        private readonly **Domain** **domain_var**
+    )
+    {
+        $this->repository = app()->make(**Domain**RepositoryInterface::class);
+    }
+
+    public function execute(): mixed
+    {
+        authorize('**action**', **Domain**Policy::class);
+        return $this->repository->**action**($this->shipment);
+    }
+}

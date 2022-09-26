@@ -9,19 +9,17 @@ use Src\Common\Domain\CommandInterface;
 class DestroyCompanyCommand implements CommandInterface
 {
     private CompanyRepositoryInterface $repository;
-    private CompanyPolicy $policy;
 
     public function __construct(
         private readonly int $company_id
     )
     {
         $this->repository = app()->make(CompanyRepositoryInterface::class);
-        $this->policy = new CompanyPolicy();
     }
 
     public function execute(): void
     {
-        authorize('delete', $this->policy);
+        authorize('delete', CompanyPolicy::class);
         $this->repository->delete($this->company_id);
     }
 }

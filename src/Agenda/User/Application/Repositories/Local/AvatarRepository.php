@@ -21,26 +21,30 @@ class AvatarRepository implements AvatarRepositoryInterface
         $doodleIpsum = $this->guzzle->request('GET', $url);
         $mime = $doodleIpsum->getHeader('Content-Type')[0];
         $binaryImage = base64_encode($doodleIpsum->getBody()->getContents());
-        return new Avatar('data:' . $mime . ';base64,' . $binaryImage);
+        return new Avatar(binary_data: 'data:' . $mime . ';base64,' . $binaryImage, filename: null);
     }
 
-    public function storeAvatarFile(Avatar $avatar, string $name): ?string
+    public function storeAvatarFile(Avatar $avatar): ?string
     {
-        if ($avatar->isBinaryFile()) {
-            $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $avatar->getPath()));
-            $filename = Str::snake($name) . '.jpg';
-            Storage::disk('avatars')->put($filename, $fileData);
-            return $filename;
-        }
-        return null;
+        $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $avatar->binary_data));
+        $filename = Str::uuid() . '.jpg';
+        Storage::disk('avatars')->put($filename, $fileData);
+        return $filename;
     }
 
     public function retrieveAvatarFile(Avatar $avatar): Avatar
     {
         if ($avatar->fileExists()) {
-            $fileData = Storage::disk('avatars')->get($avatar->getPath());
-            $avatar->setValue('data:image/' . $avatar->getExtension() . ';base64,' . base64_encode($fileData));
+            $fileData = Storage::disk('avatars')->get($avatar->filename);
+            $avatar->setBinaryData('data:image/' . $avatar->getExtension() . ';base64,' . base64_encode($fileData));
         }
         return $avatar;
+    }
+
+    public function deleteAvatarFile(Avatar $avatar): void
+    {
+        if ($avatar->fileExists()) {
+            Storage::disk('avatars')->delete($avatar->filename);
+        }
     }
 }

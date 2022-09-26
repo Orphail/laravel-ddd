@@ -14,30 +14,31 @@ trait WithLogin
     /**
      * Create a new user instance.
      */
-    private function validCredentials(array $attributes = null): array
+    protected function validCredentials(array $attributes = null): array
     {
         $password = $this->faker->password(8);
         $user = UserFactory::new($attributes);
-        $userEloquentModel = UserMapper::toEloquent($user);
-        $userEloquentModel->password = $password;
-        $userEloquentModel->save();
+        $userEloquent = UserMapper::toEloquent($user);
+
+        $userEloquent->password = $password;
+        $userEloquent->save();
 
         return [
-            'id'        => $userEloquentModel->id,
-            'company_id' => $userEloquentModel->company_id,
-            'email'     => $user->email,
-            'password'  => $password,
+            'id'         => $userEloquent->id,
+            'company_id' => $userEloquent->company_id,
+            'email'      => $user->email,
+            'password'   => $password,
         ];
     }
 
-    private function newLoggedAdmin(): array
+    protected function newLoggedAdmin(): array
     {
         $credentials = $this->validCredentials(['is_admin' => true]);
         $response = $this->post('auth/login', $credentials);
         return ['token' => $this->getToken($response), ...$credentials];
     }
 
-    private function newLoggedUser(): array
+    protected function newLoggedUser(): array
     {
         $company = $this->newCompany();
         $credentials = $this->validCredentials(['is_admin' => false, 'company_id' => $company->id]);
@@ -45,7 +46,7 @@ trait WithLogin
         return ['token' => $this->getToken($response), ...$credentials];
     }
 
-    private function getToken(TestResponse $response)
+    protected function getToken(TestResponse $response)
     {
         $arResponse = json_decode($response->getContent(), true);
         return $arResponse['accessToken'];

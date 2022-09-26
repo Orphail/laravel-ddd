@@ -25,15 +25,15 @@ class User extends AggregateRoot implements \JsonSerializable
 
     public function validateNonAdminWithCompany(): User
     {
-        if (!$this->company_id->value() && !$this->is_admin) {
+        if (!$this->company_id->value && !$this->is_admin) {
             throw new CompanyRequiredException();
         }
         return $this;
     }
 
-    public function setAvatar($avatar): void
+    public function setAvatar($binaryData, $filename): void
     {
-        $this->avatar = new Avatar($avatar);
+        $this->avatar = new Avatar(binary_data: $binaryData, filename: $filename);
     }
 
     public function toArray(): array
@@ -42,8 +42,8 @@ class User extends AggregateRoot implements \JsonSerializable
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'company_id' => $this->company_id->value(),
-            'avatar' => $this->avatar,
+            'company_id' => $this->company_id->value,
+            'avatar' => $this->avatar->binary_data,
             'is_admin' => $this->is_admin,
             'is_active' => $this->is_active,
         ];

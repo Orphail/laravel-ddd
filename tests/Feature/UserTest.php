@@ -3,19 +3,15 @@
 namespace Tests\Feature;
 
 use GuzzleHttp\Client;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Agenda\User\Application\Mappers\UserMapper;
 use Src\Agenda\User\Application\Repositories\Local\AvatarRepository;
 use Src\Agenda\User\Domain\Factories\UserFactory;
 use Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
-use Tests\WithCompanies;
-use Tests\WithLogin;
 
 class UserTest extends TestCase
 {
-    use RefreshDatabase, WithLogin, WithCompanies;
 
     protected function setUp(): void
     {
@@ -23,9 +19,6 @@ class UserTest extends TestCase
         $this->user_uri = '/user';
         $this->index_uri = $this->user_uri . '/index';
         $this->random_avatar_uri = $this->user_uri . '/random-avatar';
-        $this->adminToken = $this->newLoggedAdmin()['token'];
-        $this->userData = $this->newLoggedUser();
-        $this->userToken = $this->userData['token'];
     }
 
     /** @test */
@@ -37,19 +30,7 @@ class UserTest extends TestCase
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
             ->get($this->index_uri)
             ->assertStatus(Response::HTTP_OK)
-            ->assertJsonCount($numberUsers + 2); // +2 because of the admin and user
-    }
-
-    /** @test */
-    public function user_cannot_retrieve_all_users()
-    {
-        $numberUsers = $this->faker->numberBetween(1, 10);
-        $this->createRandomUsers($numberUsers);
-
-        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
-            ->get($this->index_uri)
-            ->assertStatus(Response::HTTP_UNAUTHORIZED)
-            ->assertSee(['error' => 'The user is not authorized to access this resource']);
+            ->assertJsonCount($numberUsers + 2); // +2 because of the admin and user + 2 because of seeded users
     }
 
     /** @test */
@@ -63,19 +44,6 @@ class UserTest extends TestCase
             ->get($this->user_uri . '/' . $randomUserId)
             ->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure(['id', 'name', 'email', 'avatar', 'is_admin', 'is_active']);
-    }
-
-    /** @test */
-    public function user_cannot_get_specific_user_by_id()
-    {
-        $numberUsers = $this->faker->numberBetween(1, 10);
-        $this->createRandomUsers($numberUsers);
-        $randomUserId = $this->faker->numberBetween(1, $numberUsers);
-
-        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
-            ->get($this->user_uri . '/' . $randomUserId)
-            ->assertStatus(Response::HTTP_UNAUTHORIZED)
-            ->assertSee(['error' => 'The user is not authorized to access this resource']);
     }
 
     /** @test */
@@ -111,26 +79,6 @@ class UserTest extends TestCase
             ->post($this->user_uri, $requestBody)
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJson(['error' => 'El email ya está en uso']);
-    }
-
-    /** @test */
-    public function user_cannot_create_user()
-    {
-        $company = $this->newCompany();
-        $password = $this->faker->password(8);
-        $requestBody = [
-            'name' => $this->faker->name,
-            'email' => $this->faker->safeEmail,
-            'company_id' => $company->id,
-            'avatar' => 'https://doodleipsum.com/300/avatar-2?shape=circle',
-            'password' => $password,
-            'password_confirmation' => $password,
-        ];
-
-        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
-            ->post($this->user_uri, $requestBody)
-            ->assertStatus(Response::HTTP_UNAUTHORIZED)
-            ->assertSee(['error' => 'The user is not authorized to access this resource']);
     }
 
     /** @test */
@@ -216,56 +164,6 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function user_cannot_update_any_user_except_itself()
-    {
-        $numberUsers = $this->faker->numberBetween(1, 10);
-        $this->createRandomUsers($numberUsers);
-        $randomUserId = $this->faker->numberBetween(4, 4 + $numberUsers);
-
-        // Update another user
-        $password = $this->faker->password(8);
-        $requestBody = [
-            'name' => $this->faker->name,
-            'email' => $this->faker->safeEmail,
-            'avatar' => false,
-            'is_active' => false,
-            'update_avatar' => true,
-            'password' => $password,
-            'password_confirmation' => $password,
-        ];
-
-        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
-            ->put($this->user_uri . '/' . $randomUserId, $requestBody)
-            ->assertStatus(Response::HTTP_UNAUTHORIZED)
-            ->assertSee(['error' => 'The user is not authorized to access this resource']);
-
-        // Update itself
-        $password = $this->faker->password(8);
-        $requestBody = [
-            'name' => $this->faker->name,
-            'email' => $this->userData['email'],
-            'avatar' => false,
-            'is_active' => true,
-            'update_avatar' => false,
-            'password' => $password,
-            'password_confirmation' => $password,
-        ];
-
-        $expectedResponse = [
-            'id' => $this->userData['id'],
-            'name' => $requestBody['name'],
-            'email' => $requestBody['email'],
-            'avatar' => $requestBody['avatar'],
-            'is_active' => $requestBody['is_active']
-        ];
-
-        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
-            ->put($this->user_uri . '/' . $this->userData['id'], $requestBody)
-            ->assertStatus(Response::HTTP_OK)
-            ->assertJson($expectedResponse);
-    }
-
-    /** @test */
     public function cannot_update_user_with_invalid_password()
     {
         $numberUsers = $this->faker->numberBetween(1, 10);
@@ -316,19 +214,6 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function user_cannot_delete_a_user()
-    {
-        $numberUsers = $this->faker->numberBetween(1, 10);
-        $this->createRandomUsers($numberUsers);
-        $randomUserId = $this->faker->numberBetween(1, $numberUsers);
-
-        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
-            ->delete($this->user_uri . '/' . $randomUserId)
-            ->assertStatus(Response::HTTP_UNAUTHORIZED)
-            ->assertSee(['error' => 'The user is not authorized to access this resource']);
-    }
-
-    /** @test */
     public function cannot_delete_user_if_does_not_exists()
     {
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
@@ -355,13 +240,122 @@ class UserTest extends TestCase
             ->assertSee('data:image\/png;base64,' . base64_encode($binaryDataStr));
     }
 
+    // User Tests
+    /** @test */
+    public function user_cannot_retrieve_all_users()
+    {
+        $numberUsers = $this->faker->numberBetween(1, 10);
+        $this->createRandomUsers($numberUsers);
+
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
+            ->get($this->index_uri)
+            ->assertStatus(Response::HTTP_UNAUTHORIZED)
+            ->assertSee(['error' => 'The user is not authorized to access this resource or perform this action']);
+    }
+
+    /** @test */
+    public function user_cannot_get_specific_user_by_id()
+    {
+        $numberUsers = $this->faker->numberBetween(1, 10);
+        $this->createRandomUsers($numberUsers);
+        $randomUserId = $this->faker->numberBetween(1, $numberUsers);
+
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
+            ->get($this->user_uri . '/' . $randomUserId)
+            ->assertStatus(Response::HTTP_UNAUTHORIZED)
+            ->assertSee(['error' => 'The user is not authorized to access this resource or perform this action']);
+    }
+
+    /** @test */
+    public function user_cannot_create_user()
+    {
+        $company = $this->newCompany();
+        $password = $this->faker->password(8);
+        $requestBody = [
+            'name' => $this->faker->name,
+            'email' => $this->faker->safeEmail,
+            'company_id' => $company->id,
+            'avatar' => 'https://doodleipsum.com/300/avatar-2?shape=circle',
+            'password' => $password,
+            'password_confirmation' => $password,
+        ];
+
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
+            ->post($this->user_uri, $requestBody)
+            ->assertStatus(Response::HTTP_UNAUTHORIZED)
+            ->assertSee(['error' => 'The user is not authorized to access this resource or perform this action']);
+    }
+
+    /** @test */
+    public function user_cannot_update_any_user_except_itself()
+    {
+        $numberUsers = $this->faker->numberBetween(1, 10);
+        $this->createRandomUsers($numberUsers);
+        $randomUserId = $this->faker->numberBetween(4, 4 + $numberUsers) + 2;
+
+        // Update another user
+        $password = $this->faker->password(8);
+        $requestBody = [
+            'name' => $this->faker->name,
+            'email' => $this->faker->safeEmail,
+            'avatar' => false,
+            'is_active' => false,
+            'update_avatar' => true,
+            'password' => $password,
+            'password_confirmation' => $password,
+        ];
+
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
+            ->put($this->user_uri . '/' . $randomUserId, $requestBody)
+            ->assertStatus(Response::HTTP_UNAUTHORIZED)
+            ->assertSee(['error' => 'The user is not authorized to access this resource or perform this action']);
+
+        // Update itself
+        $password = $this->faker->password(8);
+        $requestBody = [
+            'name' => $this->faker->name,
+            'email' => $this->userData['email'],
+            'avatar' => false,
+            'is_active' => true,
+            'update_avatar' => false,
+            'password' => $password,
+            'password_confirmation' => $password,
+        ];
+
+        $expectedResponse = [
+            'id' => $this->userData['id'],
+            'name' => $requestBody['name'],
+            'email' => $requestBody['email'],
+            'avatar' => $requestBody['avatar'],
+            'is_active' => $requestBody['is_active']
+        ];
+
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
+            ->put($this->user_uri . '/' . $this->userData['id'], $requestBody)
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJson($expectedResponse);
+    }
+
+    /** @test */
+    public function user_cannot_delete_a_user()
+    {
+        $numberUsers = $this->faker->numberBetween(1, 10);
+        $this->createRandomUsers($numberUsers);
+        $randomUserId = $this->faker->numberBetween(1, $numberUsers) + 2;
+
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
+            ->delete($this->user_uri . '/' . $randomUserId)
+            ->assertStatus(Response::HTTP_UNAUTHORIZED)
+            ->assertSee(['error' => 'The user is not authorized to access this resource or perform this action']);
+    }
+
     private function createRandomUsers($usersNumber = 1): void
     {
         foreach (range(1, $usersNumber) as $_) {
             $user = UserFactory::new();
-            $userEloquentModel = UserMapper::toEloquent($user);
-            $userEloquentModel->password = $this->faker->password(8);
-            $userEloquentModel->save();
+            $userEloquent = UserMapper::toEloquent($user);
+            $userEloquent->password = $this->faker->password(8);
+            $userEloquent->save();
         }
     }
 }

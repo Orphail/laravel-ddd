@@ -2,6 +2,7 @@
 
 namespace Src\Agenda\User\Application\UseCases\Commands;
 
+use Src\Agenda\User\Domain\Policies\UserPolicy;
 use Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface;
 use Src\Common\Domain\CommandInterface;
 
@@ -16,6 +17,7 @@ class GetRandomAvatarCommand implements CommandInterface
 
     public function execute(): ?string
     {
-        return $this->avatarRepository->getRandomAvatar()->getPath();
+        authorize('getRandomAvatar', UserPolicy::class);
+        return $this->avatarRepository->getRandomAvatar()->binary_data;
     }
 }

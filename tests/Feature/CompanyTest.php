@@ -2,26 +2,19 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Agenda\Company\Domain\Factories\AddressFactory;
 use Src\Agenda\Company\Domain\Model\ValueObjects\AddressType;
 use Src\Agenda\Company\Domain\Model\ValueObjects\ContactRole;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
-use Tests\WithLogin;
 
 class CompanyTest extends TestCase
 {
-    use RefreshDatabase, WithLogin;
-
     protected function setUp(): void
     {
         parent::setUp();
         $this->company_uri = '/company';
         $this->index_uri = $this->company_uri . '/index';
-        $this->adminToken = $this->newLoggedAdmin()['token'];
-        $this->userData = $this->newLoggedUser();
-        $this->userToken = $this->userData['token'];
     }
 
     /** @test */
