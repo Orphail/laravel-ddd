@@ -31,8 +31,8 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
-    - name: Execute parallel tests (Unit and Feature tests) via PHPUnit && ParaTest
+    - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: vendor/bin/paratest
+      run: vendor/bin/phpunit
