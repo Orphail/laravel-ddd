@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Agenda\Company\Domain\Factories\AddressFactory;
 use Src\Agenda\Company\Domain\Model\ValueObjects\AddressType;
 use Src\Agenda\Company\Domain\Model\ValueObjects\ContactRole;
@@ -30,54 +31,22 @@ class CompanyTest extends TestCase
 
         $companyInfo = $companies->json()[0];
         $this->assertEquals(
-            ['id', 'fiscal_name', 'social_name', 'vat', 'main_address', 'num_contacts', 'num_departments', 'is_active'],
+            ['id', 'fiscal_name', 'social_name', 'vat', 'main_address', 'num_addresses', 'num_contacts', 'num_departments', 'is_active'],
             array_keys($companyInfo)
         );
-    }
-
-    /** @test */
-    public function user_cannot_retrieve_all_companies()
-    {
-        $companiesCount = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($companiesCount);
-
-        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
-            ->get($this->index_uri)
-            ->assertStatus(Response::HTTP_UNAUTHORIZED)
-            ->assertSee(['error' => 'The user is not authorized to access this resource']);
     }
 
     /** @test */
     public function admin_can_get_specific_company_by_id()
     {
         $companiesCount = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($companiesCount);
-        $randomCompanyId = $this->faker->numberBetween(1, $companiesCount);
+        $company_ids = $this->createRandomCompanies($companiesCount);
+        $randomCompanyId = $this->faker->randomElement($company_ids);
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
             ->get($this->company_uri . '/' . $randomCompanyId)
             ->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure(['id', 'fiscal_name', 'social_name', 'vat', 'addresses', 'contacts', 'departments', 'is_active']);
-    }
-
-    /** @test */
-    public function user_cannot_get_specific_company_by_id_except_if_belongs_to()
-    {
-        $companiesCount = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($companiesCount);
-        $randomCompanyId = $this->faker->numberBetween(2, $companiesCount + 1);
-
-        // User cannot retrieve company where it is not belonged to
-        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
-            ->get($this->company_uri . '/' . $randomCompanyId)
-            ->assertStatus(Response::HTTP_UNAUTHORIZED)
-            ->assertSee(['error' => 'The user is not authorized to access this resource']);
-
-        // User can retrieve company where it belongs
-        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
-            ->get($this->company_uri . '/' . $this->userData['company_id'])
-            ->assertStatus(Response::HTTP_OK)
-            ->assertJsonStructure(['id', 'fiscal_name', 'social_name', 'vat', 'is_active']);
     }
 
     /** @test */
@@ -119,22 +88,6 @@ class CompanyTest extends TestCase
     }
 
     /** @test */
-    public function user_cannot_create_a_company()
-    {
-        $requestBody = [
-            'fiscal_name' => $this->faker->name,
-            'social_name' => $this->faker->company,
-            'vat' => $this->faker->bothify('?#########'),
-            'is_active' => $this->faker->boolean
-        ];
-
-        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
-            ->post($this->company_uri, $requestBody)
-            ->assertStatus(Response::HTTP_UNAUTHORIZED)
-            ->assertSee(['error' => 'The user is not authorized to access this resource']);
-    }
-
-    /** @test */
     public function cannot_create_company_with_invalid_vat()
     {
         $requestBodyInvalidVat = [
@@ -155,8 +108,8 @@ class CompanyTest extends TestCase
     public function admin_can_update_a_company()
     {
         $numberCompanies = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($numberCompanies);
-        $randomCompanyId = $this->faker->numberBetween(1, $numberCompanies);
+        $company_ids = $this->createRandomCompanies($numberCompanies);
+        $randomCompanyId = $this->faker->randomElement($company_ids);
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
             ->get($this->company_uri . '/' . $randomCompanyId)
@@ -182,7 +135,7 @@ class CompanyTest extends TestCase
         unset($expectedResponse['addresses'][1]['id']);
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
-            ->put($this->company_uri . '/' . $randomCompanyId, $requestBody)
+            ->patch($this->company_uri . '/' . $randomCompanyId, $requestBody)
             ->assertStatus(Response::HTTP_OK)
             ->assertJson($expectedResponse);
 
@@ -195,42 +148,17 @@ class CompanyTest extends TestCase
         ];
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
-            ->put($this->company_uri . '/' . $randomCompanyId, $requestBodyInvalidVat)
+            ->patch($this->company_uri . '/' . $randomCompanyId, $requestBodyInvalidVat)
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJson(['error' => 'Vat must be valid']);
-    }
-
-    /** @test */
-    public function user_cannot_update_a_company()
-    {
-        $numberCompanies = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($numberCompanies);
-        $randomCompanyId = $this->faker->numberBetween(1, $numberCompanies);
-
-        $company = $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
-            ->get($this->company_uri . '/' . $randomCompanyId)
-            ->assertStatus(Response::HTTP_OK)
-            ->assertJsonStructure(['id', 'fiscal_name', 'social_name', 'vat', 'is_active']);
-
-        $requestBody = [
-            'fiscal_name' => $this->faker->name,
-            'social_name' => $this->faker->company,
-            'vat' => $this->faker->bothify('?#########'),
-            'is_active' => $this->faker->boolean
-        ];
-
-        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
-            ->put($this->company_uri . '/' . $randomCompanyId, $requestBody)
-            ->assertStatus(Response::HTTP_UNAUTHORIZED)
-            ->assertSee(['error' => 'The user is not authorized to access this resource']);
     }
 
     /** @test */
     public function admin_can_delete_a_company()
     {
         $numberCompanies = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($numberCompanies);
-        $randomCompanyId = $this->faker->numberBetween(1, $numberCompanies);
+        $company_ids = $this->createRandomCompanies($numberCompanies);
+        $randomCompanyId = $this->faker->randomElement($company_ids);
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
             ->delete($this->company_uri . '/' . $randomCompanyId)
@@ -239,19 +167,6 @@ class CompanyTest extends TestCase
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
             ->get($this->company_uri . '/' . $randomCompanyId)
             ->assertStatus(Response::HTTP_NOT_FOUND);
-    }
-
-    /** @test */
-    public function user_cannot_delete_a_company()
-    {
-        $numberCompanies = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($numberCompanies);
-        $randomCompanyId = $this->faker->numberBetween(1, $numberCompanies);
-
-        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
-            ->delete($this->company_uri . '/' . $randomCompanyId)
-            ->assertStatus(Response::HTTP_UNAUTHORIZED)
-            ->assertSee(['error' => 'The user is not authorized to access this resource']);
     }
 
     /** @test */
@@ -266,10 +181,11 @@ class CompanyTest extends TestCase
     public function can_add_an_address_to_a_company()
     {
         $numberCompanies = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($numberCompanies);
-        $randomCompanyId = $this->faker->numberBetween(1, $numberCompanies);
+        $company_ids = $this->createRandomCompanies($numberCompanies);
+        $randomCompanyId = $this->faker->randomElement($company_ids);
 
         $requestBody = [
+            'name' => $this->faker->name,
             'type' => $this->faker->randomElement(AddressType::cases())->value,
             'street' => $this->faker->streetName(),
             'zip_code' => $this->faker->postcode(),
@@ -289,7 +205,7 @@ class CompanyTest extends TestCase
             ->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure(['id', 'fiscal_name', 'social_name', 'vat', 'addresses', 'contacts', 'departments', 'is_active']);
 
-        $address = $company->json('addresses')[0];
+        $address = $company->json('addresses')[1];
         unset($address['id']);
         unset($address['company_id']);
         $this->assertEquals($requestBody, $address);
@@ -299,11 +215,12 @@ class CompanyTest extends TestCase
     public function can_update_an_address_from_a_company()
     {
         $numberCompanies = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($numberCompanies);
-        $randomCompanyId = $this->faker->numberBetween(1, $numberCompanies);
+        $company_ids = $this->createRandomCompanies($numberCompanies);
+        $randomCompanyId = $this->faker->randomElement($company_ids);
         $address = $this->createAddress($randomCompanyId);
 
         $requestBody = [
+            'name' => $this->faker->name,
             'type' => $this->faker->randomElement(AddressType::cases())->value,
             'street' => $this->faker->streetName(),
             'zip_code' => $this->faker->postcode(),
@@ -323,7 +240,7 @@ class CompanyTest extends TestCase
             ->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure(['id', 'fiscal_name', 'social_name', 'vat', 'addresses', 'contacts', 'departments', 'is_active']);
 
-        $address = $company->json('addresses')[0];
+        $address = $company->json('addresses')[1];
         unset($address['id']);
         unset($address['company_id']);
         $this->assertEquals($requestBody, $address);
@@ -333,8 +250,8 @@ class CompanyTest extends TestCase
     public function can_delete_an_address_from_a_company()
     {
         $numberCompanies = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($numberCompanies);
-        $randomCompanyId = $this->faker->numberBetween(1, $numberCompanies);
+        $company_ids = $this->createRandomCompanies($numberCompanies);
+        $randomCompanyId = $this->faker->randomElement($company_ids);
         $address = $this->createAddress($randomCompanyId);
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
@@ -347,19 +264,19 @@ class CompanyTest extends TestCase
             ->assertJsonStructure(['id', 'fiscal_name', 'social_name', 'vat', 'addresses', 'contacts', 'departments', 'is_active']);
 
         $addresses = $company->json('addresses');
-        $this->assertEquals([], $addresses);
+        $this->assertCount(1, $addresses);
     }
 
     /** @test */
     public function can_add_a_department_to_a_company()
     {
         $numberCompanies = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($numberCompanies);
-        $randomCompanyId = $this->faker->numberBetween(1, $numberCompanies);
+        $company_ids = $this->createRandomCompanies($numberCompanies);
+        $randomCompanyId = $this->faker->randomElement($company_ids);
 
         $requestBody = [
             'name' => $this->faker->name,
-            'address_id' => null,
+            'address_id' => 1,
             'is_active' => true,
         ];
 
@@ -383,13 +300,13 @@ class CompanyTest extends TestCase
     public function can_update_a_department_from_a_company()
     {
         $numberCompanies = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($numberCompanies);
-        $randomCompanyId = $this->faker->numberBetween(1, $numberCompanies);
+        $company_ids = $this->createRandomCompanies($numberCompanies);
+        $randomCompanyId = $this->faker->randomElement($company_ids);
         $department = $this->createDepartment($randomCompanyId);
 
         $requestBody = [
             'name' => $this->faker->name,
-            'address_id' => null,
+            'address_id' => 1,
             'is_active' => true,
         ];
 
@@ -413,8 +330,8 @@ class CompanyTest extends TestCase
     public function can_delete_a_department_from_a_company()
     {
         $numberCompanies = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($numberCompanies);
-        $randomCompanyId = $this->faker->numberBetween(1, $numberCompanies);
+        $company_ids = $this->createRandomCompanies($numberCompanies);
+        $randomCompanyId = $this->faker->randomElement($company_ids);
         $department = $this->createDepartment($randomCompanyId);
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
@@ -434,8 +351,8 @@ class CompanyTest extends TestCase
     public function can_add_a_contact_to_a_company()
     {
         $numberCompanies = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($numberCompanies);
-        $randomCompanyId = $this->faker->numberBetween(1, $numberCompanies);
+        $company_ids = $this->createRandomCompanies($numberCompanies);
+        $randomCompanyId = $this->faker->randomElement($company_ids);
 
         $requestBody = [
             'contact_role' => $this->faker->randomElement(ContactRole::cases())->value,
@@ -465,8 +382,8 @@ class CompanyTest extends TestCase
     public function can_update_a_contact_from_a_company()
     {
         $numberCompanies = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($numberCompanies);
-        $randomCompanyId = $this->faker->numberBetween(1, $numberCompanies);
+        $company_ids = $this->createRandomCompanies($numberCompanies);
+        $randomCompanyId = $this->faker->randomElement($company_ids);
         $contact = $this->createContact($randomCompanyId);
 
         $requestBody = [
@@ -497,8 +414,8 @@ class CompanyTest extends TestCase
     public function can_delete_a_contact_from_a_company()
     {
         $numberCompanies = $this->faker->numberBetween(1, 10);
-        $this->createRandomCompanies($numberCompanies);
-        $randomCompanyId = $this->faker->numberBetween(1, $numberCompanies);
+        $company_ids = $this->createRandomCompanies($numberCompanies);
+        $randomCompanyId = $this->faker->randomElement($company_ids);
         $contact = $this->createContact($randomCompanyId);
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
@@ -512,5 +429,92 @@ class CompanyTest extends TestCase
 
         $contacts = $company->json('contacts');
         $this->assertEquals([], $contacts);
+    }
+
+    // User Tests
+    /** @test */
+    public function user_cannot_retrieve_all_companies()
+    {
+        $companiesCount = $this->faker->numberBetween(1, 10);
+        $this->createRandomCompanies($companiesCount);
+
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
+            ->get($this->index_uri)
+            ->assertStatus(Response::HTTP_UNAUTHORIZED)
+            ->assertSee(['error' => 'The user is not authorized to access this resource or perform this action']);
+    }
+
+    /** @test */
+    public function user_cannot_get_specific_company_by_id_except_if_belongs_to()
+    {
+        $companiesCount = $this->faker->numberBetween(1, 10);
+        $company_ids = $this->createRandomCompanies($companiesCount);
+        $randomCompanyId = $this->faker->randomElement($company_ids);
+
+        // User cannot retrieve company where it is not belonged to
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
+            ->get($this->company_uri . '/' . $randomCompanyId)
+            ->assertStatus(Response::HTTP_UNAUTHORIZED)
+            ->assertSee(['error' => 'The user is not authorized to access this resource or perform this action']);
+
+        // User can retrieve company where it belongs
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
+            ->get($this->company_uri . '/' . $this->userData['company_id'])
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonStructure(['id', 'fiscal_name', 'social_name', 'vat', 'is_active']);
+    }
+
+    /** @test */
+    public function user_cannot_create_a_company()
+    {
+        $requestBody = [
+            'fiscal_name' => $this->faker->name,
+            'social_name' => $this->faker->company,
+            'vat' => $this->faker->bothify('?#########'),
+            'is_active' => $this->faker->boolean,
+        ];
+
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
+            ->post($this->company_uri, $requestBody)
+            ->assertStatus(Response::HTTP_UNAUTHORIZED)
+            ->assertSee(['error' => 'The user is not authorized to access this resource or perform this action']);
+    }
+
+    /** @test */
+    public function user_cannot_update_a_company()
+    {
+        $numberCompanies = $this->faker->numberBetween(1, 10);
+        $company_ids = $this->createRandomCompanies($numberCompanies);
+        $randomCompanyId = $this->faker->randomElement($company_ids);
+
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
+            ->get($this->company_uri . '/' . $randomCompanyId)
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonStructure(['id', 'fiscal_name', 'social_name', 'vat', 'is_active']);
+
+        $requestBody = [
+            'fiscal_name' => $this->faker->name,
+            'social_name' => $this->faker->company,
+            'vat' => $this->faker->bothify('?#########'),
+            'is_active' => $this->faker->boolean,
+        ];
+
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
+            ->patch($this->company_uri . '/' . $randomCompanyId, $requestBody)
+            ->assertStatus(Response::HTTP_UNAUTHORIZED)
+            ->assertSee(['error' => 'The user is not authorized to access this resource or perform this action']);
+    }
+
+    /** @test */
+    public function user_cannot_delete_a_company()
+    {
+        $numberCompanies = $this->faker->numberBetween(1, 10);
+        $company_ids = $this->createRandomCompanies($numberCompanies);
+        $randomCompanyId = $this->faker->randomELement($company_ids);
+
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
+            ->delete($this->company_uri . '/' . $randomCompanyId)
+            ->assertStatus(Response::HTTP_UNAUTHORIZED)
+            ->assertSee(['error' => 'The user is not authorized to access this resource or perform this action']);
     }
 }

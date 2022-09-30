@@ -33,11 +33,14 @@ trait WithCompanies
         return CompanyMapper::fromEloquent($companyEloquent, true);
     }
 
-    protected function createRandomCompanies(int $companiesCount): void
+    protected function createRandomCompanies(int $companiesCount): array
     {
+        $company_ids = [];
         foreach (range(1, $companiesCount) as $_) {
-            $this->newCompany();
+            $company = $this->newCompany();
+            $company_ids[] = $company->id;
         }
+        return $company_ids;
     }
 
     protected function createAddress(int $company_id): Address

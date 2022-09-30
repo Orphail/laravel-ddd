@@ -7,6 +7,7 @@ use Src\Agenda\Company\Domain\Model\Entities\Address;
 use Src\Agenda\Company\Domain\Model\ValueObjects\AddressType;
 use Src\Agenda\Company\Domain\Model\ValueObjects\City;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Country;
+use Src\Agenda\Company\Domain\Model\ValueObjects\Name;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Phone;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Street;
 use Src\Agenda\Company\Domain\Model\ValueObjects\ZipCode;
@@ -19,6 +20,7 @@ class AddressMapper
     {
         return new Address(
             id: $address_id,
+            name: new Name($request->input('name')),
             type: AddressType::from($request->input('type')),
             street: new Street($request->input('street')),
             zip_code: new ZipCode($request->input('zip_code')),
@@ -33,6 +35,7 @@ class AddressMapper
     {
         return new Address(
             id: $address['id'] ?? null,
+            name: new Name($address['name']),
             type: AddressType::from($address['type']),
             street: new Street($address['street']),
             zip_code: new ZipCode($address['zip_code']),
@@ -47,6 +50,7 @@ class AddressMapper
     {
         return new Address(
             id: $addressEloquent->id,
+            name: new Name($addressEloquent->name),
             type: AddressType::from($addressEloquent->type),
             street: new Street($addressEloquent->street),
             zip_code: new ZipCode($addressEloquent->zip_code),
@@ -61,8 +65,9 @@ class AddressMapper
     {
         $addressEloquent = new AddressEloquentModel();
         if ($address->id) {
-            $addressEloquent = AddressEloquentModel::query()->find($address->id);
+            $addressEloquent = AddressEloquentModel::query()->findOrFail($address->id);
         }
+        $addressEloquent->name = $address->name;
         $addressEloquent->type = $address->type->value;
         $addressEloquent->street = $address->street;
         $addressEloquent->zip_code = $address->zip_code;

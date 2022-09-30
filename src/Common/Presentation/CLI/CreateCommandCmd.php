@@ -40,7 +40,7 @@ class CreateCommandCmd extends Command
             '**BoundedContext**' => $boundedContext,
             '**Domain**' => $domainName,
             '**CommandName**' => $commandName,
-            '**domain_var**' => '$' . Str::snake($domainName),
+            '**domain_lc**' => Str::snake($domainName),
             '**action**' => Str::camel(preg_replace('/(' . $domainName . ')?Command/', '', $commandName)),
         ];
 

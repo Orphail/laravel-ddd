@@ -2,8 +2,8 @@
 
 namespace Src\Agenda\Company\Application\UseCases\Commands;
 
+use Src\Agenda\Company\Application\DTO\CompanyData;
 use Src\Agenda\Company\Application\Exceptions\VatAlreadyUsedException;
-use Src\Agenda\Company\Domain\Model\Company;
 use Src\Agenda\Company\Domain\Policies\CompanyPolicy;
 use Src\Agenda\Company\Domain\Repositories\CompanyRepositoryInterface;
 use Src\Agenda\Company\Infrastructure\EloquentModels\CompanyEloquentModel;
@@ -14,7 +14,7 @@ class UpdateCompanyCommand implements CommandInterface
     private CompanyRepositoryInterface $repository;
 
     public function __construct(
-        private readonly Company $company
+        private readonly CompanyData $company
     )
     {
         $this->repository = app()->make(CompanyRepositoryInterface::class);

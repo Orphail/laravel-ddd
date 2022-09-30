@@ -12,7 +12,7 @@ class **CommandName** implements CommandInterface
     private **Domain**RepositoryInterface $repository;
 
     public function __construct(
-        private readonly **Domain** **domain_var**
+        private readonly **Domain** $**domain_lc**
     )
     {
         $this->repository = app()->make(**Domain**RepositoryInterface::class);
@@ -21,6 +21,6 @@ class **CommandName** implements CommandInterface
     public function execute(): mixed
     {
         authorize('**action**', **Domain**Policy::class);
-        return $this->repository->**action**($this->shipment);
+        return $this->repository->**action**($this->**domain_lc**);
     }
 }

@@ -52,7 +52,7 @@ class ContactMapper
     {
         $contactEloquent = new ContactEloquentModel();
         if ($contact->id) {
-            $contactEloquent = ContactEloquentModel::query()->find($contact->id);
+            $contactEloquent = ContactEloquentModel::query()->findOrFail($contact->id);
         }
         $contactEloquent->address_id = $contact->address_id;
         $contactEloquent->contact_role = $contact->contact_role->value;

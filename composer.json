@@ -13,6 +13,7 @@
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
+        "brianium/paratest": "^6.6",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",

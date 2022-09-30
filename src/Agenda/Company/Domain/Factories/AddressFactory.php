@@ -6,6 +6,7 @@ use Src\Agenda\Company\Domain\Model\Entities\Address;
 use Src\Agenda\Company\Domain\Model\ValueObjects\AddressType;
 use Src\Agenda\Company\Domain\Model\ValueObjects\City;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Country;
+use Src\Agenda\Company\Domain\Model\ValueObjects\Name;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Phone;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Street;
 use Src\Agenda\Company\Domain\Model\ValueObjects\ZipCode;
@@ -19,6 +20,7 @@ class AddressFactory
 
         $defaults = [
             'id' => null,
+            'name' => fake()->company,
             'type' => AddressType::Fiscal,
             'street' => fake()->streetName(),
             'zip_code' => fake()->postcode(),
@@ -32,6 +34,7 @@ class AddressFactory
 
         return new Address(
             id: $attributes['id'],
+            name: new Name($attributes['name']),
             type: $attributes['type'],
             street: new Street($attributes['street']),
             zip_code: new ZipCode($attributes['zip_code']),

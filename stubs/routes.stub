@@ -1,0 +1,14 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use Src\TMS\Carrier\Presentation\HTTP\CarrierController;
+
+Route::group([
+    'prefix' => '**domain_lc**'
+], function () {
+    Route::get('index', [**Domain**Controller::class, 'index']);
+    Route::get('{id}', [**Domain**Controller::class, 'show']);
+    Route::post('', [**Domain**Controller::class, 'store']);
+    Route::put('{id}', [**Domain**Controller::class, 'update']);
+    Route::delete('{id}', [**Domain**Controller::class, 'destroy']);
+});

@@ -3,15 +3,15 @@
 namespace Tests\Feature;
 
 use GuzzleHttp\Client;
-use Src\Agenda\User\Application\Mappers\UserMapper;
 use Src\Agenda\User\Application\Repositories\Local\AvatarRepository;
-use Src\Agenda\User\Domain\Factories\UserFactory;
 use Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
+use Tests\WithUsers;
 
 class UserTest extends TestCase
 {
+    use WithUsers;
 
     protected function setUp(): void
     {
@@ -37,8 +37,8 @@ class UserTest extends TestCase
     public function admin_can_get_specific_user_by_id()
     {
         $numberUsers = $this->faker->numberBetween(1, 10);
-        $this->createRandomUsers($numberUsers);
-        $randomUserId = $this->faker->numberBetween(1, $numberUsers);
+        $user_ids = $this->createRandomUsers($numberUsers);
+        $randomUserId = $this->faker->randomElement($user_ids);
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
             ->get($this->user_uri . '/' . $randomUserId)
@@ -134,8 +134,8 @@ class UserTest extends TestCase
     public function admin_can_update_any_user()
     {
         $numberUsers = $this->faker->numberBetween(1, 10);
-        $this->createRandomUsers($numberUsers);
-        $randomUserId = $this->faker->numberBetween(1, $numberUsers);
+        $user_ids = $this->createRandomUsers($numberUsers);
+        $randomUserId = $this->faker->randomElement($user_ids);
 
         $password = $this->faker->password(8);
         $requestBody = [
@@ -167,8 +167,8 @@ class UserTest extends TestCase
     public function cannot_update_user_with_invalid_password()
     {
         $numberUsers = $this->faker->numberBetween(1, 10);
-        $this->createRandomUsers($numberUsers);
-        $randomUserId = $this->faker->numberBetween(1, $numberUsers);
+        $user_ids = $this->createRandomUsers($numberUsers);
+        $randomUserId = $this->faker->randomElement($user_ids);
 
         $password = $this->faker->password(8);
         $requestBody = [
@@ -201,8 +201,8 @@ class UserTest extends TestCase
     public function admin_can_delete_a_user()
     {
         $numberUsers = $this->faker->numberBetween(1, 10);
-        $this->createRandomUsers($numberUsers);
-        $randomUserId = $this->faker->numberBetween(1, $numberUsers);
+        $user_ids = $this->createRandomUsers($numberUsers);
+        $randomUserId = $this->faker->randomElement($user_ids);
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
             ->delete($this->user_uri . '/' . $randomUserId)
@@ -257,8 +257,8 @@ class UserTest extends TestCase
     public function user_cannot_get_specific_user_by_id()
     {
         $numberUsers = $this->faker->numberBetween(1, 10);
-        $this->createRandomUsers($numberUsers);
-        $randomUserId = $this->faker->numberBetween(1, $numberUsers);
+        $user_ids = $this->createRandomUsers($numberUsers);
+        $randomUserId = $this->faker->randomElement($user_ids);
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
             ->get($this->user_uri . '/' . $randomUserId)
@@ -290,8 +290,8 @@ class UserTest extends TestCase
     public function user_cannot_update_any_user_except_itself()
     {
         $numberUsers = $this->faker->numberBetween(1, 10);
-        $this->createRandomUsers($numberUsers);
-        $randomUserId = $this->faker->numberBetween(4, 4 + $numberUsers) + 2;
+        $user_ids = $this->createRandomUsers($numberUsers);
+        $randomUserId = $this->faker->randomElement($user_ids);
 
         // Update another user
         $password = $this->faker->password(8);
@@ -340,22 +340,12 @@ class UserTest extends TestCase
     public function user_cannot_delete_a_user()
     {
         $numberUsers = $this->faker->numberBetween(1, 10);
-        $this->createRandomUsers($numberUsers);
-        $randomUserId = $this->faker->numberBetween(1, $numberUsers) + 2;
+        $user_ids = $this->createRandomUsers($numberUsers);
+        $randomUserId = $this->faker->randomElement($user_ids);
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
             ->delete($this->user_uri . '/' . $randomUserId)
             ->assertStatus(Response::HTTP_UNAUTHORIZED)
             ->assertSee(['error' => 'The user is not authorized to access this resource or perform this action']);
-    }
-
-    private function createRandomUsers($usersNumber = 1): void
-    {
-        foreach (range(1, $usersNumber) as $_) {
-            $user = UserFactory::new();
-            $userEloquent = UserMapper::toEloquent($user);
-            $userEloquent->password = $this->faker->password(8);
-            $userEloquent->save();
-        }
     }
 }

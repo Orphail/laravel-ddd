@@ -9,19 +9,11 @@ use Src\Agenda\Company\Domain\Model\ValueObjects\Name;
 class Department implements \JsonSerializable
 {
     public function __construct(
-        public ?int $id,
+        public readonly ?int $id,
         public readonly Name $name,
-        public readonly ?int $address_id = null,
+        public readonly int $address_id,
         public readonly bool $is_active = true
     ) {}
-
-    public function id(?int $newId = null): ?int
-    {
-        if ($newId) {
-            $this->id = $newId;
-        }
-        return $this->id;
-    }
 
     public function toArray(): array
     {

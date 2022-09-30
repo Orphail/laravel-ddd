@@ -16,6 +16,7 @@ class AddressEloquentModel extends Model
      */
     protected $fillable = [
         'company_id',
+        'name',
         'type',
         'street',
         'zip_code',
@@ -27,6 +28,7 @@ class AddressEloquentModel extends Model
 
     public array $rules = [
         'company_id' => 'required|integer',
+        'name' => 'required|string',
         'type' => 'required|in:fiscal,logistic,administrative',
         'street' => 'required|string',
         'zip_code' => 'required|string',

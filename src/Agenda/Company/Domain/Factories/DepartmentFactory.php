@@ -14,7 +14,7 @@ class DepartmentFactory
         $defaults = [
             'id' => null,
             'name' => fake()->name,
-            'address_id' => null,
+            'address_id' => 1,
             'is_active' => true,
         ];
 

@@ -30,7 +30,7 @@ class CompanyMapper
             contacts: new Contacts(array_map(function ($contact) {
                 return ContactMapper::fromArray($contact);
             }, $request->input('contacts', []))),
-            is_active: $request->input('is_active'),
+            is_active: $request->boolean('is_active', true),
         );
     }
 
@@ -39,10 +39,10 @@ class CompanyMapper
         $addresses = $with_addresses ? array_map(function ($address) {
             return AddressMapper::fromArray($address);
         }, $companyEloquent->addresses?->toArray() ?? []) : [];
-        $departments = $with_addresses ? array_map(function ($address) {
+        $departments = $with_departments ? array_map(function ($address) {
             return DepartmentMapper::fromArray($address);
         }, $companyEloquent->departments?->toArray() ?? []) : [];
-        $contacts = $with_addresses ? array_map(function ($address) {
+        $contacts = $with_contacts ? array_map(function ($address) {
             return ContactMapper::fromArray($address);
         }, $companyEloquent->contacts?->toArray() ?? []) : [];
         return new Company(
@@ -61,7 +61,7 @@ class CompanyMapper
     {
         $companyEloquent = new CompanyEloquentModel();
         if ($company->id) {
-            $companyEloquent = CompanyEloquentModel::query()->find($company->id);
+            $companyEloquent = CompanyEloquentModel::query()->findOrFail($company->id);
         }
         $companyEloquent->fiscal_name = $company->fiscal_name;
         $companyEloquent->social_name = $company->social_name;

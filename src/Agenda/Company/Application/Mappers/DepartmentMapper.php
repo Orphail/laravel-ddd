@@ -15,7 +15,7 @@ class DepartmentMapper
             id: $department_id,
             name: new Name($request->input('name')),
             address_id: $request->input('address_id'),
-            is_active: $request->input('is_active'),
+            is_active: $request->boolean('is_active', true),
         );
     }
 
@@ -29,13 +29,13 @@ class DepartmentMapper
         );
     }
 
-    public static function fromEloquent(DepartmentEloquentModel $departmentEloquentModel): Department
+    public static function fromEloquent(DepartmentEloquentModel $departmentEloquent): Department
     {
         return new Department(
-            id: $departmentEloquentModel->id,
-            name: new Name($departmentEloquentModel->name),
-            address_id: $departmentEloquentModel->address_id,
-            is_active: $departmentEloquentModel->is_active,
+            id: $departmentEloquent->id,
+            name: new Name($departmentEloquent->name),
+            address_id: $departmentEloquent->address_id,
+            is_active: $departmentEloquent->is_active,
         );
     }
 
@@ -43,7 +43,7 @@ class DepartmentMapper
     {
         $departmentEloquent = new DepartmentEloquentModel();
         if ($department->id) {
-            $departmentEloquent = DepartmentEloquentModel::query()->find($department->id);
+            $departmentEloquent = DepartmentEloquentModel::query()->findOrFail($department->id);
         }
         $departmentEloquent->address_id = $department->address_id;
         $departmentEloquent->name = $department->name;

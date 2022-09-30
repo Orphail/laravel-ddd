@@ -2,6 +2,8 @@
 
 namespace Src\Agenda\Company\Application\Repositories\Eloquent;
 
+use Illuminate\Support\Facades\DB;
+use Src\Agenda\Company\Application\DTO\CompanyData;
 use Src\Agenda\Company\Application\DTO\CompanyWithMainAddressData;
 use Src\Agenda\Company\Application\Mappers\AddressMapper;
 use Src\Agenda\Company\Application\Mappers\CompanyMapper;
@@ -32,18 +34,18 @@ class CompanyRepository implements CompanyRepositoryInterface
 
     public function store(Company $company): Company
     {
-        $companyEloquent = CompanyMapper::toEloquent($company);
-        $companyEloquent->save();
-
-        foreach ($company->addresses as $address) {
-            $addressEloquent = AddressMapper::toEloquent($address);
-            $addressEloquent->company_id = $companyEloquent->id;
-            $addressEloquent->save();
-        }
-
-        return CompanyMapper::fromEloquent($companyEloquent, true, true);
+        return DB::transaction(function () use ($company) {
+            $companyEloquent = CompanyMapper::toEloquent($company);
+            $companyEloquent->save();
+            foreach ($company->addresses as $address) {
+                $addressEloquent = AddressMapper::toEloquent($address);
+                $addressEloquent->company_id = $companyEloquent->id;
+                $addressEloquent->save();
+            }
+            return CompanyMapper::fromEloquent($companyEloquent, true, true);
+        });
     }
-    public function update(Company $company): void
+    public function update(CompanyData $company): void
     {
         $companyArray = $company->toArray();
         $companyEloquent = CompanyEloquentModel::query()->findOrFail($company->id);

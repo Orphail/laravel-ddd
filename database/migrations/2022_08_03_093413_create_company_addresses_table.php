@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('company_addresses', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('company_id');
+            $table->string('name');
             $table->enum('type', ['fiscal', 'logistic', 'administrative']);
             $table->string('street');
             $table->string('zip_code');

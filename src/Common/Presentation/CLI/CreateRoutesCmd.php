@@ -2,25 +2,25 @@
 
 namespace Src\Common\Presentation\CLI;
 
-use Illuminate\Console\Command as Cmd;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
-class CreateQueryCmd extends Cmd
+class CreateRoutesCmd extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'make:query {boundedContext} {domainName} {queryName}';
+    protected $signature = 'make:routes {boundedContext} {domainName}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Creates a new query in the specified domain';
+    protected $description = 'Creates a new router in the specified domain';
 
     /**
      * Execute the console command.
@@ -31,17 +31,14 @@ class CreateQueryCmd extends Cmd
     {
         $boundedContext = $this->argument('boundedContext');
         $domainName = $this->argument('domainName');
-        $queryName = $this->argument('queryName');
 
-        $path = 'src/' . $boundedContext . '/' . $domainName . '/Application/UseCases/Queries/' . $queryName . '.php';
+        $path = 'src/' . $boundedContext . '/' . $domainName . '/Presentation/HTTP/routes.php';
 
-        $stub = File::get('./stubs/Query.stub');
+        $stub = File::get('./stubs/routes.stub');
         $stubReplace = [
             '**BoundedContext**' => $boundedContext,
             '**Domain**' => $domainName,
-            '**QueryName**' => $queryName,
             '**domain_lc**' => Str::snake($domainName),
-            '**action**' => Str::camel(preg_replace('/(' . $domainName . ')?Query/', '', $queryName)),
         ];
 
         $file = strtr($stub, $stubReplace);
