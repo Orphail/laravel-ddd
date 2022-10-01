@@ -1,12 +1,12 @@
 <?php
 
-namespace Src\Agenda\User\Application\UseCases\Commands;
+namespace Src\Agenda\User\Application\UseCases\Queries;
 
 use Src\Agenda\User\Domain\Policies\UserPolicy;
 use Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface;
-use Src\Common\Domain\CommandInterface;
+use Src\Common\Domain\QueryInterface;
 
-class GetRandomAvatarCommand implements CommandInterface
+class GetRandomAvatarQuery implements QueryInterface
 {
     private AvatarRepositoryInterface $avatarRepository;
 
@@ -15,7 +15,7 @@ class GetRandomAvatarCommand implements CommandInterface
         $this->avatarRepository = app()->make(AvatarRepositoryInterface::class);
     }
 
-    public function execute(): ?string
+    public function handle(): ?string
     {
         authorize('getRandomAvatar', UserPolicy::class);
         return $this->avatarRepository->getRandomAvatar()->binary_data;
