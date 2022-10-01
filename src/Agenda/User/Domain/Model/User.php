@@ -11,7 +11,7 @@ use Src\Agenda\User\Domain\Model\ValueObjects\CompanyId;
 use Src\Agenda\User\Domain\Model\ValueObjects\Name;
 use Src\Common\Domain\AggregateRoot;
 
-class User extends AggregateRoot implements \JsonSerializable
+class User extends AggregateRoot
 {
     public function __construct(
         public readonly ?int $id,
@@ -47,10 +47,5 @@ class User extends AggregateRoot implements \JsonSerializable
             'is_admin' => $this->is_admin,
             'is_active' => $this->is_active,
         ];
-    }
-
-    public function jsonSerialize(): array
-    {
-        return $this->toArray();
     }
 }

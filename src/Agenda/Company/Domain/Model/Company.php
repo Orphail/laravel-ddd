@@ -15,7 +15,7 @@ use Src\Agenda\Company\Domain\Model\ValueObjects\SocialName;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Vat;
 use Src\Common\Domain\AggregateRoot;
 
-class Company extends AggregateRoot implements \JsonSerializable
+class Company extends AggregateRoot
 {
     public function __construct(
         public readonly ?int $id,
@@ -85,10 +85,5 @@ class Company extends AggregateRoot implements \JsonSerializable
             'contacts' => $this->contacts,
             'is_active' => $this->is_active,
         ];
-    }
-
-    public function jsonSerialize(): array
-    {
-        return $this->toArray();
     }
 }
