@@ -2,13 +2,20 @@
 
 namespace Src\Agenda\User\Domain\Model\ValueObjects;
 
-final class Avatar implements \JsonSerializable
+use Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface;
+use Src\Common\Domain\ValueObject;
+
+final class Avatar extends ValueObject
 {
     public function __construct(
         public ?string $binary_data,
         public ?string $filename
     )
-    {}
+    {
+        if (!$this->binary_data && $this->filename) {
+            $this->binary_data = app()->make(AvatarRepositoryInterface::class)->retrieveAvatarFile($this);
+        }
+    }
 
     public function setBinaryData(?string $binary_data): void
     {

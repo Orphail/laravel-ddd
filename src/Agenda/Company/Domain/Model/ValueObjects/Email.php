@@ -6,8 +6,9 @@ namespace Src\Agenda\Company\Domain\Model\ValueObjects;
 
 use Src\Common\Domain\Exceptions\IncorrectEmailFormatException;
 use Src\Common\Domain\Exceptions\RequiredException;
+use Src\Common\Domain\ValueObject;
 
-final class Email implements \JsonSerializable
+final class Email extends ValueObject
 {
     private string $email;
 

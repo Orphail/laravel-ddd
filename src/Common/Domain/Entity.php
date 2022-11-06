@@ -2,7 +2,7 @@
 
 namespace Src\Common\Domain;
 
-abstract class AggregateRoot implements \JsonSerializable
+abstract class Entity implements \JsonSerializable
 {
     abstract public function toArray(): array;
 

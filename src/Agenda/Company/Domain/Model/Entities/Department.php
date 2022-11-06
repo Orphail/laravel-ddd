@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Src\Agenda\Company\Domain\Model\Entities;
 
 use Src\Agenda\Company\Domain\Model\ValueObjects\Name;
+use Src\Common\Domain\Entity;
 
-class Department implements \JsonSerializable
+class Department extends Entity
 {
     public function __construct(
         public readonly ?int $id,
@@ -23,10 +24,5 @@ class Department implements \JsonSerializable
             'address_id' => $this->address_id,
             'is_active' => $this->is_active
         ];
-    }
-
-    public function jsonSerialize(): array
-    {
-        return $this->toArray();
     }
 }

@@ -4,8 +4,9 @@ namespace Src\Agenda\Company\Domain\Model\ValueObjects;
 
 use Src\Agenda\Company\Domain\Model\Entities\Department;
 use Src\Common\Domain\Exceptions\EntityNotFoundException;
+use Src\Common\Domain\ValueObjectArray;
 
-final class Departments extends \ArrayIterator implements \JsonSerializable
+final class Departments extends ValueObjectArray
 {
     public readonly array $departments;
 

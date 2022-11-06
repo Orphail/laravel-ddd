@@ -4,7 +4,6 @@ namespace Src\Agenda\Company\Domain\Factories;
 
 use Src\Agenda\Company\Domain\Model\Company;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Addresses;
-use Src\Agenda\Company\Domain\Model\ValueObjects\AddressType;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Contacts;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Departments;
 use Src\Agenda\Company\Domain\Model\ValueObjects\FiscalName;
@@ -22,8 +21,8 @@ class CompanyFactory
             'fiscal_name' => fake()->name,
             'social_name' => fake()->company,
             'vat' => fake()->bothify('?#########'),
-            'addresses' => [AddressFactory::new(['type' => AddressType::Fiscal])],
             'is_active' => true,
+            'main_address' => AddressFactory::new(),
         ];
 
         $attributes = array_replace($defaults, $attributes);
@@ -33,7 +32,7 @@ class CompanyFactory
             fiscal_name: new FiscalName($attributes['fiscal_name']),
             social_name: new SocialName($attributes['social_name']),
             vat: new Vat($attributes['vat']),
-            addresses: new Addresses($attributes['addresses']),
+            addresses: new Addresses([$attributes['main_address']]),
             departments: new Departments([]),
             contacts: new Contacts([]),
             is_active: $attributes['is_active'],

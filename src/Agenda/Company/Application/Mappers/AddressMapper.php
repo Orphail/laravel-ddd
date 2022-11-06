@@ -20,30 +20,22 @@ class AddressMapper
     {
         return new Address(
             id: $address_id,
-            name: new Name($request->input('name')),
-            type: AddressType::from($request->input('type')),
-            street: new Street($request->input('street')),
-            zip_code: new ZipCode($request->input('zip_code')),
-            city: new City($request->input('city')),
-            country: new Country($request->input('country')),
-            phone: new Phone($request->input('phone'), true),
-            email: new Email($request->input('email'), true),
+            name: new Name($request->string('name')),
+            type: $request->enum('type', AddressType::class),
+            street: new Street($request->string('street')),
+            zip_code: new ZipCode($request->string('zip_code')),
+            city: new City($request->string('city')),
+            country: new Country($request->string('country')),
+            phone: new Phone($request->string('phone'), true),
+            email: new Email($request->string('email'), true),
         );
     }
 
     public static function fromArray(array $address): Address
     {
-        return new Address(
-            id: $address['id'] ?? null,
-            name: new Name($address['name']),
-            type: AddressType::from($address['type']),
-            street: new Street($address['street']),
-            zip_code: new ZipCode($address['zip_code']),
-            city: new City($address['city']),
-            country: new Country($address['country']),
-            phone: new Phone($address['phone'], true),
-            email: new Email($address['email'], true),
-        );
+        $addressEloquentModel = new AddressEloquentModel($address);
+        $addressEloquentModel->id = $address['id'] ?? null;
+        return self::fromEloquent($addressEloquentModel);
     }
 
     public static function fromEloquent(AddressEloquentModel $addressEloquent): Address

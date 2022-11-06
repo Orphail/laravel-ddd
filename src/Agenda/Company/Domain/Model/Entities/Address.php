@@ -12,8 +12,9 @@ use Src\Agenda\Company\Domain\Model\ValueObjects\Phone;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Street;
 use Src\Agenda\Company\Domain\Model\ValueObjects\ZipCode;
 use Src\Agenda\User\Domain\Model\ValueObjects\Email;
+use Src\Common\Domain\Entity;
 
-class Address implements \JsonSerializable
+class Address extends Entity
 {
     public function __construct(
         public readonly ?int $id,
@@ -40,10 +41,5 @@ class Address implements \JsonSerializable
             'phone' => $this->phone,
             'email' => $this->email
         ];
-    }
-
-    public function jsonSerialize(): array
-    {
-        return $this->toArray();
     }
 }

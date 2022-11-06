@@ -9,7 +9,6 @@ use Src\Agenda\User\Domain\Model\ValueObjects\Avatar;
 use Src\Agenda\User\Domain\Model\ValueObjects\CompanyId;
 use Src\Agenda\User\Domain\Model\ValueObjects\Email;
 use Src\Agenda\User\Domain\Model\ValueObjects\Name;
-use Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface;
 use Src\Agenda\User\Infrastructure\EloquentModels\UserEloquentModel;
 
 class UserMapper
@@ -18,19 +17,18 @@ class UserMapper
     {
         return new User(
             id: $user_id,
-            name: new Name($request->input('name')),
-            email: new Email($request->input('email')),
+            name: new Name($request->string('name')),
+            email: new Email($request->string('email')),
             company_id: new CompanyId($request->input('company_id')),
-            avatar: new Avatar(binary_data: $request->input('avatar'), filename: null),
-            is_admin: $request->input('is_admin') ?? false,
-            is_active: $request->input('is_active') ?? true,
+            avatar: new Avatar(binary_data: $request->string('avatar'), filename: null),
+            is_admin: $request->boolean('is_admin', false),
+            is_active: $request->boolean('is_active', true),
         );
     }
 
     public static function fromEloquent(UserEloquentModel $userEloquent): User
     {
-        $avatarRepository = app()->make(AvatarRepositoryInterface::class);
-        $avatar = $avatarRepository->retrieveAvatarFile(new Avatar(binary_data: null, filename: $userEloquent->avatar));
+        $avatar = new Avatar(binary_data: null, filename: $userEloquent->avatar);
         return new User(
             id: $userEloquent->id,
             name: new Name($userEloquent->name),
@@ -44,8 +42,7 @@ class UserMapper
 
     public static function fromAuth(Authenticatable $userEloquent): User
     {
-        $avatarRepository = app()->make(AvatarRepositoryInterface::class);
-        $avatar = $avatarRepository->retrieveAvatarFile(new Avatar(binary_data: null, filename: $userEloquent->avatar));
+        $avatar = new Avatar(binary_data: null, filename: $userEloquent->avatar);
         return new User(
             id: $userEloquent->id,
             name: new Name($userEloquent->name),
@@ -61,7 +58,7 @@ class UserMapper
     {
         $userEloquent = new UserEloquentModel();
         if ($user->id) {
-            $userEloquent = UserEloquentModel::query()->find($user->id);
+            $userEloquent = UserEloquentModel::query()->findOrFail($user->id);
         }
         $userEloquent->name = $user->name;
         $userEloquent->email = $user->email;

@@ -4,8 +4,9 @@ namespace Src\Agenda\Company\Domain\Model\ValueObjects;
 
 use Src\Agenda\Company\Domain\Exceptions\IncorrectVatFormatException;
 use Src\Common\Domain\Exceptions\RequiredException;
+use Src\Common\Domain\ValueObject;
 
-final class Vat implements \JsonSerializable
+final class Vat extends ValueObject
 {
     private string $vat;
 

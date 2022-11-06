@@ -12,9 +12,9 @@ class GetRandomAvatarController
     public function __invoke(): JsonResponse
     {
         try {
-            return response()->json((new GetRandomAvatarQuery())->handle());
+            return response()->success((new GetRandomAvatarQuery())->handle());
         } catch (UnauthorizedUserException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return response()->error($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 }

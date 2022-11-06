@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Agenda\Company\Domain\Factories\AddressFactory;
 use Src\Agenda\Company\Domain\Model\ValueObjects\AddressType;
 use Src\Agenda\Company\Domain\Model\ValueObjects\ContactRole;
@@ -57,23 +56,21 @@ class CompanyTest extends TestCase
             'social_name' => $this->faker->company,
             'vat' => $this->faker->bothify('?#########'),
             'is_active' => $this->faker->boolean,
-            'addresses' => [
-                AddressFactory::new()->toArray(),
-                AddressFactory::new(['type' => AddressType::Logistic])->toArray()
-            ]
+            'main_address' => AddressFactory::new()->toArray(),
         ];
 
         $expectedResponse = [
-            'id' => 2, // +1 for the non-admin user
             'fiscal_name' => $requestBody['fiscal_name'],
             'social_name' => $requestBody['social_name'],
             'vat' => $requestBody['vat'],
-            'addresses' => $requestBody['addresses'],
+            'main_address' => $requestBody['main_address'],
+            'num_addresses' => 1,
+            'num_contacts' => 0,
+            'num_departments' => 0,
             'is_active' => $requestBody['is_active']
         ];
 
-        unset($expectedResponse['addresses'][0]['id']);
-        unset($expectedResponse['addresses'][1]['id']);
+        unset($expectedResponse['main_address']['id']);
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
             ->post($this->company_uri, $requestBody)
@@ -95,7 +92,7 @@ class CompanyTest extends TestCase
             'social_name' => $this->faker->company,
             'vat' => 'invalidvat',
             'is_active' => $this->faker->boolean,
-            'addresses' => [AddressFactory::new()->toArray()]
+            'main_address' => AddressFactory::new()->toArray()
         ];
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
@@ -111,22 +108,24 @@ class CompanyTest extends TestCase
         $company_ids = $this->createRandomCompanies($numberCompanies);
         $randomCompanyId = $this->faker->randomElement($company_ids);
 
-        $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
+        $company = $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
             ->get($this->company_uri . '/' . $randomCompanyId)
             ->assertStatus(Response::HTTP_OK)
-            ->assertJsonStructure(['id', 'fiscal_name', 'social_name', 'vat', 'is_active']);
+            ->assertJsonStructure(['id', 'main_address', 'social_name', 'vat', 'is_active']);
 
         $requestBody = [
             'fiscal_name' => $this->faker->name,
             'social_name' => $this->faker->company,
-            'vat' => $this->faker->bothify('?#########'),
+            'vat' => $company->json()['vat'],
             'is_active' => $this->faker->boolean,
+            'main_address' => AddressFactory::new()->toArray()
         ];
 
         $expectedResponse = [
             'id' => $randomCompanyId,
             'fiscal_name' => $requestBody['fiscal_name'],
             'social_name' => $requestBody['social_name'],
+            'main_address' => $requestBody['main_address'],
             'vat' => $requestBody['vat'],
             'is_active' => $requestBody['is_active']
         ];
@@ -135,7 +134,7 @@ class CompanyTest extends TestCase
         unset($expectedResponse['addresses'][1]['id']);
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
-            ->patch($this->company_uri . '/' . $randomCompanyId, $requestBody)
+            ->put($this->company_uri . '/' . $randomCompanyId, $requestBody)
             ->assertStatus(Response::HTTP_OK)
             ->assertJson($expectedResponse);
 
@@ -144,11 +143,11 @@ class CompanyTest extends TestCase
             'social_name' => $this->faker->company,
             'vat' => 'invalidvat',
             'is_active' => $this->faker->boolean,
-            'addresses' => [AddressFactory::new()->toArray()]
+            'main_address' => AddressFactory::new()->toArray()
         ];
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
-            ->patch($this->company_uri . '/' . $randomCompanyId, $requestBodyInvalidVat)
+            ->put($this->company_uri . '/' . $randomCompanyId, $requestBodyInvalidVat)
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJson(['error' => 'Vat must be valid']);
     }
@@ -173,7 +172,7 @@ class CompanyTest extends TestCase
     public function cannot_delete_company_if_does_not_exists()
     {
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
-            ->delete($this->company_uri . '/' . 3)
+            ->delete($this->company_uri . '/' . 99999)
             ->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
@@ -186,11 +185,11 @@ class CompanyTest extends TestCase
 
         $requestBody = [
             'name' => $this->faker->name,
-            'type' => $this->faker->randomElement(AddressType::cases())->value,
+            'type' => $this->faker->randomElement([AddressType::Administrative->value, AddressType::Logistic->value]),
             'street' => $this->faker->streetName(),
             'zip_code' => $this->faker->postcode(),
             'city' => $this->faker->city(),
-            'country' => $this->faker->country(),
+            'country' => $this->faker->countryCode(),
             'phone' => $this->faker->phoneNumber(),
             'email' => $this->faker->safeEmail(),
         ];
@@ -205,7 +204,7 @@ class CompanyTest extends TestCase
             ->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure(['id', 'fiscal_name', 'social_name', 'vat', 'addresses', 'contacts', 'departments', 'is_active']);
 
-        $address = $company->json('addresses')[1];
+        $address = $company->json('addresses')[0];
         unset($address['id']);
         unset($address['company_id']);
         $this->assertEquals($requestBody, $address);
@@ -221,11 +220,11 @@ class CompanyTest extends TestCase
 
         $requestBody = [
             'name' => $this->faker->name,
-            'type' => $this->faker->randomElement(AddressType::cases())->value,
+            'type' => $this->faker->randomElement([AddressType::Administrative->value, AddressType::Logistic->value]),
             'street' => $this->faker->streetName(),
             'zip_code' => $this->faker->postcode(),
             'city' => $this->faker->city(),
-            'country' => $this->faker->country(),
+            'country' => $this->faker->countryCode(),
             'phone' => $this->faker->phoneNumber(),
             'email' => $this->faker->safeEmail(),
         ];
@@ -240,7 +239,7 @@ class CompanyTest extends TestCase
             ->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure(['id', 'fiscal_name', 'social_name', 'vat', 'addresses', 'contacts', 'departments', 'is_active']);
 
-        $address = $company->json('addresses')[1];
+        $address = $company->json('addresses')[0];
         unset($address['id']);
         unset($address['company_id']);
         $this->assertEquals($requestBody, $address);
@@ -264,7 +263,7 @@ class CompanyTest extends TestCase
             ->assertJsonStructure(['id', 'fiscal_name', 'social_name', 'vat', 'addresses', 'contacts', 'departments', 'is_active']);
 
         $addresses = $company->json('addresses');
-        $this->assertCount(1, $addresses);
+        $this->assertEquals([], $addresses);
     }
 
     /** @test */
@@ -472,6 +471,7 @@ class CompanyTest extends TestCase
             'social_name' => $this->faker->company,
             'vat' => $this->faker->bothify('?#########'),
             'is_active' => $this->faker->boolean,
+            'main_address' => AddressFactory::new()->toArray()
         ];
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
@@ -497,10 +497,11 @@ class CompanyTest extends TestCase
             'social_name' => $this->faker->company,
             'vat' => $this->faker->bothify('?#########'),
             'is_active' => $this->faker->boolean,
+            'main_address' => AddressFactory::new()->toArray()
         ];
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->userToken])
-            ->patch($this->company_uri . '/' . $randomCompanyId, $requestBody)
+            ->put($this->company_uri . '/' . $randomCompanyId, $requestBody)
             ->assertStatus(Response::HTTP_UNAUTHORIZED)
             ->assertSee(['error' => 'The user is not authorized to access this resource or perform this action']);
     }

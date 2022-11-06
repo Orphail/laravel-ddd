@@ -20,18 +20,18 @@ class UserController extends Controller
     public function index(): JsonResponse
     {
         try {
-            return response()->json((new FindAllUsersQuery())->handle());
+            return response()->success((new FindAllUsersQuery())->handle());
         } catch (UnauthorizedUserException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return response()->error($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 
     public function show(int $id): JsonResponse
     {
         try {
-            return response()->json((new FindUserByIdQuery($id))->handle());
+            return response()->success((new FindUserByIdQuery($id))->handle());
         } catch (UnauthorizedUserException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return response()->error($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -42,11 +42,11 @@ class UserController extends Controller
             $userData->validateNonAdminWithCompany();
             $password = new Password($request->input('password'), $request->input('password_confirmation'));
             $user = (new StoreUserCommand($userData, $password))->execute();
-            return response()->json($user->toArray(), Response::HTTP_CREATED);
+            return response()->success($user->toArray(), Response::HTTP_CREATED);
         } catch (\DomainException $domainException) {
-            return response()->json(['error' => $domainException->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->error($domainException->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (UnauthorizedUserException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return response()->error($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -56,11 +56,11 @@ class UserController extends Controller
             $user = UserMapper::fromRequest($request, $user_id);
             $password = new Password($request->input('password'), $request->input('password_confirmation'));
             (new UpdateUserCommand($user, $password))->execute();
-            return response()->json($user->toArray(), Response::HTTP_OK);
+            return response()->success($user->toArray());
         } catch (\DomainException $domainException) {
-            return response()->json(['error' => $domainException->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->error($domainException->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (UnauthorizedUserException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return response()->error($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -68,9 +68,9 @@ class UserController extends Controller
     {
         try {
             (new DestroyUserCommand($user_id))->execute();
-            return response()->json(null, Response::HTTP_NO_CONTENT);
+            return response()->success(null, Response::HTTP_NO_CONTENT);
         } catch (UnauthorizedUserException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return response()->error($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 }

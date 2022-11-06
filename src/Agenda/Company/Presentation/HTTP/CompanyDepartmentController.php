@@ -21,11 +21,11 @@ class CompanyDepartmentController
             $department = DepartmentMapper::fromRequest($request);
             $company->addDepartment($department);
             $departmentData = (new PersistDepartmentsCommand($company))->execute();
-            return response()->json($departmentData->toArray(), Response::HTTP_OK);
+            return response()->success($departmentData->toArray());
         } catch (\DomainException $domainException) {
-            return response()->json(['error' => $domainException->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->error($domainException->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (UnauthorizedUserException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return response()->error($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -37,11 +37,11 @@ class CompanyDepartmentController
             $department = DepartmentMapper::fromRequest($request, $department_id);
             $company->updateDepartment($department);
             (new PersistDepartmentsCommand($company))->execute();
-            return response()->json($department->toArray(), Response::HTTP_OK);
+            return response()->success($department->toArray());
         } catch (\DomainException $domainException) {
-            return response()->json(['error' => $domainException->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->error($domainException->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (UnauthorizedUserException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return response()->error($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -51,9 +51,9 @@ class CompanyDepartmentController
             $company = (new FindCompanyByIdQuery($company_id))->handle();
             $company->removeDepartment($department_id);
             (new RemoveDepartmentCommand($department_id))->execute();
-            return response()->json(null, Response::HTTP_NO_CONTENT);
+            return response()->success(null, Response::HTTP_NO_CONTENT);
         } catch (UnauthorizedUserException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return response()->error($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 

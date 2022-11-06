@@ -16,24 +16,19 @@ class ContactMapper
     {
         return new Contact(
             id: $contact_id,
-            contact_role: ContactRole::from($request->input('contact_role')),
-            name: new Name($request->input('name')),
-            email: new Email($request->input('email')),
-            phone: new Phone($request->input('phone')),
+            contact_role: $request->enum('contact_role', ContactRole::class),
+            name: new Name($request->string('name')),
+            email: new Email($request->string('email')),
+            phone: new Phone($request->string('phone')),
             address_id: $request->input('address_id'),
         );
     }
 
     public static function fromArray(array $contact): Contact
     {
-        return new Contact(
-            id: $contact['id'] ?? null,
-            contact_role: ContactRole::from($contact['contact_role']),
-            name: new Name($contact['name']),
-            email: new Email($contact['email']),
-            phone: new Phone($contact['phone']),
-            address_id: $contact['address_id'] ?? null,
-        );
+        $contactEloquentModel = new ContactEloquentModel($contact);
+        $contactEloquentModel->id = $contact['id'] ?? null;
+        return self::fromEloquent($contactEloquentModel);
     }
 
     public static function fromEloquent(ContactEloquentModel $contactEloquent): Contact

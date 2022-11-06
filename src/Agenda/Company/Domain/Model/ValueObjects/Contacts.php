@@ -4,8 +4,9 @@ namespace Src\Agenda\Company\Domain\Model\ValueObjects;
 
 use Src\Agenda\Company\Domain\Model\Entities\Contact;
 use Src\Common\Domain\Exceptions\EntityNotFoundException;
+use Src\Common\Domain\ValueObjectArray;
 
-final class Contacts extends \ArrayIterator implements \JsonSerializable
+final class Contacts extends ValueObjectArray
 {
     public readonly array $contacts;
 

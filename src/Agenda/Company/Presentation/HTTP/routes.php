@@ -12,7 +12,7 @@ Route::group([
     Route::get('index', [CompanyController::class, 'index']);
     Route::get('{id}', [CompanyController::class, 'show']);
     Route::post('', [CompanyController::class, 'store']);
-    Route::patch('{id}', [CompanyController::class, 'update']);
+    Route::put('{id}', [CompanyController::class, 'update']);
     Route::delete('{id}', [CompanyController::class, 'destroy']);
 
     Route::post('{id}/address', [CompanyAddressController::class, 'add']);

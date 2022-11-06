@@ -4,8 +4,9 @@ namespace Src\Agenda\Company\Domain\Model\ValueObjects;
 
 use Src\Agenda\Company\Domain\Model\Entities\Address;
 use Src\Common\Domain\Exceptions\EntityNotFoundException;
+use Src\Common\Domain\ValueObjectArray;
 
-final class Addresses extends \ArrayIterator implements \JsonSerializable
+final class Addresses extends ValueObjectArray
 {
     public readonly array $addresses;
 
@@ -18,7 +19,7 @@ final class Addresses extends \ArrayIterator implements \JsonSerializable
                 throw new \InvalidArgumentException('Invalid address');
             }
         }
-        $this->addresses = $addresses;
+        $this->addresses = array_values($addresses);
     }
 
     public function add(Address $address): void
@@ -42,6 +43,22 @@ final class Addresses extends \ArrayIterator implements \JsonSerializable
             throw new EntityNotFoundException('Address not found');
         }
         $this->offsetUnset(array_search($address_id, $addressIds));
+    }
+
+    public function getMainAddress(): ?Address
+    {
+        $mainAddress = array_filter($this->addresses, function ($address) {
+            return $address->type === AddressType::Fiscal;
+        });
+        return $mainAddress ? array_shift($mainAddress) : null;
+    }
+
+    public function getOtherAddresses(): Addresses
+    {
+        $otherAddresses = array_filter($this->addresses, function ($address) {
+            return $address->type !== AddressType::Fiscal;
+        });
+        return new Addresses($otherAddresses);
     }
 
     public function __toString(): string

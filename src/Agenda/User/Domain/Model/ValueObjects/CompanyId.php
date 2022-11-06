@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Src\Agenda\User\Domain\Model\ValueObjects;
 
-final class CompanyId implements \JsonSerializable
+use Src\Common\Domain\ValueObject;
+
+final class CompanyId extends ValueObject
 {
     public readonly ?int $value;
 

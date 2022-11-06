@@ -21,11 +21,11 @@ class CompanyContactController
             $contact = ContactMapper::fromRequest($request);
             $company->addContact($contact);
             $contactData = (new PersistContactsCommand($company))->execute();
-            return response()->json($contactData->toArray(), Response::HTTP_OK);
+            return response()->success($contactData->toArray());
         } catch (\DomainException $domainException) {
-            return response()->json(['error' => $domainException->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->error($domainException->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (UnauthorizedUserException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return response()->error($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -37,11 +37,11 @@ class CompanyContactController
             $contact = ContactMapper::fromRequest($request, $contact_id);
             $company->updateContact($contact);
             (new PersistContactsCommand($company))->execute();
-            return response()->json($contact->toArray(), Response::HTTP_OK);
+            return response()->success($contact->toArray());
         } catch (\DomainException $domainException) {
-            return response()->json(['error' => $domainException->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->error($domainException->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (UnauthorizedUserException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return response()->error($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -51,9 +51,9 @@ class CompanyContactController
             $company = (new FindCompanyByIdQuery($company_id))->handle();
             $company->removeContact($contact_id);
             (new RemoveContactCommand($contact_id))->execute();
-            return response()->json(null, Response::HTTP_NO_CONTENT);
+            return response()->success(null, Response::HTTP_NO_CONTENT);
         } catch (UnauthorizedUserException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return response()->error($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 }

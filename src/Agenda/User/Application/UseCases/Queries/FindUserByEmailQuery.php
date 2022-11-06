@@ -20,6 +20,6 @@ class FindUserByEmailQuery implements QueryInterface
     public function handle(): array
     {
         authorize('findByEmail', UserPolicy::class);
-        return $this->repository->findByEmail($this->email)->toArray();
+        return $this->repository->findByEmail($this->email);
     }
 }

@@ -16,14 +16,16 @@ class CompanyMapper
 {
     public static function fromRequest(Request $request, ?int $company_id = null): Company
     {
+        $main_address = $request->input('main_address');
+        $addresses = [$main_address, ...$request->input('addresses', [])];
         return new Company(
             id: $company_id,
-            fiscal_name: new FiscalName($request->input('fiscal_name')),
-            social_name: new SocialName($request->input('social_name')),
-            vat: new Vat($request->input('vat')),
+            fiscal_name: new FiscalName($request->string('fiscal_name')),
+            social_name: new SocialName($request->string('social_name')),
+            vat: new Vat($request->string('vat')),
             addresses: new Addresses(array_map(function ($address) {
                 return AddressMapper::fromArray($address);
-            }, $request->input('addresses', []))),
+            }, $addresses)),
             departments: new Departments(array_map(function ($department) {
                 return DepartmentMapper::fromArray($department);
             }, $request->input('departments', []))),

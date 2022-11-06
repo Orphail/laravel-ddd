@@ -11,7 +11,7 @@ interface AvatarRepositoryInterface
 
     public function storeAvatarFile(Avatar $avatar): ?string;
 
-    public function retrieveAvatarFile(Avatar $avatar): Avatar;
+    public function retrieveAvatarFile(Avatar $avatar): ?string;
 
     public function deleteAvatarFile(Avatar $avatar): void;
 }

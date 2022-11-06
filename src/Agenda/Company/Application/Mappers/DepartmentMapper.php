@@ -13,7 +13,7 @@ class DepartmentMapper
     {
         return new Department(
             id: $department_id,
-            name: new Name($request->input('name')),
+            name: new Name($request->string('name')),
             address_id: $request->input('address_id'),
             is_active: $request->boolean('is_active', true),
         );
@@ -21,12 +21,9 @@ class DepartmentMapper
 
     public static function fromArray(array $department): Department
     {
-        return new Department(
-            id: $department['id'] ?? null,
-            name: new Name($department['name']),
-            address_id: $department['address_id'] ?? null,
-            is_active: $department['is_active'],
-        );
+        $departmentEloquentModel = new DepartmentEloquentModel($department);
+        $departmentEloquentModel->id = $department['id'] ?? null;
+        return self::fromEloquent($departmentEloquentModel);
     }
 
     public static function fromEloquent(DepartmentEloquentModel $departmentEloquent): Department

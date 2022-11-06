@@ -20,6 +20,6 @@ class FindCompanyByVatQuery implements QueryInterface
     public function handle(): array
     {
         authorize('findByVat', CompanyPolicy::class);
-        return $this->repository->findByVat($this->vat)->toArray();
+        return $this->repository->findByVat($this->vat);
     }
 }

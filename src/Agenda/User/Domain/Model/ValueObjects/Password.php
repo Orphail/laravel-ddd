@@ -6,10 +6,11 @@ namespace Src\Agenda\User\Domain\Model\ValueObjects;
 
 use Src\Agenda\User\Domain\Exceptions\PasswordsDoNotMatchException;
 use Src\Agenda\User\Domain\Exceptions\PasswordTooShortException;
+use Src\Common\Domain\ValueObject;
 
-final class Password
+final class Password extends ValueObject
 {
-    private ?string $password;
+    public readonly ?string $value;
 
     public function __construct(?string $password, ?string $confirmation)
     {
@@ -21,7 +22,7 @@ final class Password
             throw new PasswordsDoNotMatchException();
         }
 
-        $this->password = $password;
+        $this->value = $password;
     }
 
     public static function fromString(string $password, string $confirmation): self
@@ -29,13 +30,13 @@ final class Password
         return new self($password, $confirmation);
     }
 
-    public function value(): string
-    {
-        return $this->password;
-    }
-
     public function isNotEmpty(): bool
     {
-        return $this->password !== null;
+        return $this->value !== null;
+    }
+
+    public function jsonSerialize(): string
+    {
+        return '';
     }
 }

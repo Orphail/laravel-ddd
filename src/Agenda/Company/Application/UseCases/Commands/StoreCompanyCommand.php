@@ -2,6 +2,7 @@
 
 namespace Src\Agenda\Company\Application\UseCases\Commands;
 
+use Src\Agenda\Company\Application\DTO\CompanyWithMainAddressData;
 use Src\Agenda\Company\Application\Exceptions\VatAlreadyUsedException;
 use Src\Agenda\Company\Domain\Model\Company;
 use Src\Agenda\Company\Domain\Policies\CompanyPolicy;
@@ -20,7 +21,7 @@ class StoreCompanyCommand implements CommandInterface
         $this->repository = app()->make(CompanyRepositoryInterface::class);
     }
 
-    public function execute(): Company
+    public function execute(): CompanyWithMainAddressData
     {
         authorize('store', CompanyPolicy::class);
         if (CompanyEloquentModel::query()->where('vat', $this->company->vat)->exists()) {

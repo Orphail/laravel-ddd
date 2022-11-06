@@ -33,8 +33,8 @@ class UserRepository implements UserRepositoryInterface
 
     public function store(User $user, Password $password): User
     {
-        $userEloquent = new UserEloquentModel();
-        $userEloquent->fill(array_merge($user->toArray(), ['password' => $password->value()]));
+        $userEloquent = UserMapper::toEloquent($user);
+        $userEloquent->password = $password->value;
         $userEloquent->save();
 
         return UserMapper::fromEloquent($userEloquent);
@@ -42,12 +42,10 @@ class UserRepository implements UserRepositoryInterface
 
     public function update(User $user, Password $password): void
     {
-        $userArray = $user->toArray();
+        $userEloquent = UserMapper::toEloquent($user);
         if ($password->isNotEmpty()) {
-            $userArray['password'] = $password->value();
+            $userEloquent->password = $password->value;
         }
-        $userEloquent = UserEloquentModel::query()->findOrFail($user->id);
-        $userEloquent->fill($userArray);
         $userEloquent->save();
     }
 

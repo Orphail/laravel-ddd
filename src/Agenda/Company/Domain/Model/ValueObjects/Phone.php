@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Src\Agenda\Company\Domain\Model\ValueObjects;
 
 use Src\Common\Domain\Exceptions\RequiredException;
+use Src\Common\Domain\ValueObject;
 
-final class Phone implements \JsonSerializable
+final class Phone extends ValueObject
 {
     private string $name;
 

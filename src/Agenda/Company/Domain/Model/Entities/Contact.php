@@ -8,8 +8,9 @@ use Src\Agenda\Company\Domain\Model\ValueObjects\ContactRole;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Email;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Name;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Phone;
+use Src\Common\Domain\Entity;
 
-class Contact implements \JsonSerializable
+class Contact extends Entity
 {
     public function __construct(
         public ?int $id,
@@ -19,14 +20,6 @@ class Contact implements \JsonSerializable
         public readonly Phone $phone,
         public readonly ?int $address_id = null,
     ) {}
-
-    public function id(?int $newId = null): ?int
-    {
-        if ($newId) {
-            $this->id = $newId;
-        }
-        return $this->id;
-    }
 
     public function toArray(): array
     {
@@ -38,10 +31,5 @@ class Contact implements \JsonSerializable
             'phone' => $this->phone,
             'address_id' => $this->address_id,
         ];
-    }
-
-    public function jsonSerialize(): array
-    {
-        return $this->toArray();
     }
 }

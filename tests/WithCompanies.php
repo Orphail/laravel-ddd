@@ -15,14 +15,15 @@ use Src\Agenda\Company\Domain\Model\Company;
 use Src\Agenda\Company\Domain\Model\Entities\Address;
 use Src\Agenda\Company\Domain\Model\Entities\Contact;
 use Src\Agenda\Company\Domain\Model\Entities\Department;
+use Src\Agenda\Company\Domain\Model\ValueObjects\AddressType;
 
 trait WithCompanies
 {
     use WithFaker;
 
-    protected function newCompany(): Company
+    protected function newCompany($is_provider = false): Company
     {
-        $company = CompanyFactory::new();
+        $company = CompanyFactory::new(['is_provider' => $is_provider]);
         $companyEloquent = CompanyMapper::toEloquent($company);
         $companyEloquent->save();
         foreach ($company->addresses as $address) {
@@ -45,7 +46,7 @@ trait WithCompanies
 
     protected function createAddress(int $company_id): Address
     {
-        $address = AddressFactory::new();
+        $address = AddressFactory::new(['type' => $this->faker->randomElement([AddressType::Administrative->value, AddressType::Logistic->value])]);
         $addressEloquent = AddressMapper::toEloquent($address);
         $addressEloquent->company_id = $company_id;
         $addressEloquent->save();

@@ -32,17 +32,16 @@ class CompanyRepository implements CompanyRepositoryInterface
         return CompanyMapper::fromEloquent($companyEloquent, true, true, true);
     }
 
-    public function store(Company $company): Company
+    public function store(Company $company): CompanyWithMainAddressData
     {
         return DB::transaction(function () use ($company) {
             $companyEloquent = CompanyMapper::toEloquent($company);
             $companyEloquent->save();
-            foreach ($company->addresses as $address) {
-                $addressEloquent = AddressMapper::toEloquent($address);
-                $addressEloquent->company_id = $companyEloquent->id;
-                $addressEloquent->save();
-            }
-            return CompanyMapper::fromEloquent($companyEloquent, true, true);
+            $main_address = $company->getMainAddress();
+            $mainAddressEloquent = AddressMapper::toEloquent($main_address);
+            $mainAddressEloquent->company_id = $companyEloquent->id;
+            $mainAddressEloquent->save();
+            return CompanyWithMainAddressData::fromEloquent($companyEloquent);
         });
     }
     public function update(CompanyData $company): void

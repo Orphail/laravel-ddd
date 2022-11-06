@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Src\Agenda\User\Domain\Model\ValueObjects;
 
 use Src\Common\Domain\Exceptions\RequiredException;
+use Src\Common\Domain\ValueObject;
 
-final class Name implements \JsonSerializable
+final class Name extends ValueObject
 {
     private string $name;
 
@@ -14,7 +15,7 @@ final class Name implements \JsonSerializable
     {
 
         if (!$name) {
-            throw new RequiredException('nombre');
+            throw new RequiredException('name');
         }
 
         $this->name = $name;

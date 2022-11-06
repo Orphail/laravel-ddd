@@ -32,13 +32,13 @@ class AvatarRepository implements AvatarRepositoryInterface
         return $filename;
     }
 
-    public function retrieveAvatarFile(Avatar $avatar): Avatar
+    public function retrieveAvatarFile(Avatar $avatar): ?string
     {
         if ($avatar->fileExists()) {
             $fileData = Storage::disk('avatars')->get($avatar->filename);
-            $avatar->setBinaryData('data:image/' . $avatar->getExtension() . ';base64,' . base64_encode($fileData));
+            return 'data:image/' . $avatar->getExtension() . ';base64,' . base64_encode($fileData);
         }
-        return $avatar;
+        return null;
     }
 
     public function deleteAvatarFile(Avatar $avatar): void

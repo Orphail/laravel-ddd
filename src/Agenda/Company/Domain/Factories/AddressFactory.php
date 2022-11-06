@@ -21,11 +21,11 @@ class AddressFactory
         $defaults = [
             'id' => null,
             'name' => fake()->company,
-            'type' => AddressType::Fiscal,
+            'type' => AddressType::Fiscal->value,
             'street' => fake()->streetName(),
             'zip_code' => fake()->postcode(),
             'city' => fake()->city(),
-            'country' => fake()->country(),
+            'country' => fake()->countryCode(),
             'phone' => fake()->phoneNumber(),
             'email' => fake()->safeEmail(),
         ];
@@ -35,7 +35,7 @@ class AddressFactory
         return new Address(
             id: $attributes['id'],
             name: new Name($attributes['name']),
-            type: $attributes['type'],
+            type: AddressType::from($attributes['type']),
             street: new Street($attributes['street']),
             zip_code: new ZipCode($attributes['zip_code']),
             city: new City($attributes['city']),

@@ -32,27 +32,32 @@ class Company extends AggregateRoot
     {
         $this->addresses->add($address);
     }
-
     public function updateAddress(Address $newAddress): void
     {
         $this->addresses->update($newAddress);
     }
-
     public function removeAddress(int $address_id): void
     {
         $this->addresses->remove($address_id);
+    }
+
+    public function getMainAddress(): ?Address
+    {
+        return $this->addresses->getMainAddress();
+    }
+    public function getOtherAddresses(): Addresses
+    {
+        return $this->addresses->getOtherAddresses();
     }
 
     public function addDepartment(Department $department): void
     {
         $this->departments->add($department);
     }
-
     public function updateDepartment(Department $newDepartment): void
     {
         $this->departments->update($newDepartment);
     }
-
     public function removeDepartment(int $department_id): void
     {
         $this->departments->remove($department_id);
@@ -62,12 +67,10 @@ class Company extends AggregateRoot
     {
         $this->contacts->add($contact);
     }
-
     public function updateContact(Contact $newContact): void
     {
         $this->contacts->update($newContact);
     }
-
     public function removeContact(int $contact_id): void
     {
         $this->contacts->remove($contact_id);
@@ -80,7 +83,8 @@ class Company extends AggregateRoot
             'fiscal_name' => $this->fiscal_name,
             'social_name' => $this->social_name,
             'vat' => $this->vat,
-            'addresses' => $this->addresses,
+            'main_address' => $this->getMainAddress(),
+            'addresses' => $this->getOtherAddresses(),
             'departments' => $this->departments,
             'contacts' => $this->contacts,
             'is_active' => $this->is_active,

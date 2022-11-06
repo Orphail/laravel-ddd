@@ -21,11 +21,11 @@ class CompanyAddressController
             $address = AddressMapper::fromRequest($request);
             $company->addAddress($address);
             $addressData = (new PersistAddressesCommand($company))->execute();
-            return response()->json($addressData->toArray(), Response::HTTP_OK);
+            return response()->success($addressData->toArray());
         } catch (\DomainException $domainException) {
-            return response()->json(['error' => $domainException->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->error($domainException->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (UnauthorizedUserException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return response()->error($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -37,11 +37,11 @@ class CompanyAddressController
             $address = AddressMapper::fromRequest($request, $address_id);
             $company->updateAddress($address);
             (new PersistAddressesCommand($company))->execute();
-            return response()->json($address->toArray(), Response::HTTP_OK);
+            return response()->success($address->toArray());
         } catch (\DomainException $domainException) {
-            return response()->json(['error' => $domainException->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->error($domainException->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (UnauthorizedUserException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return response()->error($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -51,9 +51,9 @@ class CompanyAddressController
             $company = (new FindCompanyByIdQuery($company_id))->handle();
             $company->removeAddress($address_id);
             (new RemoveAddressCommand($address_id))->execute();
-            return response()->json(null, Response::HTTP_NO_CONTENT);
+            return response()->success(null, Response::HTTP_NO_CONTENT);
         } catch (UnauthorizedUserException $e) {
-            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
+            return response()->error($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 
