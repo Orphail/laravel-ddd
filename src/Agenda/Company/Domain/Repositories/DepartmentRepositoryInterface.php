@@ -7,6 +7,6 @@ use Src\Agenda\Company\Domain\Model\Entities\Department;
 
 interface DepartmentRepositoryInterface
 {
-    public function upsertAll(Company $company): Department;
+    public function upsertAll(Company $company): void;
     public function remove(int $department_id): void;
 }

@@ -7,6 +7,6 @@ use Src\Agenda\Company\Domain\Model\Entities\Address;
 
 interface AddressRepositoryInterface
 {
-    public function upsertAll(Company $company): Address;
+    public function upsertAll(Company $company): void;
     public function remove(int $address_id): void;
 }

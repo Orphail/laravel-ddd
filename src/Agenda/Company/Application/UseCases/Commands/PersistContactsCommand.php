@@ -19,9 +19,9 @@ class PersistContactsCommand implements CommandInterface
         $this->repository = app()->make(ContactRepositoryInterface::class);
     }
 
-    public function execute(): Contact
+    public function execute(): void
     {
         authorize('persistContacts', CompanyPolicy::class);
-        return $this->repository->upsertAll($this->company);
+        $this->repository->upsertAll($this->company);
     }
 }

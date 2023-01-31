@@ -20,8 +20,8 @@ class CompanyAddressController
 
             $address = AddressMapper::fromRequest($request);
             $company->addAddress($address);
-            $addressData = (new PersistAddressesCommand($company))->execute();
-            return response()->success($addressData->toArray());
+            (new PersistAddressesCommand($company))->execute();
+            return response()->success($address->toArray());
         } catch (\DomainException $domainException) {
             return response()->error($domainException->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (UnauthorizedUserException $e) {

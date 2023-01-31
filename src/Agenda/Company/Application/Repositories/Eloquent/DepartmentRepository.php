@@ -10,14 +10,13 @@ use Src\Agenda\Company\Infrastructure\EloquentModels\DepartmentEloquentModel;
 
 class DepartmentRepository implements DepartmentRepositoryInterface
 {
-    public function upsertAll(Company $company): Department
+    public function upsertAll(Company $company): void
     {
         foreach ($company->departments as $department) {
             $departmentEloquent = DepartmentMapper::toEloquent($department);
             $departmentEloquent->company_id = $company->id;
             $departmentEloquent->save();
         }
-        return DepartmentMapper::fromEloquent($departmentEloquent);
     }
     public function remove(int $department_id): void
     {

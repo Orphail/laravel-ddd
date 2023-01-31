@@ -3,6 +3,7 @@
 namespace Src\Agenda\Company\Application\Mappers;
 
 use Illuminate\Http\Request;
+use Src\Agenda\Company\Domain\Exceptions\RequiredMainAddressException;
 use Src\Agenda\Company\Domain\Model\Company;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Addresses;
 use Src\Agenda\Company\Domain\Model\ValueObjects\Contacts;
@@ -17,6 +18,9 @@ class CompanyMapper
     public static function fromRequest(Request $request, ?int $company_id = null): Company
     {
         $main_address = $request->input('main_address');
+        if (!$main_address) {
+            throw new RequiredMainAddressException();
+        }
         $addresses = [$main_address, ...$request->input('addresses', [])];
         return new Company(
             id: $company_id,

@@ -20,8 +20,8 @@ class CompanyContactController
 
             $contact = ContactMapper::fromRequest($request);
             $company->addContact($contact);
-            $contactData = (new PersistContactsCommand($company))->execute();
-            return response()->success($contactData->toArray());
+            (new PersistContactsCommand($company))->execute();
+            return response()->success($contact->toArray());
         } catch (\DomainException $domainException) {
             return response()->error($domainException->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (UnauthorizedUserException $e) {

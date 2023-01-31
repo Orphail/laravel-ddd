@@ -3,7 +3,6 @@
 namespace Src\Agenda\Company\Application\UseCases\Commands;
 
 use Src\Agenda\Company\Domain\Model\Company;
-use Src\Agenda\Company\Domain\Model\Entities\Address;
 use Src\Agenda\Company\Domain\Policies\CompanyPolicy;
 use Src\Agenda\Company\Domain\Repositories\AddressRepositoryInterface;
 use Src\Common\Domain\CommandInterface;
@@ -19,9 +18,9 @@ class PersistAddressesCommand implements CommandInterface
         $this->repository = app()->make(AddressRepositoryInterface::class);
     }
 
-    public function execute(): Address
+    public function execute(): void
     {
         authorize('persistAddresses', CompanyPolicy::class);
-        return $this->repository->upsertAll($this->company);
+        $this->repository->upsertAll($this->company);
     }
 }

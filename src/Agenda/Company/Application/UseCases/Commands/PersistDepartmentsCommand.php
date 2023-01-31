@@ -19,9 +19,9 @@ class PersistDepartmentsCommand implements CommandInterface
         $this->repository = app()->make(DepartmentRepositoryInterface::class);
     }
 
-    public function execute(): Department
+    public function execute(): void
     {
         authorize('persistDepartments', CompanyPolicy::class);
-        return $this->repository->upsertAll($this->company);
+        $this->repository->upsertAll($this->company);
     }
 }

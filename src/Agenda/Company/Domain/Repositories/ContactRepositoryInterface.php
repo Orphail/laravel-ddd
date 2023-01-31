@@ -7,6 +7,6 @@ use Src\Agenda\Company\Domain\Model\Entities\Contact;
 
 interface ContactRepositoryInterface
 {
-    public function upsertAll(Company $company): Contact;
+    public function upsertAll(Company $company): void;
     public function remove(int $contact_id): void;
 }
