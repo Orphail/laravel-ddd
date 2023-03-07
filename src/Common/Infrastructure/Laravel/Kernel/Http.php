@@ -62,7 +62,7 @@ class Http extends HttpKernel
      *
      * @var array<string, class-string|string>
      */
-    protected $routeMiddleware = [
+    protected $middlewareAliases = [
         'jwt.verify' => JwtMiddleware::class,
         'auth' => \Src\Common\Infrastructure\Laravel\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

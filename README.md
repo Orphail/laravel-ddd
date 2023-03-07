@@ -1,4 +1,4 @@
-# Yet another Laravel 9 DDD interpretation
+# Yet another Laravel 10 DDD interpretation
 
 ## 🚀 Current features
 - Authentication with [Tymon's JWT Auth](https://github.com/tymondesigns/jwt-auth)
