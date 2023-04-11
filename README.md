@@ -32,9 +32,9 @@ I don’t have a perfect solution for this, and I haven’t heard of anyone havi
 2. ```cp .env.example .env```
 3. ```php artisan key:generate```
 4. ```php artisan jwt:secret```
-5. ```php artisan migrate```
-6. ```php artisan test```
-7. For new domains, use this command: ```php artisan make:domain {Bounded Context} {Domain}``` (e.g. ```php artisan make:domain Blog Post```)
+5. ```php artisan test```
+6. For new domains, use this command: ```php artisan make:domain {Bounded Context} {Domain}``` (e.g. ```php artisan make:domain Blog Post```)
+7. set database connection in the `.env` that start with `DB_*` and run `php artisan migrate`
 
 ## 📁 Structure particularities
 
