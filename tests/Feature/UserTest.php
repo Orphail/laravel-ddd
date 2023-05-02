@@ -61,7 +61,6 @@ class UserTest extends TestCase
         ];
 
         $expectedResponse = [
-            'id' => 3,
             'name' => $requestBody['name'],
             'email' => $requestBody['email'],
             'company_id' => $company->id,

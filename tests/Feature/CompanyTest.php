@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Src\Agenda\Company\Domain\Factories\AddressFactory;
 use Src\Agenda\Company\Domain\Model\ValueObjects\AddressType;
 use Src\Agenda\Company\Domain\Model\ValueObjects\ContactRole;
+use Src\Agenda\Company\Infrastructure\EloquentModels\AddressEloquentModel;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -272,10 +273,11 @@ class CompanyTest extends TestCase
         $numberCompanies = $this->faker->numberBetween(1, 10);
         $company_ids = $this->createRandomCompanies($numberCompanies);
         $randomCompanyId = $this->faker->randomElement($company_ids);
+        $addressId = AddressEloquentModel::where('company_id', $randomCompanyId)->first()->id;
 
         $requestBody = [
             'name' => $this->faker->name,
-            'address_id' => 1,
+            'address_id' => $addressId,
             'is_active' => true,
         ];
 
@@ -301,11 +303,12 @@ class CompanyTest extends TestCase
         $numberCompanies = $this->faker->numberBetween(1, 10);
         $company_ids = $this->createRandomCompanies($numberCompanies);
         $randomCompanyId = $this->faker->randomElement($company_ids);
-        $department = $this->createDepartment($randomCompanyId);
+        $addressId = AddressEloquentModel::where('company_id', $randomCompanyId)->first()->id;
+        $department = $this->createDepartment($randomCompanyId, $addressId);
 
         $requestBody = [
             'name' => $this->faker->name,
-            'address_id' => 1,
+            'address_id' => $addressId,
             'is_active' => true,
         ];
 
@@ -331,7 +334,8 @@ class CompanyTest extends TestCase
         $numberCompanies = $this->faker->numberBetween(1, 10);
         $company_ids = $this->createRandomCompanies($numberCompanies);
         $randomCompanyId = $this->faker->randomElement($company_ids);
-        $department = $this->createDepartment($randomCompanyId);
+        $addressId = AddressEloquentModel::where('company_id', $randomCompanyId)->first()->id;
+        $department = $this->createDepartment($randomCompanyId, $addressId);
 
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
             ->delete($this->company_uri . '/' . $randomCompanyId . '/department/' . $department->id)

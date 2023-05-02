@@ -53,11 +53,12 @@ trait WithCompanies
         return AddressMapper::fromEloquent($addressEloquent);
     }
 
-    protected function createDepartment(int $company_id): Department
+    protected function createDepartment(int $company_id, int $address_id): Department
     {
         $department = DepartmentFactory::new();
         $departmentEloquent = DepartmentMapper::toEloquent($department);
         $departmentEloquent->company_id = $company_id;
+        $departmentEloquent->address_id = $address_id;
         $departmentEloquent->save();
         return DepartmentMapper::fromEloquent($departmentEloquent);
     }
