@@ -1,4 +1,12 @@
-# Yet another Laravel 10 DDD interpretation
+<h1 align="center">
+  Yet another Laravel 10 DDD interpretation
+</h1>
+
+<p align="center">
+    <a href="https://laravel.com/"><img src="https://img.shields.io/badge/Laravel-10-FF2D20.svg?style=flat&logo=laravel" alt="Laravel 10"/></a>
+    <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8.1-777BB4.svg?style=flat&logo=php" alt="PHP 8.1"/></a>
+    <a href="https://github.com/orphail/laravel-ddd/actions"><img src="https://github.com/orphail/laravel-ddd/actions/workflows/laravel-tests.yml/badge.svg" alt="GithubActions"/></a>
+</p>
 
 ## 🚀 Current features
 - Authentication with [Tymon's JWT Auth](https://github.com/tymondesigns/jwt-auth)
