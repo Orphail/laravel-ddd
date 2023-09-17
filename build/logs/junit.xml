@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="28" assertions="1" errors="27" warnings="0" failures="0" skipped="0" time="0.874009">
+    <testsuite name="Feature" tests="28" assertions="1" errors="27" warnings="0" failures="0" skipped="0" time="0.874009">
+      <testsuite name="Tests\Feature\CandidatoTest" file="E:\Proyectos\laravel-ddd\tests\Feature\CandidatoTest.php" tests="5" assertions="1" errors="4" warnings="0" failures="0" skipped="0" time="0.347038">
+        <testcase name="usuario_puede_crear_candidato_si_es_manager" class="Tests\Feature\CandidatoTest" classname="Tests.Feature.CandidatoTest" file="E:\Proyectos\laravel-ddd\tests\Feature\CandidatoTest.php" line="27" assertions="1" time="0.254080"/>
+        <testcase name="obtener_todos_candidatos_manager_test" class="Tests\Feature\CandidatoTest" classname="Tests.Feature.CandidatoTest" file="E:\Proyectos\laravel-ddd\tests\Feature\CandidatoTest.php" line="56" assertions="0" time="0.030748">
+          <error type="ErrorException">Tests\Feature\CandidatoTest::obtener_todos_candidatos_manager_test
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\CandidatoTest.php:17</error>
+        </testcase>
+        <testcase name="manager_obtener_candidatos_by_id" class="Tests\Feature\CandidatoTest" classname="Tests.Feature.CandidatoTest" file="E:\Proyectos\laravel-ddd\tests\Feature\CandidatoTest.php" line="78" assertions="0" time="0.021222">
+          <error type="ErrorException">Tests\Feature\CandidatoTest::manager_obtener_candidatos_by_id
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\CandidatoTest.php:17</error>
+        </testcase>
+        <testcase name="agent_no_obtener_candidatos_by_id" class="Tests\Feature\CandidatoTest" classname="Tests.Feature.CandidatoTest" file="E:\Proyectos\laravel-ddd\tests\Feature\CandidatoTest.php" line="90" assertions="0" time="0.020620">
+          <error type="ErrorException">Tests\Feature\CandidatoTest::agent_no_obtener_candidatos_by_id
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\CandidatoTest.php:17</error>
+        </testcase>
+        <testcase name="agent_si_obtener_candidatos_by_id" class="Tests\Feature\CandidatoTest" classname="Tests.Feature.CandidatoTest" file="E:\Proyectos\laravel-ddd\tests\Feature\CandidatoTest.php" line="102" assertions="0" time="0.020367">
+          <error type="ErrorException">Tests\Feature\CandidatoTest::agent_si_obtener_candidatos_by_id
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\CandidatoTest.php:17</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Feature\LoginTest" file="E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php" tests="9" assertions="0" errors="9" warnings="0" failures="0" skipped="0" time="0.197854">
+        <testcase name="active_user_can_login" class="Tests\Feature\LoginTest" classname="Tests.Feature.LoginTest" file="E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php" line="38" assertions="0" time="0.020982">
+          <error type="ErrorException">Tests\Feature\LoginTest::active_user_can_login
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php:29</error>
+        </testcase>
+        <testcase name="inactive_user_cannot_login" class="Tests\Feature\LoginTest" classname="Tests.Feature.LoginTest" file="E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php" line="51" assertions="0" time="0.022238">
+          <error type="ErrorException">Tests\Feature\LoginTest::inactive_user_cannot_login
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php:29</error>
+        </testcase>
+        <testcase name="user_can_not_login_without_credentials" class="Tests\Feature\LoginTest" classname="Tests.Feature.LoginTest" file="E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php" line="62" assertions="0" time="0.021101">
+          <error type="ErrorException">Tests\Feature\LoginTest::user_can_not_login_without_credentials
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php:29</error>
+        </testcase>
+        <testcase name="user_can_not_login_without_username" class="Tests\Feature\LoginTest" classname="Tests.Feature.LoginTest" file="E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php" line="73" assertions="0" time="0.021442">
+          <error type="ErrorException">Tests\Feature\LoginTest::user_can_not_login_without_username
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php:29</error>
+        </testcase>
+        <testcase name="user_can_not_login_without_password" class="Tests\Feature\LoginTest" classname="Tests.Feature.LoginTest" file="E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php" line="86" assertions="0" time="0.022036">
+          <error type="ErrorException">Tests\Feature\LoginTest::user_can_not_login_without_password
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php:29</error>
+        </testcase>
+        <testcase name="user_can_not_login_with_invalid_credentials" class="Tests\Feature\LoginTest" classname="Tests.Feature.LoginTest" file="E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php" line="99" assertions="0" time="0.021120">
+          <error type="ErrorException">Tests\Feature\LoginTest::user_can_not_login_with_invalid_credentials
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php:29</error>
+        </testcase>
+        <testcase name="user_can_get_his_own_info" class="Tests\Feature\LoginTest" classname="Tests.Feature.LoginTest" file="E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php" line="109" assertions="0" time="0.021664">
+          <error type="ErrorException">Tests\Feature\LoginTest::user_can_get_his_own_info
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php:29</error>
+        </testcase>
+        <testcase name="logged_user_can_logout" class="Tests\Feature\LoginTest" classname="Tests.Feature.LoginTest" file="E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php" line="118" assertions="0" time="0.024164">
+          <error type="ErrorException">Tests\Feature\LoginTest::logged_user_can_logout
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php:29</error>
+        </testcase>
+        <testcase name="logged_user_can_refresh" class="Tests\Feature\LoginTest" classname="Tests.Feature.LoginTest" file="E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php" line="128" assertions="0" time="0.023106">
+          <error type="ErrorException">Tests\Feature\LoginTest::logged_user_can_refresh
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\LoginTest.php:29</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Feature\UserTest" file="E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php" tests="14" assertions="0" errors="14" warnings="0" failures="0" skipped="0" time="0.329117">
+        <testcase name="admin_can_retrieve_all_users" class="Tests\Feature\UserTest" classname="Tests.Feature.UserTest" file="E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php" line="21" assertions="0" time="0.027693">
+          <error type="ErrorException">Tests\Feature\UserTest::admin_can_retrieve_all_users
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php:15</error>
+        </testcase>
+        <testcase name="admin_can_get_specific_user_by_id" class="Tests\Feature\UserTest" classname="Tests.Feature.UserTest" file="E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php" line="33" assertions="0" time="0.022674">
+          <error type="ErrorException">Tests\Feature\UserTest::admin_can_get_specific_user_by_id
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php:15</error>
+        </testcase>
+        <testcase name="admin_can_create_a_user" class="Tests\Feature\UserTest" classname="Tests.Feature.UserTest" file="E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php" line="46" assertions="0" time="0.021833">
+          <error type="ErrorException">Tests\Feature\UserTest::admin_can_create_a_user
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php:15</error>
+        </testcase>
+        <testcase name="cannot_create_user_with_invalid_email" class="Tests\Feature\UserTest" classname="Tests.Feature.UserTest" file="E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php" line="81" assertions="0" time="0.027925">
+          <error type="ErrorException">Tests\Feature\UserTest::cannot_create_user_with_invalid_email
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php:15</error>
+        </testcase>
+        <testcase name="cannot_create_user_with_invalid_password" class="Tests\Feature\UserTest" classname="Tests.Feature.UserTest" file="E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php" line="101" assertions="0" time="0.024716">
+          <error type="ErrorException">Tests\Feature\UserTest::cannot_create_user_with_invalid_password
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php:15</error>
+        </testcase>
+        <testcase name="admin_can_update_any_user" class="Tests\Feature\UserTest" classname="Tests.Feature.UserTest" file="E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php" line="130" assertions="0" time="0.022922">
+          <error type="ErrorException">Tests\Feature\UserTest::admin_can_update_any_user
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php:15</error>
+        </testcase>
+        <testcase name="cannot_update_user_with_invalid_password" class="Tests\Feature\UserTest" classname="Tests.Feature.UserTest" file="E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php" line="164" assertions="0" time="0.022339">
+          <error type="ErrorException">Tests\Feature\UserTest::cannot_update_user_with_invalid_password
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php:15</error>
+        </testcase>
+        <testcase name="admin_can_delete_a_user" class="Tests\Feature\UserTest" classname="Tests.Feature.UserTest" file="E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php" line="197" assertions="0" time="0.022165">
+          <error type="ErrorException">Tests\Feature\UserTest::admin_can_delete_a_user
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php:15</error>
+        </testcase>
+        <testcase name="cannot_delete_user_if_does_not_exists" class="Tests\Feature\UserTest" classname="Tests.Feature.UserTest" file="E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php" line="213" assertions="0" time="0.022835">
+          <error type="ErrorException">Tests\Feature\UserTest::cannot_delete_user_if_does_not_exists
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php:15</error>
+        </testcase>
+        <testcase name="user_cannot_retrieve_all_users" class="Tests\Feature\UserTest" classname="Tests.Feature.UserTest" file="E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php" line="222" assertions="0" time="0.023254">
+          <error type="ErrorException">Tests\Feature\UserTest::user_cannot_retrieve_all_users
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php:15</error>
+        </testcase>
+        <testcase name="user_cannot_get_specific_user_by_id" class="Tests\Feature\UserTest" classname="Tests.Feature.UserTest" file="E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php" line="234" assertions="0" time="0.022377">
+          <error type="ErrorException">Tests\Feature\UserTest::user_cannot_get_specific_user_by_id
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php:15</error>
+        </testcase>
+        <testcase name="user_cannot_create_user" class="Tests\Feature\UserTest" classname="Tests.Feature.UserTest" file="E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php" line="247" assertions="0" time="0.021801">
+          <error type="ErrorException">Tests\Feature\UserTest::user_cannot_create_user
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php:15</error>
+        </testcase>
+        <testcase name="user_cannot_update_any_user_except_itself" class="Tests\Feature\UserTest" classname="Tests.Feature.UserTest" file="E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php" line="267" assertions="0" time="0.022141">
+          <error type="ErrorException">Tests\Feature\UserTest::user_cannot_update_any_user_except_itself
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php:15</error>
+        </testcase>
+        <testcase name="user_cannot_delete_a_user" class="Tests\Feature\UserTest" classname="Tests.Feature.UserTest" file="E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php" line="317" assertions="0" time="0.024441">
+          <error type="ErrorException">Tests\Feature\UserTest::user_cannot_delete_a_user
+ErrorException: Trying to access array offset on value of type null
+
+E:\Proyectos\laravel-ddd\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php:270
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:70
+E:\Proyectos\laravel-ddd\tests\WithLogin.php:39
+E:\Proyectos\laravel-ddd\tests\TestCase.php:15
+E:\Proyectos\laravel-ddd\tests\Feature\UserTest.php:15</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

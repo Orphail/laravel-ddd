@@ -191,7 +191,6 @@ return [
          */
         \Src\Agenda\User\Application\Providers\UserServiceProvider::class,
         \Src\Agenda\Candidatos\Application\Providers\CandidatosServiceProvider::class,
-        // \Src\Agenda\Company\Application\Providers\CompanyServiceProvider::class,
 
         /*
          * Domain Routes Service Providers...

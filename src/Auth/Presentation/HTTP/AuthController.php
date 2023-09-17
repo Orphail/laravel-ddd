@@ -102,17 +102,6 @@ class AuthController extends Controller
      */
     protected function respondWithToken(string $token): JsonResponse
     {
-        /*
-        {
-            "meta": { "success":
-            true,"errors": []
-            },
-            "data": {
-            "token": "TOOOOOKEN",
-            "minutes_to_expire": 1440
-            }
-        }
-        */
         return response()->json([
             "meta" => ["success" => true, "errors" => []],
             "data" =>  [
@@ -120,10 +109,5 @@ class AuthController extends Controller
                 "minutes_to_expire" => 1440
             ]
         ]);
-        // return response()->json([
-        //     'accessToken' => $token,
-        //     'token_type' => 'bearer',
-        //     'expires_in' => config('jwt.ttl') * 1,
-        // ]);
     }
 }

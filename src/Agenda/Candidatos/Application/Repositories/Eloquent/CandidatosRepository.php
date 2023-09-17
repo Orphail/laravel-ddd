@@ -20,6 +20,7 @@ class CandidatosRepository implements CandidatosRepositoryInterface
             })->get() as $CandidatosEloquent) {
                 $candidatos[] = CandidatosMapper::fromEloquent($CandidatosEloquent);
             }
+
             return $candidatos;
         });
     }

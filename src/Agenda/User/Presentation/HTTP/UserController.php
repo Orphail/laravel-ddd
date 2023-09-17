@@ -39,7 +39,6 @@ class UserController extends Controller
     {
         try {
             $userData = UserMapper::fromRequest($request);
-            // $userData->validateNonAdminWithCompany();
             $password = new Password($request->input('password'), $request->input('password_confirmation'));
             $user = (new StoreUserCommand($userData, $password))->execute();
             return response()->success($user->toArray(), Response::HTTP_CREATED);

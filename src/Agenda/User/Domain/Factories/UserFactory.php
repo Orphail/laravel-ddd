@@ -3,9 +3,7 @@
 namespace Src\Agenda\User\Domain\Factories;
 
 use Src\Agenda\User\Domain\Model\User;
-use Src\Agenda\User\Domain\Model\ValueObjects\Avatar;
 use Src\Agenda\User\Domain\Model\ValueObjects\Email;
-use Src\Agenda\User\Domain\Model\ValueObjects\CompanyId;
 use Src\Agenda\User\Domain\Model\ValueObjects\Username;
 use Src\Agenda\User\Domain\Model\ValueObjects\Name;
 use Src\Agenda\User\Domain\Model\ValueObjects\Role;
@@ -20,10 +18,10 @@ class UserFactory
             'username' => fake()->userName(),
             'name' => fake()->name(),
             'email' => fake()->safeEmail(),
-            'last_login' => now()->format('d-m-Y H:i:s'),
             'role' => 'manager',
             'is_admin' => true,
             'is_active' => true,
+            'last_login' => now()->format('d-m-Y H:i:s'),
         ];
 
         $attributes = array_replace($defaults, $attributes);

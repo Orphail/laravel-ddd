@@ -28,44 +28,41 @@ trait WithLogin
             'username' => $user->username,
             'email' => $user->email,
             'role' => $user->role,
-            'is_admin' => $user->is_admin,
-            'password'   => $password,
+            'password' => $password,
         ];
     }
 
     protected function newLoggedAdmin(): array
     {
         $credentials = $this->validCredentials(['is_admin' => true]);
-        $response = $this->post('auth/login', $credentials);
+        $response = $this->post('auth', $credentials);
         return ['token' => $this->getToken($response), ...$credentials];
     }
 
     protected function newLoggedUser(): array
     {
         $credentials = $this->validCredentials(['is_admin' => false]);
-        $response = $this->post('auth/login', $credentials);
+        $response = $this->post('auth', $credentials);
         return ['token' => $this->getToken($response), ...$credentials];
     }
 
     protected function newLoggedAgent(): array
     {
-        $credentials = $this->validCredentials(['role' => 'agent']);
-        $response = $this->post('auth/login', $credentials);
+        $credentials = $this->validCredentials(['role' => "agent"]);
+        $response = $this->post('auth', $credentials);
         return ['token' => $this->getToken($response), ...$credentials];
     }
 
     protected function newLoggedManager(): array
     {
-        $credentials = $this->validCredentials(['role' => 'manager']);
-        $response = $this->post('auth/login', $credentials);
+        $credentials = $this->validCredentials(['role' => "manager"]);
+        $response = $this->post('auth', $credentials);
         return ['token' => $this->getToken($response), ...$credentials];
     }
 
     protected function getToken(TestResponse $response)
     {
-        // dd($response);
         $arResponse = json_decode($response->getContent(), true);
-
-        return $arResponse['data']['token'];
+        return $arResponse["data"]["token"];
     }
 }

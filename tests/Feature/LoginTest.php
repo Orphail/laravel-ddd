@@ -19,7 +19,7 @@ class LoginTest extends TestCase
      */
 
     protected User $user;
-    protected string $login_uri;
+    protected string $auth_uri;
     protected string $logout_uri;
     protected string $refresh_uri;
     protected string $me_uri;
@@ -27,7 +27,7 @@ class LoginTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->login_uri = '/auth/login';
+        $this->auth_uri = '/auth';
         $this->logout_uri = '/auth/logout';
         $this->refresh_uri = '/auth/refresh';
         $this->me_uri = '/auth/me';
@@ -39,7 +39,7 @@ class LoginTest extends TestCase
     {
         $credentials = $this->validCredentials(['is_active' => true]);
 
-        $this->post($this->login_uri, $credentials)
+        $this->post($this->auth_uri, $credentials)
             ->assertSessionHasNoErrors()
             ->assertStatus(Response::HTTP_OK)
             ->assertSee(['token']);
@@ -52,7 +52,7 @@ class LoginTest extends TestCase
     {
         $credentials = $this->validCredentials(['is_active' => false]);
 
-        $this->post($this->login_uri, $credentials)
+        $this->post($this->auth_uri, $credentials)
             ->assertSessionHasNoErrors()
             ->assertStatus(Response::HTTP_UNAUTHORIZED)
             ->assertSee(['errors' => 'Password incorrect for: ' . $credentials['username']]);
@@ -61,7 +61,7 @@ class LoginTest extends TestCase
     /** @test */
     public function user_can_not_login_without_credentials()
     {
-        $this->post($this->login_uri, [])
+        $this->post($this->auth_uri, [])
             ->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertSee([
                 'username'    => 'The username field is required.',
@@ -75,7 +75,7 @@ class LoginTest extends TestCase
         $credentials = $this->validCredentials();
         unset($credentials['username']);
 
-        $this->post($this->login_uri, $credentials)
+        $this->post($this->auth_uri, $credentials)
             ->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertSee([
                 'username' => 'The username field is required.',
@@ -88,7 +88,7 @@ class LoginTest extends TestCase
         $credentials = $this->validCredentials();
         unset($credentials['password']);
 
-        $this->post($this->login_uri, $credentials)
+        $this->post($this->auth_uri, $credentials)
             ->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertSee([
                 'password' => 'The password field is required.',
@@ -100,7 +100,7 @@ class LoginTest extends TestCase
     {
         $credentials = ['username' => 'test@invalid.credentials', 'password' => 'invalid'];
 
-        $this->post($this->login_uri, $credentials)
+        $this->post($this->auth_uri, $credentials)
             ->assertStatus(Response::HTTP_UNAUTHORIZED)
             ->assertSee(['errors' => 'Password incorrect for: ' . $credentials['username']]);
     }

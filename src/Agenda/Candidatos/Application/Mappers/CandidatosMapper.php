@@ -17,6 +17,7 @@ class CandidatosMapper
             name: new CandidatoName($request->string('name')),
             source: new Source($request->string('source')),
             owner: $request->integer('owner'),
+            created_at: null,
             created_by: auth()->user()->id,
         );
     }
@@ -28,6 +29,7 @@ class CandidatosMapper
             name: new CandidatoName($candidatoEloquent->name),
             source: new Source($candidatoEloquent->source),
             owner: $candidatoEloquent->owner,
+            created_at: $candidatoEloquent->created_at,
             created_by: $candidatoEloquent->created_by,
         );
     }
@@ -41,6 +43,7 @@ class CandidatosMapper
         $candidatoEloquent->name = $candidatos->name;
         $candidatoEloquent->source = $candidatos->source;
         $candidatoEloquent->owner = $candidatos->owner;
+        $candidatoEloquent->created_at = $candidatos->created_at;
         $candidatoEloquent->created_by = $candidatos->created_by;
         return $candidatoEloquent;
     }

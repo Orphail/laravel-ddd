@@ -13,6 +13,7 @@ class Candidatos extends AggregateRoot implements \JsonSerializable
         public readonly CandidatoName $name,
         public readonly Source $source,
         public readonly ?int $owner,
+        public readonly ?string $created_at,
         public readonly ?int $created_by,
     ) {}
 
@@ -24,6 +25,7 @@ class Candidatos extends AggregateRoot implements \JsonSerializable
             'name' => $this->name,
             'source' => $this->source,
             'owner' => $this->owner,
+            'created_at' => $this->created_at,
             'created_by' => $this->created_by,
         ];
     }

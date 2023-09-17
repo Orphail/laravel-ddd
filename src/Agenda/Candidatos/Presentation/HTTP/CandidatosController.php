@@ -84,6 +84,7 @@ class CandidatosController
                     "name" => $candidatosData->name,
                     "source" => $candidatosData->source,
                     "owner" => $candidatosData->owner,
+                    "created_at" => $candidatosData->created_at,
                     "created_by" =>  $candidatosData->created_by,
                 ]
             ];

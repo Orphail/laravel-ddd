@@ -17,7 +17,6 @@ class CandidatosEloquentModel extends Model
         'name',
         'source',
         'owner',
-        'created_by',
     ];
 
     public array $rules = [

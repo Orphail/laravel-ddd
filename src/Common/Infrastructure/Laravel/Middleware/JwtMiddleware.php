@@ -24,22 +24,24 @@ class JwtMiddleware extends BaseMiddleware
     public function handle(Request $request, Closure $next)
     {
         try {
-            if (in_array($request->decodedPath(), ['auth/login', 'auth/refresh', 'login', 'refresh']) && $request->method() == 'POST') {
+            if (in_array($request->decodedPath(), ['auth', 'auth/login', 'auth/refresh', 'login', 'refresh']) && $request->method() == 'POST') {
                 return $next($request);
             }
 
             JWTAuth::parseToken()->authenticate();
-
         } catch (Exception $e) {
-            if ($e instanceof TokenInvalidException){
+            if ($e instanceof TokenInvalidException) {
                 return response()->json([
-                    "meta" => [ "success" => false,"errors" => ["Token Invalid"]]], Response::HTTP_UNAUTHORIZED );
-            }else if ($e instanceof TokenExpiredException){
+                    "meta" => ["success" => false, "errors" => ["Token Invalid"]]
+                ], Response::HTTP_UNAUTHORIZED);
+            } else if ($e instanceof TokenExpiredException) {
                 return response()->json([
-                    "meta" => [ "success" => false,"errors" => ["Token expired"]]], Response::HTTP_UNAUTHORIZED );
-            }else if ($e instanceof \Tymon\JWTAuth\Exceptions\JWTException) {
+                    "meta" => ["success" => false, "errors" => ["Token expired"]]
+                ], Response::HTTP_UNAUTHORIZED);
+            } else if ($e instanceof \Tymon\JWTAuth\Exceptions\JWTException) {
                 return response()->json([
-                    "meta" => [ "success" => false,"errors" => ["Authorization Token Not Found"]]], Response::HTTP_UNAUTHORIZED );
+                    "meta" => ["success" => false, "errors" => ["Authorization Token Not Found"]]
+                ], Response::HTTP_UNAUTHORIZED);
             }
         }
         return $next($request);
