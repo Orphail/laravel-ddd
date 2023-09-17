@@ -118,7 +118,7 @@ class CandidatoTest extends TestCase
             ],
         ];
 
-        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $this->agentToken])
+        $this->withHeaders(['Authorization' => 'Bearer ' . $this->agentToken])
             ->get($this->candidato_uri . '/' . $randomRandomId)
             ->assertStatus(Response::HTTP_NOT_FOUND)
             ->assertJson($unauthorizedResponse);
