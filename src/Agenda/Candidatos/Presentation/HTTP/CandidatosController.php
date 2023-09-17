@@ -2,6 +2,7 @@
 
 namespace Src\Agenda\Candidatos\Presentation\HTTP;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Src\Common\Domain\Exceptions\UnauthorizedUserException;
@@ -49,6 +50,14 @@ class CandidatosController
                 "data" => $candidatos
             ];
             return response()->json($expectedResponse);
+        } catch (ModelNotFoundException $e) {
+            $notFoundException = [
+                "meta" => [
+                    "success" =>
+                    false, "errors" => ["No lead found"]
+                ],
+            ];
+            return response()->json($notFoundException, Response::HTTP_NOT_FOUND);
         } catch (UnauthorizedUserException $e) {
             $unauthorizedResponse = [
                 "meta" => [
