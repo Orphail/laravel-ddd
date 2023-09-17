@@ -1,0 +1,1220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1694994396">
+  <project timestamp="1694994396">
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\Candidatos\Application\Mappers\CandidatosMapper.php">
+      <class name="Src\Agenda\Candidatos\Application\Mappers\CandidatosMapper" namespace="global">
+        <metrics complexity="4" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="25" coveredstatements="24" elements="28" coveredelements="26"/>
+      </class>
+      <line num="13" type="method" name="fromRequest" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="15" type="stmt" count="2"/>
+      <line num="16" type="stmt" count="2"/>
+      <line num="17" type="stmt" count="2"/>
+      <line num="18" type="stmt" count="2"/>
+      <line num="19" type="stmt" count="2"/>
+      <line num="20" type="stmt" count="2"/>
+      <line num="21" type="stmt" count="2"/>
+      <line num="22" type="stmt" count="2"/>
+      <line num="25" type="method" name="fromEloquent" visibility="public" complexity="1" crap="1" count="5"/>
+      <line num="27" type="stmt" count="5"/>
+      <line num="28" type="stmt" count="5"/>
+      <line num="29" type="stmt" count="5"/>
+      <line num="30" type="stmt" count="5"/>
+      <line num="31" type="stmt" count="5"/>
+      <line num="32" type="stmt" count="5"/>
+      <line num="33" type="stmt" count="5"/>
+      <line num="34" type="stmt" count="5"/>
+      <line num="37" type="method" name="toEloquent" visibility="public" complexity="2" crap="2.01" count="5"/>
+      <line num="39" type="stmt" count="5"/>
+      <line num="40" type="stmt" count="5"/>
+      <line num="41" type="stmt" count="0"/>
+      <line num="43" type="stmt" count="5"/>
+      <line num="44" type="stmt" count="5"/>
+      <line num="45" type="stmt" count="5"/>
+      <line num="46" type="stmt" count="5"/>
+      <line num="47" type="stmt" count="5"/>
+      <line num="48" type="stmt" count="5"/>
+      <metrics loc="51" ncloc="51" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="25" coveredstatements="24" elements="28" coveredelements="26"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\Candidatos\Application\Providers\CandidatosServiceProvider.php">
+      <class name="Src\Agenda\Candidatos\Application\Providers\CandidatosServiceProvider" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="5" coveredelements="5"/>
+      </class>
+      <line num="9" type="method" name="register" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="11" type="stmt" count="29"/>
+      <line num="12" type="stmt" count="29"/>
+      <line num="13" type="stmt" count="29"/>
+      <line num="14" type="stmt" count="29"/>
+      <metrics loc="17" ncloc="17" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="5" coveredelements="5"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\Candidatos\Application\Repositories\Eloquent\CandidatosRepository.php">
+      <class name="Src\Agenda\Candidatos\Application\Repositories\Eloquent\CandidatosRepository" namespace="global">
+        <metrics complexity="4" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="19" elements="22" coveredelements="22"/>
+      </class>
+      <line num="14" type="method" name="findAll" visibility="public" complexity="2" crap="2" count="1"/>
+      <line num="16" type="stmt" count="1"/>
+      <line num="17" type="stmt" count="1"/>
+      <line num="18" type="stmt" count="1"/>
+      <line num="19" type="stmt" count="1"/>
+      <line num="20" type="stmt" count="1"/>
+      <line num="21" type="stmt" count="1"/>
+      <line num="24" type="stmt" count="1"/>
+      <line num="25" type="stmt" count="1"/>
+      <line num="28" type="method" name="findById" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="30" type="stmt" count="3"/>
+      <line num="31" type="stmt" count="3"/>
+      <line num="32" type="stmt" count="2"/>
+      <line num="33" type="stmt" count="3"/>
+      <line num="34" type="stmt" count="2"/>
+      <line num="35" type="stmt" count="3"/>
+      <line num="38" type="method" name="store" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="40" type="stmt" count="1"/>
+      <line num="41" type="stmt" count="1"/>
+      <line num="42" type="stmt" count="1"/>
+      <line num="43" type="stmt" count="1"/>
+      <line num="44" type="stmt" count="1"/>
+      <metrics loc="47" ncloc="47" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="19" elements="22" coveredelements="22"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\Candidatos\Application\UseCases\Commands\StoreCandidatosCommand.php">
+      <class name="Src\Agenda\Candidatos\Application\UseCases\Commands\StoreCandidatosCommand" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </class>
+      <line num="14" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="18" type="stmt" count="2"/>
+      <line num="21" type="method" name="execute" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="23" type="stmt" count="2"/>
+      <line num="24" type="stmt" count="1"/>
+      <metrics loc="27" ncloc="27" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\Candidatos\Application\UseCases\Queries\FindAllCandidatosQuery.php">
+      <class name="Src\Agenda\Candidatos\Application\UseCases\Queries\FindAllCandidatosQuery" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </class>
+      <line num="13" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="16" type="stmt" count="1"/>
+      <line num="19" type="method" name="handle" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="21" type="stmt" count="1"/>
+      <line num="22" type="stmt" count="1"/>
+      <metrics loc="25" ncloc="25" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\Candidatos\Application\UseCases\Queries\FindCandidatosByIdQuery.php">
+      <class name="Src\Agenda\Candidatos\Application\UseCases\Queries\FindCandidatosByIdQuery" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </class>
+      <line num="14" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="18" type="stmt" count="3"/>
+      <line num="21" type="method" name="handle" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="23" type="stmt" count="3"/>
+      <line num="24" type="stmt" count="3"/>
+      <metrics loc="27" ncloc="27" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\Candidatos\Domain\Factories\CandidatoFactory.php">
+      <class name="Src\Agenda\Candidatos\Domain\Factories\CandidatoFactory" namespace="global">
+        <metrics complexity="2" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="18" coveredelements="18"/>
+      </class>
+      <line num="12" type="method" name="new" visibility="public" complexity="2" crap="2" count="4"/>
+      <line num="14" type="stmt" count="4"/>
+      <line num="16" type="stmt" count="4"/>
+      <line num="17" type="stmt" count="4"/>
+      <line num="18" type="stmt" count="4"/>
+      <line num="19" type="stmt" count="4"/>
+      <line num="20" type="stmt" count="4"/>
+      <line num="21" type="stmt" count="4"/>
+      <line num="22" type="stmt" count="4"/>
+      <line num="24" type="stmt" count="4"/>
+      <line num="26" type="stmt" count="4"/>
+      <line num="27" type="stmt" count="4"/>
+      <line num="28" type="stmt" count="4"/>
+      <line num="29" type="stmt" count="4"/>
+      <line num="30" type="stmt" count="4"/>
+      <line num="31" type="stmt" count="4"/>
+      <line num="32" type="stmt" count="4"/>
+      <line num="33" type="stmt" count="4"/>
+      <metrics loc="36" ncloc="36" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="18" coveredelements="18"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\Candidatos\Domain\Model\Candidatos.php">
+      <class name="Src\Agenda\Candidatos\Domain\Model\Candidatos" namespace="global">
+        <metrics complexity="3" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="13" coveredelements="13"/>
+      </class>
+      <line num="11" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="6"/>
+      <line num="18" type="stmt" count="6"/>
+      <line num="20" type="method" name="toArray" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="22" type="stmt" count="3"/>
+      <line num="24" type="stmt" count="3"/>
+      <line num="25" type="stmt" count="3"/>
+      <line num="26" type="stmt" count="3"/>
+      <line num="27" type="stmt" count="3"/>
+      <line num="28" type="stmt" count="3"/>
+      <line num="29" type="stmt" count="3"/>
+      <line num="30" type="stmt" count="3"/>
+      <line num="33" type="method" name="jsonSerialize" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="35" type="stmt" count="3"/>
+      <metrics loc="38" ncloc="37" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="13" coveredelements="13"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\Candidatos\Domain\Model\ValueObjects\CandidatoName.php">
+      <class name="Src\Agenda\Candidatos\Domain\Model\ValueObjects\CandidatoName" namespace="global">
+        <metrics complexity="4" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="8" coveredelements="6"/>
+      </class>
+      <line num="14" type="method" name="__construct" visibility="public" complexity="2" crap="2.15" count="6"/>
+      <line num="16" type="stmt" count="6"/>
+      <line num="17" type="stmt" count="0"/>
+      <line num="20" type="stmt" count="6"/>
+      <line num="23" type="method" name="__toString" visibility="public" complexity="1" crap="1" count="5"/>
+      <line num="25" type="stmt" count="5"/>
+      <line num="28" type="method" name="jsonSerialize" visibility="public" complexity="1" crap="1" count="4"/>
+      <line num="30" type="stmt" count="4"/>
+      <metrics loc="33" ncloc="33" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="8" coveredelements="6"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\Candidatos\Domain\Model\ValueObjects\Source.php">
+      <class name="Src\Agenda\Candidatos\Domain\Model\ValueObjects\Source" namespace="global">
+        <metrics complexity="4" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="8" coveredelements="6"/>
+      </class>
+      <line num="14" type="method" name="__construct" visibility="public" complexity="2" crap="2.15" count="6"/>
+      <line num="16" type="stmt" count="6"/>
+      <line num="17" type="stmt" count="0"/>
+      <line num="20" type="stmt" count="6"/>
+      <line num="23" type="method" name="__toString" visibility="public" complexity="1" crap="1" count="5"/>
+      <line num="25" type="stmt" count="5"/>
+      <line num="28" type="method" name="jsonSerialize" visibility="public" complexity="1" crap="1" count="4"/>
+      <line num="30" type="stmt" count="4"/>
+      <metrics loc="33" ncloc="33" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="8" coveredelements="6"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\Candidatos\Domain\Policies\CandidatosPolicy.php">
+      <class name="Src\Agenda\Candidatos\Domain\Policies\CandidatosPolicy" namespace="global">
+        <metrics complexity="5" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
+      </class>
+      <line num="7" type="method" name="findAll" visibility="public" complexity="2" crap="2" count="1"/>
+      <line num="9" type="stmt" count="1"/>
+      <line num="12" type="method" name="findById" visibility="public" complexity="2" crap="2" count="3"/>
+      <line num="14" type="stmt" count="3"/>
+      <line num="17" type="method" name="store" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="19" type="stmt" count="2"/>
+      <metrics loc="23" ncloc="23" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\Candidatos\Domain\Repositories\CandidatosRepositoryInterface.php">
+      <metrics loc="13" ncloc="13" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\Candidatos\Infrastructure\EloquentModels\CandidatosEloquentModel.php">
+      <class name="Src\Agenda\Candidatos\Infrastructure\EloquentModels\CandidatosEloquentModel" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="4" coveredelements="0"/>
+      </class>
+      <line num="39" type="method" name="owner" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <line num="44" type="method" name="created_by" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="46" type="stmt" count="0"/>
+      <metrics loc="50" ncloc="40" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="4" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\Candidatos\Presentation\HTTP\CandidatosController.php">
+      <class name="Src\Agenda\Candidatos\Presentation\HTTP\CandidatosController" namespace="global">
+        <metrics complexity="8" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="69" coveredstatements="52" elements="72" coveredelements="52"/>
+      </class>
+      <line num="17" type="method" name="index" visibility="public" complexity="2" crap="2.42" count="1"/>
+      <line num="20" type="stmt" count="1"/>
+      <line num="21" type="stmt" count="1"/>
+      <line num="22" type="stmt" count="1"/>
+      <line num="23" type="stmt" count="1"/>
+      <line num="24" type="stmt" count="1"/>
+      <line num="25" type="stmt" count="1"/>
+      <line num="26" type="stmt" count="1"/>
+      <line num="27" type="stmt" count="1"/>
+      <line num="28" type="stmt" count="1"/>
+      <line num="29" type="stmt" count="0"/>
+      <line num="30" type="stmt" count="0"/>
+      <line num="31" type="stmt" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="35" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <line num="40" type="method" name="show" visibility="public" complexity="3" crap="3.29" count="3"/>
+      <line num="44" type="stmt" count="3"/>
+      <line num="45" type="stmt" count="2"/>
+      <line num="46" type="stmt" count="2"/>
+      <line num="47" type="stmt" count="2"/>
+      <line num="48" type="stmt" count="2"/>
+      <line num="49" type="stmt" count="2"/>
+      <line num="50" type="stmt" count="2"/>
+      <line num="51" type="stmt" count="2"/>
+      <line num="52" type="stmt" count="2"/>
+      <line num="53" type="stmt" count="1"/>
+      <line num="54" type="stmt" count="1"/>
+      <line num="55" type="stmt" count="1"/>
+      <line num="56" type="stmt" count="1"/>
+      <line num="57" type="stmt" count="1"/>
+      <line num="58" type="stmt" count="1"/>
+      <line num="59" type="stmt" count="1"/>
+      <line num="60" type="stmt" count="1"/>
+      <line num="61" type="stmt" count="0"/>
+      <line num="62" type="stmt" count="0"/>
+      <line num="63" type="stmt" count="0"/>
+      <line num="64" type="stmt" count="0"/>
+      <line num="65" type="stmt" count="0"/>
+      <line num="66" type="stmt" count="0"/>
+      <line num="67" type="stmt" count="0"/>
+      <line num="68" type="stmt" count="0"/>
+      <line num="72" type="method" name="store" visibility="public" complexity="3" crap="3" count="2"/>
+      <line num="75" type="stmt" count="2"/>
+      <line num="76" type="stmt" count="2"/>
+      <line num="77" type="stmt" count="1"/>
+      <line num="78" type="stmt" count="1"/>
+      <line num="79" type="stmt" count="1"/>
+      <line num="80" type="stmt" count="1"/>
+      <line num="81" type="stmt" count="1"/>
+      <line num="82" type="stmt" count="1"/>
+      <line num="83" type="stmt" count="1"/>
+      <line num="84" type="stmt" count="1"/>
+      <line num="85" type="stmt" count="1"/>
+      <line num="86" type="stmt" count="1"/>
+      <line num="87" type="stmt" count="1"/>
+      <line num="88" type="stmt" count="1"/>
+      <line num="89" type="stmt" count="1"/>
+      <line num="90" type="stmt" count="1"/>
+      <line num="91" type="stmt" count="1"/>
+      <line num="92" type="stmt" count="1"/>
+      <line num="93" type="stmt" count="0"/>
+      <line num="94" type="stmt" count="1"/>
+      <line num="95" type="stmt" count="1"/>
+      <line num="96" type="stmt" count="1"/>
+      <line num="97" type="stmt" count="1"/>
+      <line num="98" type="stmt" count="1"/>
+      <line num="99" type="stmt" count="1"/>
+      <line num="100" type="stmt" count="1"/>
+      <line num="101" type="stmt" count="1"/>
+      <metrics loc="105" ncloc="105" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="69" coveredstatements="52" elements="72" coveredelements="52"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\Candidatos\Presentation\HTTP\routes.php">
+      <line num="6" type="stmt" count="29"/>
+      <line num="7" type="stmt" count="29"/>
+      <line num="8" type="stmt" count="29"/>
+      <metrics loc="9" ncloc="9" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="3" coveredelements="3"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Application\Exceptions\EmailAlreadyUsedException.php">
+      <class name="Src\Agenda\User\Application\Exceptions\EmailAlreadyUsedException" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="9" type="stmt" count="1"/>
+      <metrics loc="11" ncloc="11" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Application\Mappers\UserMapper.php">
+      <class name="Src\Agenda\User\Application\Mappers\UserMapper" namespace="global">
+        <metrics complexity="5" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="37" elements="41" coveredelements="41"/>
+      </class>
+      <line num="16" type="method" name="fromRequest" visibility="public" complexity="1" crap="1" count="7"/>
+      <line num="18" type="stmt" count="7"/>
+      <line num="19" type="stmt" count="7"/>
+      <line num="20" type="stmt" count="7"/>
+      <line num="21" type="stmt" count="7"/>
+      <line num="22" type="stmt" count="7"/>
+      <line num="23" type="stmt" count="7"/>
+      <line num="24" type="stmt" count="7"/>
+      <line num="25" type="stmt" count="7"/>
+      <line num="26" type="stmt" count="7"/>
+      <line num="29" type="method" name="fromEloquent" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="32" type="stmt" count="3"/>
+      <line num="33" type="stmt" count="3"/>
+      <line num="34" type="stmt" count="3"/>
+      <line num="35" type="stmt" count="3"/>
+      <line num="36" type="stmt" count="3"/>
+      <line num="37" type="stmt" count="3"/>
+      <line num="38" type="stmt" count="3"/>
+      <line num="39" type="stmt" count="3"/>
+      <line num="40" type="stmt" count="3"/>
+      <line num="43" type="method" name="fromAuth" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="46" type="stmt" count="2"/>
+      <line num="47" type="stmt" count="2"/>
+      <line num="48" type="stmt" count="2"/>
+      <line num="49" type="stmt" count="2"/>
+      <line num="50" type="stmt" count="2"/>
+      <line num="51" type="stmt" count="2"/>
+      <line num="52" type="stmt" count="2"/>
+      <line num="53" type="stmt" count="2"/>
+      <line num="54" type="stmt" count="2"/>
+      <line num="57" type="method" name="toEloquent" visibility="public" complexity="2" crap="2" count="29"/>
+      <line num="59" type="stmt" count="29"/>
+      <line num="60" type="stmt" count="29"/>
+      <line num="61" type="stmt" count="2"/>
+      <line num="63" type="stmt" count="29"/>
+      <line num="64" type="stmt" count="29"/>
+      <line num="65" type="stmt" count="29"/>
+      <line num="66" type="stmt" count="29"/>
+      <line num="67" type="stmt" count="29"/>
+      <line num="68" type="stmt" count="29"/>
+      <line num="69" type="stmt" count="29"/>
+      <metrics loc="72" ncloc="70" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="37" elements="41" coveredelements="41"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Application\Providers\UserServiceProvider.php">
+      <class name="Src\Agenda\User\Application\Providers\UserServiceProvider" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="5" coveredelements="5"/>
+      </class>
+      <line num="10" type="method" name="register" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="12" type="stmt" count="29"/>
+      <line num="13" type="stmt" count="29"/>
+      <line num="14" type="stmt" count="29"/>
+      <line num="15" type="stmt" count="29"/>
+      <metrics loc="23" ncloc="19" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="5" coveredelements="5"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Application\Repositories\Eloquent\UserRepository.php">
+      <class name="Src\Agenda\User\Application\Repositories\Eloquent\UserRepository" namespace="global">
+        <metrics complexity="8" methods="6" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="16" elements="24" coveredelements="21"/>
+      </class>
+      <line num="13" type="method" name="findAll" visibility="public" complexity="2" crap="2" count="1"/>
+      <line num="15" type="stmt" count="1"/>
+      <line num="16" type="stmt" count="1"/>
+      <line num="17" type="stmt" count="1"/>
+      <line num="19" type="stmt" count="1"/>
+      <line num="22" type="method" name="findById" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="24" type="stmt" count="2"/>
+      <line num="25" type="stmt" count="1"/>
+      <line num="28" type="method" name="findByEmail" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="30" type="stmt" count="0"/>
+      <line num="31" type="stmt" count="0"/>
+      <line num="34" type="method" name="store" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="36" type="stmt" count="1"/>
+      <line num="37" type="stmt" count="1"/>
+      <line num="38" type="stmt" count="1"/>
+      <line num="40" type="stmt" count="1"/>
+      <line num="43" type="method" name="update" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="45" type="stmt" count="2"/>
+      <line num="46" type="stmt" count="2"/>
+      <line num="47" type="stmt" count="2"/>
+      <line num="49" type="stmt" count="2"/>
+      <line num="52" type="method" name="delete" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="54" type="stmt" count="2"/>
+      <line num="55" type="stmt" count="1"/>
+      <metrics loc="57" ncloc="57" classes="1" methods="6" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="16" elements="24" coveredelements="21"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Application\UseCases\Commands\DestroyUserCommand.php">
+      <class name="Src\Agenda\User\Application\UseCases\Commands\DestroyUserCommand" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </class>
+      <line num="13" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="17" type="stmt" count="3"/>
+      <line num="20" type="method" name="execute" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="22" type="stmt" count="3"/>
+      <line num="23" type="stmt" count="2"/>
+      <metrics loc="25" ncloc="25" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Application\UseCases\Commands\StoreUserCommand.php">
+      <class name="Src\Agenda\User\Application\UseCases\Commands\StoreUserCommand" namespace="global">
+        <metrics complexity="3" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="7" coveredelements="7"/>
+      </class>
+      <line num="19" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="24" type="stmt" count="2"/>
+      <line num="28" type="method" name="execute" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="30" type="stmt" count="2"/>
+      <line num="31" type="stmt" count="1"/>
+      <line num="32" type="stmt" count="1"/>
+      <line num="41" type="stmt" count="1"/>
+      <metrics loc="44" ncloc="37" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="7" coveredelements="7"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Application\UseCases\Commands\UpdateUserCommand.php">
+      <class name="Src\Agenda\User\Application\UseCases\Commands\UpdateUserCommand" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </class>
+      <line num="20" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="25" type="stmt" count="2"/>
+      <line num="29" type="method" name="execute" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="31" type="stmt" count="2"/>
+      <line num="43" type="stmt" count="2"/>
+      <metrics loc="46" ncloc="34" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Application\UseCases\Queries\FindAllUsersQuery.php">
+      <class name="Src\Agenda\User\Application\UseCases\Queries\FindAllUsersQuery" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </class>
+      <line num="13" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="15" type="stmt" count="2"/>
+      <line num="18" type="method" name="handle" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="20" type="stmt" count="2"/>
+      <line num="21" type="stmt" count="1"/>
+      <metrics loc="23" ncloc="23" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Application\UseCases\Queries\FindUserByEmailQuery.php">
+      <class name="Src\Agenda\User\Application\UseCases\Queries\FindUserByEmailQuery" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="0" elements="5" coveredelements="0"/>
+      </class>
+      <line num="13" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="17" type="stmt" count="0"/>
+      <line num="20" type="method" name="handle" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="22" type="stmt" count="0"/>
+      <line num="23" type="stmt" count="0"/>
+      <metrics loc="25" ncloc="25" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="0" elements="5" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Application\UseCases\Queries\FindUserByIdQuery.php">
+      <class name="Src\Agenda\User\Application\UseCases\Queries\FindUserByIdQuery" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </class>
+      <line num="14" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="18" type="stmt" count="3"/>
+      <line num="21" type="method" name="handle" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="23" type="stmt" count="3"/>
+      <line num="24" type="stmt" count="2"/>
+      <metrics loc="26" ncloc="26" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Domain\Exceptions\CompanyRequiredException.php">
+      <class name="Src\Agenda\User\Domain\Exceptions\CompanyRequiredException" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+      </class>
+      <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="9" type="stmt" count="0"/>
+      <metrics loc="11" ncloc="11" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Domain\Exceptions\PasswordTooShortException.php">
+      <class name="Src\Agenda\User\Domain\Exceptions\PasswordTooShortException" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="9" type="stmt" count="2"/>
+      <metrics loc="11" ncloc="11" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Domain\Exceptions\PasswordsDoNotMatchException.php">
+      <class name="Src\Agenda\User\Domain\Exceptions\PasswordsDoNotMatchException" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="9" type="stmt" count="2"/>
+      <metrics loc="11" ncloc="11" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Domain\Factories\UserFactory.php">
+      <class name="Src\Agenda\User\Domain\Factories\UserFactory" namespace="global">
+        <metrics complexity="2" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="20" coveredstatements="20" elements="21" coveredelements="21"/>
+      </class>
+      <line num="13" type="method" name="new" visibility="public" complexity="2" crap="2" count="29"/>
+      <line num="15" type="stmt" count="29"/>
+      <line num="17" type="stmt" count="29"/>
+      <line num="18" type="stmt" count="29"/>
+      <line num="19" type="stmt" count="29"/>
+      <line num="20" type="stmt" count="29"/>
+      <line num="21" type="stmt" count="29"/>
+      <line num="22" type="stmt" count="29"/>
+      <line num="23" type="stmt" count="29"/>
+      <line num="24" type="stmt" count="29"/>
+      <line num="25" type="stmt" count="29"/>
+      <line num="27" type="stmt" count="29"/>
+      <line num="29" type="stmt" count="29"/>
+      <line num="30" type="stmt" count="29"/>
+      <line num="31" type="stmt" count="29"/>
+      <line num="32" type="stmt" count="29"/>
+      <line num="33" type="stmt" count="29"/>
+      <line num="34" type="stmt" count="29"/>
+      <line num="35" type="stmt" count="29"/>
+      <line num="36" type="stmt" count="29"/>
+      <line num="37" type="stmt" count="29"/>
+      <metrics loc="40" ncloc="40" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="20" coveredstatements="20" elements="21" coveredelements="21"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Domain\Model\User.php">
+      <class name="Src\Agenda\User\Domain\Model\User" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="12" coveredelements="12"/>
+      </class>
+      <line num="19" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="27" type="stmt" count="29"/>
+      <line num="42" type="method" name="toArray" visibility="public" complexity="1" crap="1" count="7"/>
+      <line num="44" type="stmt" count="7"/>
+      <line num="45" type="stmt" count="7"/>
+      <line num="46" type="stmt" count="7"/>
+      <line num="47" type="stmt" count="7"/>
+      <line num="48" type="stmt" count="7"/>
+      <line num="49" type="stmt" count="7"/>
+      <line num="50" type="stmt" count="7"/>
+      <line num="51" type="stmt" count="7"/>
+      <line num="52" type="stmt" count="7"/>
+      <metrics loc="55" ncloc="41" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="12" coveredelements="12"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Domain\Model\ValueObjects\CompanyId.php">
+      <class name="Src\Agenda\User\Domain\Model\ValueObjects\CompanyId" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="4" coveredelements="0"/>
+      </class>
+      <line num="13" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="15" type="stmt" count="0"/>
+      <line num="18" type="method" name="jsonSerialize" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="20" type="stmt" count="0"/>
+      <metrics loc="22" ncloc="22" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="4" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Domain\Model\ValueObjects\Email.php">
+      <class name="Src\Agenda\User\Domain\Model\ValueObjects\Email" namespace="global">
+        <metrics complexity="6" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="6" elements="10" coveredelements="8"/>
+      </class>
+      <line num="15" type="method" name="__construct" visibility="public" complexity="4" crap="4.13" count="29"/>
+      <line num="17" type="stmt" count="29"/>
+      <line num="18" type="stmt" count="0"/>
+      <line num="21" type="stmt" count="29"/>
+      <line num="22" type="stmt" count="1"/>
+      <line num="25" type="stmt" count="29"/>
+      <line num="28" type="method" name="__toString" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="30" type="stmt" count="29"/>
+      <line num="33" type="method" name="jsonSerialize" visibility="public" complexity="1" crap="1" count="7"/>
+      <line num="35" type="stmt" count="7"/>
+      <metrics loc="37" ncloc="37" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="6" elements="10" coveredelements="8"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Domain\Model\ValueObjects\Name.php">
+      <class name="Src\Agenda\User\Domain\Model\ValueObjects\Name" namespace="global">
+        <metrics complexity="4" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="8" coveredelements="6"/>
+      </class>
+      <line num="14" type="method" name="__construct" visibility="public" complexity="2" crap="2.15" count="29"/>
+      <line num="17" type="stmt" count="29"/>
+      <line num="18" type="stmt" count="0"/>
+      <line num="21" type="stmt" count="29"/>
+      <line num="24" type="method" name="__toString" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="26" type="stmt" count="29"/>
+      <line num="29" type="method" name="jsonSerialize" visibility="public" complexity="1" crap="1" count="7"/>
+      <line num="31" type="stmt" count="7"/>
+      <metrics loc="34" ncloc="34" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="8" coveredelements="6"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Domain\Model\ValueObjects\Password.php">
+      <class name="Src\Agenda\User\Domain\Model\ValueObjects\Password" namespace="global">
+        <metrics complexity="7" methods="4" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="6" elements="12" coveredelements="8"/>
+      </class>
+      <line num="15" type="method" name="__construct" visibility="public" complexity="4" crap="4" count="6"/>
+      <line num="17" type="stmt" count="6"/>
+      <line num="18" type="stmt" count="2"/>
+      <line num="21" type="stmt" count="6"/>
+      <line num="22" type="stmt" count="2"/>
+      <line num="25" type="stmt" count="4"/>
+      <line num="28" type="method" name="fromString" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="30" type="stmt" count="0"/>
+      <line num="33" type="method" name="isNotEmpty" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="35" type="stmt" count="2"/>
+      <line num="38" type="method" name="jsonSerialize" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="40" type="stmt" count="0"/>
+      <metrics loc="42" ncloc="42" classes="1" methods="4" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="6" elements="12" coveredelements="8"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Domain\Model\ValueObjects\Role.php">
+      <class name="Src\Agenda\User\Domain\Model\ValueObjects\Role" namespace="global">
+        <metrics complexity="4" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="8" coveredelements="6"/>
+      </class>
+      <line num="14" type="method" name="__construct" visibility="public" complexity="2" crap="2.15" count="29"/>
+      <line num="17" type="stmt" count="29"/>
+      <line num="18" type="stmt" count="0"/>
+      <line num="21" type="stmt" count="29"/>
+      <line num="24" type="method" name="__toString" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="26" type="stmt" count="29"/>
+      <line num="29" type="method" name="jsonSerialize" visibility="public" complexity="1" crap="1" count="7"/>
+      <line num="31" type="stmt" count="7"/>
+      <metrics loc="34" ncloc="34" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="8" coveredelements="6"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Domain\Model\ValueObjects\Username.php">
+      <class name="Src\Agenda\User\Domain\Model\ValueObjects\Username" namespace="global">
+        <metrics complexity="4" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="8" coveredelements="6"/>
+      </class>
+      <line num="14" type="method" name="__construct" visibility="public" complexity="2" crap="2.15" count="29"/>
+      <line num="17" type="stmt" count="29"/>
+      <line num="18" type="stmt" count="0"/>
+      <line num="21" type="stmt" count="29"/>
+      <line num="24" type="method" name="__toString" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="26" type="stmt" count="29"/>
+      <line num="29" type="method" name="jsonSerialize" visibility="public" complexity="1" crap="1" count="7"/>
+      <line num="31" type="stmt" count="7"/>
+      <metrics loc="34" ncloc="34" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="8" coveredelements="6"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Domain\Policies\UserPolicy.php">
+      <class name="Src\Agenda\User\Domain\Policies\UserPolicy" namespace="global">
+        <metrics complexity="8" methods="7" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="5" elements="14" coveredelements="10"/>
+      </class>
+      <line num="9" type="method" name="findAll" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="11" type="stmt" count="2"/>
+      <line num="14" type="method" name="findById" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="16" type="stmt" count="3"/>
+      <line num="19" type="method" name="findByEmail" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="21" type="stmt" count="0"/>
+      <line num="24" type="method" name="store" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="26" type="stmt" count="2"/>
+      <line num="29" type="method" name="update" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="31" type="stmt" count="2"/>
+      <line num="34" type="method" name="delete" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="36" type="stmt" count="3"/>
+      <line num="39" type="method" name="getRandomAvatar" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <metrics loc="44" ncloc="44" classes="1" methods="7" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="5" elements="14" coveredelements="10"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Domain\Repositories\UserRepositoryInterface.php">
+      <metrics loc="25" ncloc="24" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Infrastructure\EloquentModels\Casts\PasswordCast.php">
+      <class name="Src\Agenda\User\Infrastructure\EloquentModels\Casts\PasswordCast" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+      </class>
+      <line num="13" type="method" name="get" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="15" type="stmt" count="29"/>
+      <line num="21" type="method" name="set" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="23" type="stmt" count="29"/>
+      <metrics loc="25" ncloc="19" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Infrastructure\EloquentModels\UserEloquentModel.php">
+      <class name="Src\Agenda\User\Infrastructure\EloquentModels\UserEloquentModel" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+      </class>
+      <line num="70" type="method" name="getJWTIdentifier" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="72" type="stmt" count="29"/>
+      <line num="79" type="method" name="getJWTCustomClaims" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="81" type="stmt" count="29"/>
+      <metrics loc="84" ncloc="59" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Presentation\HTTP\UserController.php">
+      <class name="Src\Agenda\User\Presentation\HTTP\UserController" namespace="global">
+        <metrics complexity="12" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="26" coveredstatements="26" elements="31" coveredelements="31"/>
+      </class>
+      <line num="20" type="method" name="index" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="23" type="stmt" count="2"/>
+      <line num="24" type="stmt" count="1"/>
+      <line num="25" type="stmt" count="1"/>
+      <line num="29" type="method" name="show" visibility="public" complexity="2" crap="2" count="3"/>
+      <line num="32" type="stmt" count="3"/>
+      <line num="33" type="stmt" count="2"/>
+      <line num="34" type="stmt" count="1"/>
+      <line num="38" type="method" name="store" visibility="public" complexity="3" crap="3" count="4"/>
+      <line num="41" type="stmt" count="4"/>
+      <line num="42" type="stmt" count="3"/>
+      <line num="43" type="stmt" count="2"/>
+      <line num="44" type="stmt" count="1"/>
+      <line num="45" type="stmt" count="4"/>
+      <line num="46" type="stmt" count="3"/>
+      <line num="47" type="stmt" count="1"/>
+      <line num="48" type="stmt" count="1"/>
+      <line num="52" type="method" name="update" visibility="public" complexity="3" crap="3" count="3"/>
+      <line num="55" type="stmt" count="3"/>
+      <line num="56" type="stmt" count="3"/>
+      <line num="57" type="stmt" count="2"/>
+      <line num="58" type="stmt" count="2"/>
+      <line num="59" type="stmt" count="2"/>
+      <line num="60" type="stmt" count="1"/>
+      <line num="61" type="stmt" count="1"/>
+      <line num="62" type="stmt" count="1"/>
+      <line num="66" type="method" name="destroy" visibility="public" complexity="2" crap="2" count="3"/>
+      <line num="69" type="stmt" count="3"/>
+      <line num="70" type="stmt" count="1"/>
+      <line num="71" type="stmt" count="2"/>
+      <line num="72" type="stmt" count="1"/>
+      <metrics loc="76" ncloc="76" classes="1" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="26" coveredstatements="26" elements="31" coveredelements="31"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Agenda\User\Presentation\HTTP\routes.php">
+      <line num="6" type="stmt" count="29"/>
+      <line num="7" type="stmt" count="29"/>
+      <line num="8" type="stmt" count="29"/>
+      <line num="9" type="stmt" count="29"/>
+      <line num="10" type="stmt" count="29"/>
+      <line num="11" type="stmt" count="29"/>
+      <line num="12" type="stmt" count="29"/>
+      <line num="13" type="stmt" count="29"/>
+      <line num="14" type="stmt" count="29"/>
+      <metrics loc="15" ncloc="15" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="9" elements="9" coveredelements="9"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Auth\Application\JWTAuth.php">
+      <class name="Src\Auth\Application\JWTAuth" namespace="global">
+        <metrics complexity="8" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="11" elements="16" coveredelements="14"/>
+      </class>
+      <line num="24" type="method" name="login" visibility="public" complexity="4" crap="4.07" count="29"/>
+      <line num="26" type="stmt" count="29"/>
+      <line num="27" type="stmt" count="29"/>
+      <line num="28" type="stmt" count="2"/>
+      <line num="29" type="stmt" count="29"/>
+      <line num="30" type="stmt" count="0"/>
+      <line num="32" type="stmt" count="29"/>
+      <line num="35" type="method" name="logout" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="37" type="stmt" count="1"/>
+      <line num="40" type="method" name="me" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="42" type="stmt" count="2"/>
+      <line num="45" type="method" name="refresh" visibility="public" complexity="2" crap="2" count="1"/>
+      <line num="48" type="stmt" count="1"/>
+      <line num="49" type="stmt" count="1"/>
+      <line num="50" type="stmt" count="1"/>
+      <line num="51" type="stmt" count="1"/>
+      <metrics loc="55" ncloc="49" classes="1" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="11" elements="16" coveredelements="14"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Auth\Application\Providers\AuthServiceProvider.php">
+      <class name="Src\Auth\Application\Providers\AuthServiceProvider" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="7" coveredelements="7"/>
+      </class>
+      <line num="23" type="method" name="boot" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="25" type="stmt" count="29"/>
+      <line num="30" type="method" name="register" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="32" type="stmt" count="29"/>
+      <line num="33" type="stmt" count="29"/>
+      <line num="34" type="stmt" count="29"/>
+      <line num="35" type="stmt" count="29"/>
+      <metrics loc="38" ncloc="27" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="7" coveredelements="7"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Auth\Domain\AuthInterface.php">
+      <metrics loc="21" ncloc="15" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Auth\Infrastructure\.gitkeep.php">
+      <metrics loc="2" ncloc="2" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Auth\Presentation\HTTP\AuthController.php">
+      <class name="Src\Auth\Presentation\HTTP\AuthController" namespace="global">
+        <metrics complexity="10" methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="37" elements="43" coveredelements="43"/>
+      </class>
+      <line num="18" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="20" type="stmt" count="29"/>
+      <line num="29" type="method" name="login" visibility="public" complexity="4" crap="4" count="29"/>
+      <line num="32" type="stmt" count="29"/>
+      <line num="33" type="stmt" count="29"/>
+      <line num="34" type="stmt" count="29"/>
+      <line num="35" type="stmt" count="29"/>
+      <line num="36" type="stmt" count="29"/>
+      <line num="37" type="stmt" count="29"/>
+      <line num="38" type="stmt" count="29"/>
+      <line num="40" type="stmt" count="29"/>
+      <line num="41" type="stmt" count="3"/>
+      <line num="43" type="stmt" count="29"/>
+      <line num="44" type="stmt" count="29"/>
+      <line num="45" type="stmt" count="5"/>
+      <line num="46" type="stmt" count="3"/>
+      <line num="47" type="stmt" count="2"/>
+      <line num="48" type="stmt" count="2"/>
+      <line num="49" type="stmt" count="2"/>
+      <line num="50" type="stmt" count="2"/>
+      <line num="51" type="stmt" count="2"/>
+      <line num="52" type="stmt" count="2"/>
+      <line num="53" type="stmt" count="2"/>
+      <line num="54" type="stmt" count="2"/>
+      <line num="55" type="stmt" count="2"/>
+      <line num="64" type="method" name="me" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="66" type="stmt" count="2"/>
+      <line num="74" type="method" name="logout" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="76" type="stmt" count="1"/>
+      <line num="77" type="stmt" count="1"/>
+      <line num="85" type="method" name="refresh" visibility="public" complexity="2" crap="2" count="1"/>
+      <line num="88" type="stmt" count="1"/>
+      <line num="89" type="stmt" count="1"/>
+      <line num="90" type="stmt" count="1"/>
+      <line num="93" type="stmt" count="1"/>
+      <line num="103" type="method" name="respondWithToken" visibility="protected" complexity="1" crap="1" count="29"/>
+      <line num="105" type="stmt" count="29"/>
+      <line num="106" type="stmt" count="29"/>
+      <line num="107" type="stmt" count="29"/>
+      <line num="108" type="stmt" count="29"/>
+      <line num="109" type="stmt" count="29"/>
+      <line num="110" type="stmt" count="29"/>
+      <line num="111" type="stmt" count="29"/>
+      <metrics loc="114" ncloc="86" classes="1" methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="37" elements="43" coveredelements="43"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Auth\Presentation\HTTP\routes.php">
+      <line num="7" type="stmt" count="29"/>
+      <line num="8" type="stmt" count="29"/>
+      <line num="9" type="stmt" count="29"/>
+      <line num="10" type="stmt" count="29"/>
+      <line num="11" type="stmt" count="29"/>
+      <line num="12" type="stmt" count="29"/>
+      <line num="13" type="stmt" count="29"/>
+      <line num="14" type="stmt" count="29"/>
+      <line num="15" type="stmt" count="29"/>
+      <metrics loc="16" ncloc="16" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="9" elements="9" coveredelements="9"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Domain\AggregateRoot.php">
+      <class name="Src\Common\Domain\AggregateRoot" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="9" type="method" name="jsonSerialize" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="11" type="stmt" count="2"/>
+      <metrics loc="13" ncloc="13" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Domain\CommandInterface.php">
+      <metrics loc="13" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Domain\Entity.php">
+      <class name="Src\Common\Domain\Entity" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+      </class>
+      <line num="9" type="method" name="jsonSerialize" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="11" type="stmt" count="0"/>
+      <metrics loc="13" ncloc="13" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Domain\Exceptions\EntityNotFoundException.php">
+      <class name="Src\Common\Domain\Exceptions\EntityNotFoundException" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+      </class>
+      <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="9" type="stmt" count="0"/>
+      <metrics loc="11" ncloc="11" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Domain\Exceptions\IncorrectEmailFormatException.php">
+      <class name="Src\Common\Domain\Exceptions\IncorrectEmailFormatException" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="9" type="stmt" count="1"/>
+      <metrics loc="11" ncloc="11" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Domain\Exceptions\MaximumValueException.php">
+      <class name="Src\Common\Domain\Exceptions\MaximumValueException" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+      </class>
+      <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="9" type="stmt" count="0"/>
+      <metrics loc="11" ncloc="11" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Domain\Exceptions\RequiredException.php">
+      <class name="Src\Common\Domain\Exceptions\RequiredException" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+      </class>
+      <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="9" type="stmt" count="0"/>
+      <metrics loc="11" ncloc="11" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Domain\Exceptions\UnauthorizedUserException.php">
+      <class name="Src\Common\Domain\Exceptions\UnauthorizedUserException" namespace="global">
+        <metrics complexity="2" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="7" type="method" name="__construct" visibility="public" complexity="2" crap="2" count="6"/>
+      <line num="9" type="stmt" count="6"/>
+      <metrics loc="11" ncloc="11" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Domain\QueryInterface.php">
+      <metrics loc="13" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Domain\ValueObject.php">
+      <class name="Src\Common\Domain\ValueObject" namespace="global">
+        <metrics complexity="3" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="4" coveredelements="0"/>
+      </class>
+      <line num="11" type="method" name="splitField" visibility="public" complexity="2" crap="6" count="0"/>
+      <line num="13" type="stmt" count="0"/>
+      <line num="16" type="method" name="equals" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="18" type="stmt" count="0"/>
+      <metrics loc="20" ncloc="20" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="4" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Domain\ValueObjectArray.php">
+      <class name="Src\Common\Domain\ValueObjectArray" namespace="global">
+        <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </class>
+      <metrics loc="8" ncloc="8" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Controller.php">
+      <class name="Src\Common\Infrastructure\Laravel\Controller" namespace="global">
+        <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </class>
+      <metrics loc="14" ncloc="14" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Exceptions\Handler.php">
+      <class name="Src\Common\Infrastructure\Laravel\Exceptions\Handler" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+      </class>
+      <line num="44" type="method" name="register" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="46" type="stmt" count="29"/>
+      <line num="48" type="stmt" count="29"/>
+      <metrics loc="51" ncloc="30" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Kernel\Console.php">
+      <class name="Src\Common\Infrastructure\Laravel\Kernel\Console" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="2" elements="5" coveredelements="3"/>
+      </class>
+      <line num="34" type="method" name="schedule" visibility="protected" complexity="1" crap="2" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <line num="43" type="method" name="commands" visibility="protected" complexity="1" crap="1" count="29"/>
+      <line num="45" type="stmt" count="29"/>
+      <line num="47" type="stmt" count="29"/>
+      <metrics loc="50" ncloc="34" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="2" elements="5" coveredelements="3"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Kernel\Http.php">
+      <class name="Src\Common\Infrastructure\Laravel\Kernel\Http" namespace="global">
+        <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </class>
+      <metrics loc="79" ncloc="58" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Middleware\Authenticate.php">
+      <class name="Src\Common\Infrastructure\Laravel\Middleware\Authenticate" namespace="global">
+        <metrics complexity="2" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="3" coveredelements="0"/>
+      </class>
+      <line num="15" type="method" name="redirectTo" visibility="protected" complexity="2" crap="6" count="0"/>
+      <line num="17" type="stmt" count="0"/>
+      <line num="18" type="stmt" count="0"/>
+      <metrics loc="22" ncloc="16" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="3" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Middleware\EncryptCookies.php">
+      <class name="Src\Common\Infrastructure\Laravel\Middleware\EncryptCookies" namespace="global">
+        <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </class>
+      <metrics loc="18" ncloc="13" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Middleware\JwtMiddleware.php">
+      <class name="Src\Common\Infrastructure\Laravel\Middleware\JwtMiddleware" namespace="global">
+        <metrics complexity="7" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="4" elements="18" coveredelements="4"/>
+      </class>
+      <line num="24" type="method" name="handle" visibility="public" complexity="7" crap="28.91" count="29"/>
+      <line num="27" type="stmt" count="29"/>
+      <line num="28" type="stmt" count="29"/>
+      <line num="31" type="stmt" count="23"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="35" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <line num="37" type="stmt" count="0"/>
+      <line num="38" type="stmt" count="0"/>
+      <line num="39" type="stmt" count="0"/>
+      <line num="40" type="stmt" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <line num="42" type="stmt" count="0"/>
+      <line num="43" type="stmt" count="0"/>
+      <line num="44" type="stmt" count="0"/>
+      <line num="47" type="stmt" count="23"/>
+      <metrics loc="50" ncloc="43" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="4" elements="18" coveredelements="4"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Middleware\PreventRequestsDuringMaintenance.php">
+      <class name="Src\Common\Infrastructure\Laravel\Middleware\PreventRequestsDuringMaintenance" namespace="global">
+        <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </class>
+      <metrics loc="18" ncloc="13" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Middleware\RedirectIfAuthenticated.php">
+      <class name="Src\Common\Infrastructure\Laravel\Middleware\RedirectIfAuthenticated" namespace="global">
+        <metrics complexity="4" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="0" elements="6" coveredelements="0"/>
+      </class>
+      <line num="20" type="method" name="handle" visibility="public" complexity="4" crap="20" count="0"/>
+      <line num="22" type="stmt" count="0"/>
+      <line num="24" type="stmt" count="0"/>
+      <line num="25" type="stmt" count="0"/>
+      <line num="26" type="stmt" count="0"/>
+      <line num="30" type="stmt" count="0"/>
+      <metrics loc="33" ncloc="25" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="0" elements="6" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Middleware\TrimStrings.php">
+      <class name="Src\Common\Infrastructure\Laravel\Middleware\TrimStrings" namespace="global">
+        <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </class>
+      <metrics loc="20" ncloc="15" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Middleware\TrustHosts.php">
+      <class name="Src\Common\Infrastructure\Laravel\Middleware\TrustHosts" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="0" elements="4" coveredelements="0"/>
+      </class>
+      <line num="14" type="method" name="hosts" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="16" type="stmt" count="0"/>
+      <line num="17" type="stmt" count="0"/>
+      <line num="18" type="stmt" count="0"/>
+      <metrics loc="21" ncloc="16" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="0" elements="4" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Middleware\TrustProxies.php">
+      <class name="Src\Common\Infrastructure\Laravel\Middleware\TrustProxies" namespace="global">
+        <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </class>
+      <metrics loc="29" ncloc="19" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Middleware\VerifyCsrfToken.php">
+      <class name="Src\Common\Infrastructure\Laravel\Middleware\VerifyCsrfToken" namespace="global">
+        <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </class>
+      <metrics loc="18" ncloc="13" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Providers\AppServiceProvider.php">
+      <class name="Src\Common\Infrastructure\Laravel\Providers\AppServiceProvider" namespace="global">
+        <metrics complexity="3" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="9" elements="11" coveredelements="11"/>
+      </class>
+      <line num="18" type="method" name="register" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="21" type="stmt" count="29"/>
+      <line num="28" type="method" name="boot" visibility="public" complexity="2" crap="2" count="29"/>
+      <line num="30" type="stmt" count="29"/>
+      <line num="31" type="stmt" count="6"/>
+      <line num="32" type="stmt" count="1"/>
+      <line num="34" type="stmt" count="6"/>
+      <line num="35" type="stmt" count="29"/>
+      <line num="37" type="stmt" count="29"/>
+      <line num="38" type="stmt" count="9"/>
+      <line num="39" type="stmt" count="29"/>
+      <metrics loc="42" ncloc="31" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="9" elements="11" coveredelements="11"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Providers\AuthServiceProvider.php">
+      <class name="Src\Common\Infrastructure\Laravel\Providers\AuthServiceProvider" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="0" elements="7" coveredelements="0"/>
+      </class>
+      <line num="23" type="method" name="boot" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="26" type="stmt" count="0"/>
+      <line num="29" type="method" name="register" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="31" type="stmt" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <metrics loc="37" ncloc="26" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="0" elements="7" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Providers\BroadcastServiceProvider.php">
+      <class name="Src\Common\Infrastructure\Laravel\Providers\BroadcastServiceProvider" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="3" coveredelements="0"/>
+      </class>
+      <line num="15" type="method" name="boot" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="17" type="stmt" count="0"/>
+      <line num="19" type="stmt" count="0"/>
+      <metrics loc="22" ncloc="17" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="3" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Providers\EventServiceProvider.php">
+      <class name="Src\Common\Infrastructure\Laravel\Providers\EventServiceProvider" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+      </class>
+      <line num="27" type="method" name="boot" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="30" type="stmt" count="29"/>
+      <line num="37" type="method" name="shouldDiscoverEvents" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="39" type="stmt" count="29"/>
+      <metrics loc="42" ncloc="26" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\Laravel\Providers\RouteServiceProvider.php">
+      <class name="Src\Common\Infrastructure\Laravel\Providers\RouteServiceProvider" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="16" elements="18" coveredelements="18"/>
+      </class>
+      <line num="27" type="method" name="boot" visibility="public" complexity="1" crap="1" count="29"/>
+      <line num="29" type="stmt" count="29"/>
+      <line num="31" type="stmt" count="29"/>
+      <line num="32" type="stmt" count="29"/>
+      <line num="33" type="stmt" count="29"/>
+      <line num="35" type="stmt" count="29"/>
+      <line num="36" type="stmt" count="29"/>
+      <line num="38" type="stmt" count="29"/>
+      <line num="39" type="stmt" count="29"/>
+      <line num="40" type="stmt" count="29"/>
+      <line num="41" type="stmt" count="29"/>
+      <line num="42" type="stmt" count="29"/>
+      <line num="43" type="stmt" count="29"/>
+      <line num="44" type="stmt" count="29"/>
+      <line num="52" type="method" name="configureRateLimiting" visibility="protected" complexity="1" crap="1" count="29"/>
+      <line num="54" type="stmt" count="29"/>
+      <line num="55" type="stmt" count="29"/>
+      <line num="56" type="stmt" count="29"/>
+      <metrics loc="59" ncloc="42" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="16" elements="18" coveredelements="18"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Infrastructure\helpers.php">
+      <line num="11" type="stmt" count="17"/>
+      <line num="12" type="stmt" count="12"/>
+      <line num="14" type="stmt" count="6"/>
+      <metrics loc="17" ncloc="15" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="3" coveredelements="3"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Presentation\CLI\CreateCommandCmd.php">
+      <class name="Src\Common\Presentation\CLI\CreateCommandCmd" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="0" elements="16" coveredelements="0"/>
+      </class>
+      <line num="30" type="method" name="handle" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <line num="38" type="stmt" count="0"/>
+      <line num="39" type="stmt" count="0"/>
+      <line num="40" type="stmt" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <line num="42" type="stmt" count="0"/>
+      <line num="43" type="stmt" count="0"/>
+      <line num="44" type="stmt" count="0"/>
+      <line num="45" type="stmt" count="0"/>
+      <line num="47" type="stmt" count="0"/>
+      <line num="49" type="stmt" count="0"/>
+      <line num="50" type="stmt" count="0"/>
+      <metrics loc="53" ncloc="38" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="0" elements="16" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Presentation\CLI\CreateControllerCmd.php">
+      <class name="Src\Common\Presentation\CLI\CreateControllerCmd" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="0" elements="13" coveredelements="0"/>
+      </class>
+      <line num="30" type="method" name="handle" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="35" type="stmt" count="0"/>
+      <line num="37" type="stmt" count="0"/>
+      <line num="38" type="stmt" count="0"/>
+      <line num="39" type="stmt" count="0"/>
+      <line num="40" type="stmt" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <line num="42" type="stmt" count="0"/>
+      <line num="44" type="stmt" count="0"/>
+      <line num="46" type="stmt" count="0"/>
+      <line num="47" type="stmt" count="0"/>
+      <metrics loc="50" ncloc="35" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="0" elements="13" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Presentation\CLI\CreateDomainCmd.php">
+      <class name="Src\Common\Presentation\CLI\CreateDomainCmd" namespace="global">
+        <metrics complexity="6" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="52" coveredstatements="0" elements="53" coveredelements="0"/>
+      </class>
+      <line num="29" type="method" name="handle" visibility="public" complexity="6" crap="42" count="0"/>
+      <line num="31" type="stmt" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <line num="37" type="stmt" count="0"/>
+      <line num="38" type="stmt" count="0"/>
+      <line num="39" type="stmt" count="0"/>
+      <line num="40" type="stmt" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <line num="42" type="stmt" count="0"/>
+      <line num="43" type="stmt" count="0"/>
+      <line num="44" type="stmt" count="0"/>
+      <line num="45" type="stmt" count="0"/>
+      <line num="46" type="stmt" count="0"/>
+      <line num="47" type="stmt" count="0"/>
+      <line num="48" type="stmt" count="0"/>
+      <line num="52" type="stmt" count="0"/>
+      <line num="53" type="stmt" count="0"/>
+      <line num="54" type="stmt" count="0"/>
+      <line num="55" type="stmt" count="0"/>
+      <line num="56" type="stmt" count="0"/>
+      <line num="57" type="stmt" count="0"/>
+      <line num="58" type="stmt" count="0"/>
+      <line num="59" type="stmt" count="0"/>
+      <line num="60" type="stmt" count="0"/>
+      <line num="61" type="stmt" count="0"/>
+      <line num="62" type="stmt" count="0"/>
+      <line num="63" type="stmt" count="0"/>
+      <line num="64" type="stmt" count="0"/>
+      <line num="65" type="stmt" count="0"/>
+      <line num="66" type="stmt" count="0"/>
+      <line num="67" type="stmt" count="0"/>
+      <line num="68" type="stmt" count="0"/>
+      <line num="69" type="stmt" count="0"/>
+      <line num="70" type="stmt" count="0"/>
+      <line num="71" type="stmt" count="0"/>
+      <line num="73" type="stmt" count="0"/>
+      <line num="77" type="stmt" count="0"/>
+      <line num="78" type="stmt" count="0"/>
+      <line num="79" type="stmt" count="0"/>
+      <line num="80" type="stmt" count="0"/>
+      <line num="81" type="stmt" count="0"/>
+      <line num="82" type="stmt" count="0"/>
+      <line num="86" type="stmt" count="0"/>
+      <line num="87" type="stmt" count="0"/>
+      <line num="88" type="stmt" count="0"/>
+      <line num="89" type="stmt" count="0"/>
+      <line num="90" type="stmt" count="0"/>
+      <line num="91" type="stmt" count="0"/>
+      <line num="92" type="stmt" count="0"/>
+      <line num="93" type="stmt" count="0"/>
+      <line num="96" type="stmt" count="0"/>
+      <metrics loc="99" ncloc="80" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="52" coveredstatements="0" elements="53" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Presentation\CLI\CreateQueryCmd.php">
+      <class name="Src\Common\Presentation\CLI\CreateQueryCmd" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="0" elements="16" coveredelements="0"/>
+      </class>
+      <line num="30" type="method" name="handle" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <line num="38" type="stmt" count="0"/>
+      <line num="39" type="stmt" count="0"/>
+      <line num="40" type="stmt" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <line num="42" type="stmt" count="0"/>
+      <line num="43" type="stmt" count="0"/>
+      <line num="44" type="stmt" count="0"/>
+      <line num="45" type="stmt" count="0"/>
+      <line num="47" type="stmt" count="0"/>
+      <line num="49" type="stmt" count="0"/>
+      <line num="50" type="stmt" count="0"/>
+      <metrics loc="53" ncloc="38" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="0" elements="16" coveredelements="0"/>
+    </file>
+    <file name="E:\Proyectos\laravel-ddd\src\Common\Presentation\CLI\CreateRoutesCmd.php">
+      <class name="Src\Common\Presentation\CLI\CreateRoutesCmd" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="0" elements="13" coveredelements="0"/>
+      </class>
+      <line num="30" type="method" name="handle" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="35" type="stmt" count="0"/>
+      <line num="37" type="stmt" count="0"/>
+      <line num="38" type="stmt" count="0"/>
+      <line num="39" type="stmt" count="0"/>
+      <line num="40" type="stmt" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <line num="42" type="stmt" count="0"/>
+      <line num="44" type="stmt" count="0"/>
+      <line num="46" type="stmt" count="0"/>
+      <line num="47" type="stmt" count="0"/>
+      <metrics loc="50" ncloc="35" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="0" elements="13" coveredelements="0"/>
+    </file>
+    <metrics files="83" loc="2814" ncloc="2420" classes="65" methods="137" coveredmethods="95" conditionals="0" coveredconditionals="0" statements="609" coveredstatements="427" elements="746" coveredelements="522"/>
+  </project>
+</coverage>
