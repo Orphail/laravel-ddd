@@ -71,7 +71,7 @@ class CandidatoTest extends TestCase
     }
 
     /** @test */
-    function obtener_todos_candidatos_manager_test()
+    function obtener_todos_candidatos_test()
     {
         $candidatosCount = $this->faker->numberBetween(1, 10);
         $this->createRandomCandidato($candidatosCount, [$this->agentData['id'], $this->managerData['id']], $this->managerData['id']);
@@ -80,7 +80,7 @@ class CandidatoTest extends TestCase
             ->get($this->candidato_uri_all)
             ->assertStatus(Response::HTTP_OK)
             ->assertJsonCount($candidatosCount, 'data');
-
+        // el usuario agent solo obtendra sus candidatos acargo
         $candidatosAgent = $this->withHeaders(['Authorization' => 'Bearer ' . $this->agentToken])
             ->get($this->candidato_uri_all)
             ->assertStatus(Response::HTTP_OK);
