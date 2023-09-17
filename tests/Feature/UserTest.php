@@ -2,9 +2,6 @@
 
 namespace Tests\Feature;
 
-use GuzzleHttp\Client;
-use Src\Agenda\User\Application\Repositories\Local\AvatarRepository;
-use Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 use Tests\WithUsers;
@@ -18,7 +15,6 @@ class UserTest extends TestCase
         parent::setUp();
         $this->user_uri = '/user';
         $this->index_uri = $this->user_uri . '/index';
-        $this->random_avatar_uri = $this->user_uri . '/random-avatar';
     }
 
     /** @test */
@@ -43,27 +39,28 @@ class UserTest extends TestCase
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
             ->get($this->user_uri . '/' . $randomUserId)
             ->assertStatus(Response::HTTP_OK)
-            ->assertJsonStructure(['id', 'name', 'email', 'avatar', 'is_admin', 'is_active']);
+            ->assertJsonStructure(['id', 'name', 'email', 'is_admin', 'is_active']);
     }
 
     /** @test */
     public function admin_can_create_a_user()
     {
-        $company = $this->newCompany();
+
         $password = $this->faker->password(8);
         $requestBody = [
+            'username' => $this->faker->userName,
             'name' => $this->faker->name,
             'email' => $this->faker->safeEmail,
-            'company_id' => $company->id,
-            'avatar' => 'https://doodleipsum.com/300/avatar-2?shape=circle',
+            'role' => 'manager',
             'password' => $password,
             'password_confirmation' => $password,
         ];
 
         $expectedResponse = [
+            'username' => $requestBody['username'],
             'name' => $requestBody['name'],
             'email' => $requestBody['email'],
-            'company_id' => $company->id,
+            'role' => $requestBody['role'],
             'is_admin' => false,
             'is_active' => true
         ];
@@ -83,13 +80,13 @@ class UserTest extends TestCase
     /** @test */
     public function cannot_create_user_with_invalid_email()
     {
-        $company = $this->newCompany();
+
         $password = $this->faker->password(8);
         $requestBodyInvalidEmail = [
+            'username' => $this->faker->userName,
             'name' => $this->faker->name,
             'email' => 'invalid-email',
-            'company_id' => $company->id,
-            'avatar' => 'https://doodleipsum.com/300/avatar-2?shape=circle',
+            'role' => 'manager',
             'password' => $password,
             'password_confirmation' => $password,
         ];
@@ -103,13 +100,13 @@ class UserTest extends TestCase
     /** @test */
     public function cannot_create_user_with_invalid_password()
     {
-        $company = $this->newCompany();
+
         $password = $this->faker->password(8);
         $requestBody = [
+            'username' => $this->faker->userName,
             'name' => $this->faker->name,
             'email' => $this->faker->safeEmail,
-            'company_id' => $company->id,
-            'avatar' => 'https://doodleipsum.com/300/avatar-2?shape=circle',
+            'role' => 'manager',
             'password' => $password,
             'password_confirmation' => $password,
         ];
@@ -138,20 +135,21 @@ class UserTest extends TestCase
 
         $password = $this->faker->password(8);
         $requestBody = [
+            'username' => $this->faker->userName,
             'name' => $this->faker->name,
             'email' => $this->faker->safeEmail,
-            'avatar' => false,
+            'role' => 'manager',
             'is_active' => false,
-            'update_avatar' => true,
             'password' => $password,
             'password_confirmation' => $password,
         ];
 
         $expectedResponse = [
             'id' => $randomUserId,
+            'username' => $requestBody['username'],
             'name' => $requestBody['name'],
             'email' => $requestBody['email'],
-            'avatar' => false,
+            'role' => $requestBody['role'],
             'is_admin' => false,
             'is_active' => false
         ];
@@ -171,11 +169,11 @@ class UserTest extends TestCase
 
         $password = $this->faker->password(8);
         $requestBody = [
+            'username' => $this->faker->userName,
             'name' => $this->faker->name,
             'email' => $this->faker->safeEmail,
-            'avatar' => 'https://doodleipsum.com/300/avatar-2?shape=circle',
+            'role' => 'manager',
             'is_active' => false,
-            'update_avatar' => true,
             'password' => $password,
             'password_confirmation' => $password,
         ];
@@ -193,7 +191,6 @@ class UserTest extends TestCase
             ->put($this->user_uri . '/' . $randomUserId, $requestBodyNoPasswordConfirmation)
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJson(['error' => 'Passwords do not match']);
-
     }
 
     /** @test */
@@ -218,25 +215,6 @@ class UserTest extends TestCase
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
             ->delete($this->user_uri . '/' . 999)
             ->assertStatus(Response::HTTP_NOT_FOUND);
-    }
-
-    /** @test */
-    public function can_get_random_image()
-    {
-        $binaryDataStr = 'binary data';
-        $guzzleMock = \Mockery::mock(Client::class);
-        $guzzleMock
-            ->shouldReceive('request')
-            ->andReturn(new \GuzzleHttp\Psr7\Response(200, ['Content-Type' => 'image/png'], $binaryDataStr));
-
-        app()->bind(AvatarRepositoryInterface::class, function () use ($guzzleMock) {
-            return new AvatarRepository($guzzleMock);
-        });
-
-        $this->withHeaders(['Authorization' => 'Bearer ' . $this->adminToken])
-            ->get($this->random_avatar_uri)
-            ->assertStatus(Response::HTTP_OK)
-            ->assertSee('data:image\/png;base64,' . base64_encode($binaryDataStr));
     }
 
     // User Tests
@@ -268,13 +246,13 @@ class UserTest extends TestCase
     /** @test */
     public function user_cannot_create_user()
     {
-        $company = $this->newCompany();
+
         $password = $this->faker->password(8);
         $requestBody = [
+            'username' => $this->faker->username,
             'name' => $this->faker->name,
             'email' => $this->faker->safeEmail,
-            'company_id' => $company->id,
-            'avatar' => 'https://doodleipsum.com/300/avatar-2?shape=circle',
+            'role' => 'manager',
             'password' => $password,
             'password_confirmation' => $password,
         ];
@@ -295,11 +273,11 @@ class UserTest extends TestCase
         // Update another user
         $password = $this->faker->password(8);
         $requestBody = [
+            'username' => $this->faker->username,
             'name' => $this->faker->name,
             'email' => $this->faker->safeEmail,
-            'avatar' => false,
+            'role' => 'manager',
             'is_active' => false,
-            'update_avatar' => true,
             'password' => $password,
             'password_confirmation' => $password,
         ];
@@ -312,11 +290,11 @@ class UserTest extends TestCase
         // Update itself
         $password = $this->faker->password(8);
         $requestBody = [
+            'username' => $this->faker->username,
             'name' => $this->faker->name,
-            'email' => $this->userData['email'],
-            'avatar' => false,
+            'email' => $this->faker->email,
+            'role' => 'manager',
             'is_active' => true,
-            'update_avatar' => false,
             'password' => $password,
             'password_confirmation' => $password,
         ];
@@ -325,7 +303,7 @@ class UserTest extends TestCase
             'id' => $this->userData['id'],
             'name' => $requestBody['name'],
             'email' => $requestBody['email'],
-            'avatar' => $requestBody['avatar'],
+            'role' => $requestBody['role'],
             'is_active' => $requestBody['is_active']
         ];
 

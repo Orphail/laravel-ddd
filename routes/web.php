@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return response('ok');
+    return response()->json(['message' => 'welcome to main page']);
 });

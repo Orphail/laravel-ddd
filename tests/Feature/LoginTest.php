@@ -2,30 +2,27 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Testing\TestResponse;
-use Src\Agenda\User\Domain\Model\User;
-use Src\Agenda\User\Infrastructure\EloquentModels\UserEloquentModel;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 use Tests\WithLogin;
+use Src\Agenda\User\Domain\Model\User;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginTest extends TestCase
 {
     use RefreshDatabase, WithLogin;
-
-    protected User $user;
-    protected string $login_uri;
-    protected string $logout_uri;
-    protected string $refresh_uri;
-    protected string $me_uri;
 
     /**
      * Create a new faker instance.
      *
      * @return void
      */
+
+    protected User $user;
+    protected string $login_uri;
+    protected string $logout_uri;
+    protected string $refresh_uri;
+    protected string $me_uri;
 
     protected function setUp(): void
     {
@@ -45,7 +42,7 @@ class LoginTest extends TestCase
         $this->post($this->login_uri, $credentials)
             ->assertSessionHasNoErrors()
             ->assertStatus(Response::HTTP_OK)
-            ->assertSee(['accessToken']);
+            ->assertSee(['token']);
 
         $this->assertAuthenticated();
     }
@@ -58,7 +55,7 @@ class LoginTest extends TestCase
         $this->post($this->login_uri, $credentials)
             ->assertSessionHasNoErrors()
             ->assertStatus(Response::HTTP_UNAUTHORIZED)
-            ->assertSee(['error' => 'Unauthorized']);
+            ->assertSee(['errors' => 'Password incorrect for: ' . $credentials['username']]);
     }
 
     /** @test */
@@ -67,21 +64,21 @@ class LoginTest extends TestCase
         $this->post($this->login_uri, [])
             ->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertSee([
-                'email'    => 'The email field is required.',
+                'username'    => 'The username field is required.',
                 'password' => 'The password field is required.',
             ]);
     }
 
     /** @test */
-    public function user_can_not_login_without_email()
+    public function user_can_not_login_without_username()
     {
         $credentials = $this->validCredentials();
-        unset($credentials['email']);
+        unset($credentials['username']);
 
         $this->post($this->login_uri, $credentials)
             ->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertSee([
-                'email' => 'The email field is required.',
+                'username' => 'The username field is required.',
             ]);
     }
 
@@ -101,11 +98,11 @@ class LoginTest extends TestCase
     /** @test */
     public function user_can_not_login_with_invalid_credentials()
     {
-        $credentials = ['email' => 'test@invalid.credentials', 'password' => 'invalid'];
+        $credentials = ['username' => 'test@invalid.credentials', 'password' => 'invalid'];
 
         $this->post($this->login_uri, $credentials)
             ->assertStatus(Response::HTTP_UNAUTHORIZED)
-            ->assertSee(['error' => 'Unauthorized']);
+            ->assertSee(['errors' => 'Password incorrect for: ' . $credentials['username']]);
     }
 
     /** @test */
@@ -114,7 +111,7 @@ class LoginTest extends TestCase
         $this->withHeaders(['Authorization' => 'Bearer ' . $this->token])
             ->get($this->me_uri)
             ->assertStatus(Response::HTTP_OK)
-            ->assertSee(['id', 'name', 'email', 'avatar', 'is_admin', 'is_active']);
+            ->assertSee(['id', 'name', 'email', 'username', 'is_admin', 'is_active']);
     }
 
     /** @test */
@@ -133,7 +130,7 @@ class LoginTest extends TestCase
         $response = $this->withHeaders(['Authorization' => 'Bearer ' . $this->token])->post($this->refresh_uri)
             ->assertSessionHasNoErrors()
             ->assertStatus(Response::HTTP_OK)
-            ->assertSee(['accessToken']);
+            ->assertSee(['token']);
 
         $newToken = $this->getToken($response);
 

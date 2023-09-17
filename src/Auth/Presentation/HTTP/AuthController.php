@@ -1,4 +1,5 @@
 <?php
+
 namespace Src\Auth\Presentation\HTTP;
 
 use Illuminate\Auth\AuthenticationException;
@@ -28,11 +29,11 @@ class AuthController extends Controller
     public function login(Request $request): JsonResponse
     {
         try {
-            $email = $request->get('email');
+            $username = $request->get('username');
             $password = $request->get('password');
-            $credentials = ['email' => strtolower($email), 'password' => $password];
+            $credentials = ['username' => strtolower($username), 'password' => $password];
             $validator = Validator::make($credentials, [
-                'email' => ['required', 'email'],
+                'username' => ['required', 'string'],
                 'password' => ['required', 'string'],
             ]);
 
@@ -44,7 +45,14 @@ class AuthController extends Controller
         } catch (ValidationException $validationException) {
             return response()->json($validationException->errors(), Response::HTTP_BAD_REQUEST);
         } catch (AuthenticationException) {
-            return response()->json(['error' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED );
+            return response()->json([
+                "meta" => [
+                    "success" =>
+                    false, "errors" => [
+                        "Password incorrect for: $username"
+                    ]
+                ]
+            ], Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -94,10 +102,28 @@ class AuthController extends Controller
      */
     protected function respondWithToken(string $token): JsonResponse
     {
+        /*
+        {
+            "meta": { "success":
+            true,"errors": []
+            },
+            "data": {
+            "token": "TOOOOOKEN",
+            "minutes_to_expire": 1440
+            }
+        }
+        */
         return response()->json([
-            'accessToken' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => config('jwt.ttl') * 1,
+            "meta" => ["success" => true, "errors" => []],
+            "data" =>  [
+                "token" => $token,
+                "minutes_to_expire" => 1440
+            ]
         ]);
+        // return response()->json([
+        //     'accessToken' => $token,
+        //     'token_type' => 'bearer',
+        //     'expires_in' => config('jwt.ttl') * 1,
+        // ]);
     }
 }

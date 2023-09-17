@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Src\Agenda\User\Application\Mappers\UserMapper;
 use Src\Agenda\User\Domain\Factories\UserFactory;
 use Src\Agenda\User\Domain\Model\User;
-use Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface;
 
 trait WithUsers
 {
@@ -18,7 +17,7 @@ trait WithUsers
         $userEloquent = UserMapper::toEloquent($user);
         $userEloquent->password = $this->faker->password(8);
         $userEloquent->save();
-        return UserMapper::fromEloquent($userEloquent, app()->make(AvatarRepositoryInterface::class));
+        return UserMapper::fromEloquent($userEloquent);
     }
 
     protected function createRandomUsers($usersNumber = 1): array

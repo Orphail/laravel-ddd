@@ -14,7 +14,7 @@ use Src\Common\Domain\CommandInterface;
 class StoreUserCommand implements CommandInterface
 {
     private UserRepositoryInterface $repository;
-    private AvatarRepositoryInterface $avatarRepository;
+    // private AvatarRepositoryInterface $avatarRepository;
 
     public function __construct(
         private readonly User $user,
@@ -22,7 +22,7 @@ class StoreUserCommand implements CommandInterface
     )
     {
         $this->repository = app()->make(UserRepositoryInterface::class);
-        $this->avatarRepository = app()->make(AvatarRepositoryInterface::class);
+        // $this->avatarRepository = app()->make(AvatarRepositoryInterface::class);
     }
 
     public function execute(): User
@@ -32,11 +32,11 @@ class StoreUserCommand implements CommandInterface
             throw new EmailAlreadyUsedException();
         }
 
-        $avatar = $this->user->avatar;
-        if ($avatar->hasBinaryData()) {
-            $filename = $this->avatarRepository->storeAvatarFile($avatar);
-            $this->user->setAvatar($avatar->binary_data, $filename);
-        }
+        // $avatar = $this->user->avatar;
+        // if ($avatar->hasBinaryData()) {
+        //     $filename = $this->avatarRepository->storeAvatarFile($avatar);
+        //     $this->user->setAvatar($avatar->binary_data, $filename);
+        // }
 
         return $this->repository->store($this->user, $this->password);
     }

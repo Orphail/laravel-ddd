@@ -190,7 +190,8 @@ return [
          * Domain Service Providers...
          */
         \Src\Agenda\User\Application\Providers\UserServiceProvider::class,
-        \Src\Agenda\Company\Application\Providers\CompanyServiceProvider::class,
+        \Src\Agenda\Candidatos\Application\Providers\CandidatosServiceProvider::class,
+        // \Src\Agenda\Company\Application\Providers\CompanyServiceProvider::class,
 
         /*
          * Domain Routes Service Providers...
@@ -220,6 +221,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Redis' => Illuminate\Support\Facades\Redis::class,
     ])->toArray(),
 
 ];

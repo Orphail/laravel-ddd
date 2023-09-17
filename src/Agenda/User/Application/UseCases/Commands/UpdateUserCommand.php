@@ -15,7 +15,7 @@ use Src\Common\Domain\CommandInterface;
 class UpdateUserCommand implements CommandInterface
 {
     private UserRepositoryInterface $repository;
-    private AvatarRepositoryInterface $avatarRepository;
+    // private AvatarRepositoryInterface $avatarRepository;
 
     public function __construct(
         private readonly User $user,
@@ -23,7 +23,7 @@ class UpdateUserCommand implements CommandInterface
     )
     {
         $this->repository = app()->make(UserRepositoryInterface::class);
-        $this->avatarRepository = app()->make(AvatarRepositoryInterface::class);
+        // $this->avatarRepository = app()->make(AvatarRepositoryInterface::class);
     }
 
     public function execute(): void
@@ -32,13 +32,13 @@ class UpdateUserCommand implements CommandInterface
 //        if (UserEloquentModel::query()->where('email', $this->user->email)->exists()) {
 //            throw new EmailAlreadyUsedException();
 //        }
-        $avatar = $this->user->avatar;
-        if ($avatar->hasBinaryData()) {
-            $filename = $this->avatarRepository->storeAvatarFile($avatar);
-            $this->user->setAvatar($avatar->binary_data, $filename);
-            $oldUser = $this->repository->findById($this->user->id);
-            $this->avatarRepository->deleteAvatarFile($oldUser->avatar);
-        }
+        // $avatar = $this->user->avatar;
+        // if ($avatar->hasBinaryData()) {
+        //     $filename = $this->avatarRepository->storeAvatarFile($avatar);
+        //     $this->user->setAvatar($avatar->binary_data, $filename);
+        //     $oldUser = $this->repository->findById($this->user->id);
+        //     $this->avatarRepository->deleteAvatarFile($oldUser->avatar);
+        // }
 
         $this->repository->update($this->user, $this->password);
     }

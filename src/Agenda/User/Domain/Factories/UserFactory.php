@@ -6,7 +6,9 @@ use Src\Agenda\User\Domain\Model\User;
 use Src\Agenda\User\Domain\Model\ValueObjects\Avatar;
 use Src\Agenda\User\Domain\Model\ValueObjects\Email;
 use Src\Agenda\User\Domain\Model\ValueObjects\CompanyId;
+use Src\Agenda\User\Domain\Model\ValueObjects\Username;
 use Src\Agenda\User\Domain\Model\ValueObjects\Name;
+use Src\Agenda\User\Domain\Model\ValueObjects\Role;
 
 class UserFactory
 {
@@ -15,10 +17,11 @@ class UserFactory
         $attributes = $attributes ?: [];
 
         $defaults = [
+            'username' => fake()->userName(),
             'name' => fake()->name(),
             'email' => fake()->safeEmail(),
-            'company_id' => null,
-            'avatar' => null,
+            'last_login' => now()->format('d-m-Y H:i:s'),
+            'role' => 'manager',
             'is_admin' => true,
             'is_active' => true,
         ];
@@ -27,12 +30,12 @@ class UserFactory
 
         return (new User(
             id: null,
+            username: new Username($attributes['username']),
             name: new Name($attributes['name']),
             email: new Email($attributes['email']),
-            company_id: new CompanyId($attributes['company_id']),
-            avatar: new Avatar(binary_data: $attributes['avatar'], filename: null),
+            role: new Role($attributes['role']),
             is_admin: $attributes['is_admin'],
             is_active: $attributes['is_active']
-        ))->validateNonAdminWithCompany();
+        ));
     }
 }

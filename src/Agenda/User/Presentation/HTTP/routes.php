@@ -7,7 +7,7 @@ use Src\Agenda\User\Presentation\HTTP\UserController;
 Route::group([
     'prefix' => 'user'
 ], function () {
-    Route::get('random-avatar', GetRandomAvatarController::class);
+    // Route::get('random-avatar', GetRandomAvatarController::class);
 
     Route::get('index', [UserController::class, 'index']);
     Route::get('{id}', [UserController::class, 'show']);

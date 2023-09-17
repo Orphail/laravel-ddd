@@ -14,9 +14,9 @@ class UserServiceProvider extends ServiceProvider
             \Src\Agenda\User\Application\Repositories\Eloquent\UserRepository::class
         );
 
-        $this->app->bind(
-            \Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface::class,
-            \Src\Agenda\User\Application\Repositories\Local\AvatarRepository::class
-        );
+        // $this->app->bind(
+        //     \Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface::class,
+        //     \Src\Agenda\User\Application\Repositories\Local\AvatarRepository::class
+        // );
     }
 }

@@ -20,23 +20,21 @@ class UserEloquentModel extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
+        'username',
         'name',
         'email',
-        'company_id',
-        'avatar',
         'password',
         'is_admin',
         'is_active'
     ];
 
     public array $rules = [
-        'name' => 'required',
-        'email' => 'required',
-        'company_id' => 'nullable',
-        'avatar' => 'nullable',
-        'password' => 'confirmed|min:8|nullable',
-        'is_admin' => 'boolean',
-        'is_active' => 'boolean',
+        'username' => 'required|alpha_num|min:8|max:14|unique:users',
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255|unique:users',
+        'password' => 'required_if:password,!=,null|confirmed|min:8',
+        'is_admin' => 'sometimes|boolean',
+        'is_active' => 'sometimes|boolean',
     ];
 
     /**
@@ -58,9 +56,9 @@ class UserEloquentModel extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_login' => 'datetime',
         'is_admin' => 'boolean',
         'is_active' => 'boolean',
-        'avatar' => 'string',
         'password' => PasswordCast::class
     ];
 

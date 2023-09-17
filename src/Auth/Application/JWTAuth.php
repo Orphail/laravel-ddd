@@ -6,7 +6,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Log;
 use Src\Agenda\User\Application\Mappers\UserMapper;
 use Src\Agenda\User\Domain\Model\User;
-use Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface;
+// use Src\Agenda\User\Domain\Repositories\AvatarRepositoryInterface;
 use Src\Agenda\User\Infrastructure\EloquentModels\UserEloquentModel;
 use Src\Auth\Domain\AuthInterface;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -14,16 +14,16 @@ use Tymon\JWTAuth\Facades\JWTAuth as TymonJWTAuth;
 
 class JWTAuth implements AuthInterface
 {
-    private AvatarRepositoryInterface $avatarRepository;
+    // private AvatarRepositoryInterface $avatarRepository;
 
-    public function __construct(AvatarRepositoryInterface $avatarRepository)
-    {
-        $this->avatarRepository = $avatarRepository;
-    }
+    // public function __construct(AvatarRepositoryInterface $avatarRepository)
+    // {
+    //     $this->avatarRepository = $avatarRepository;
+    // }
 
     public function login(array $credentials): string
     {
-        $user = UserEloquentModel::query()->where('email', $credentials['email'])->first();
+        $user = UserEloquentModel::query()->where('username', $credentials['username'])->first();
         if (!$user || !$user->is_active) {
             throw new AuthenticationException();
         } elseif (!$token = auth()->attempt($credentials)) {

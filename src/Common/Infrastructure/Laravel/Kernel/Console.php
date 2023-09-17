@@ -33,7 +33,6 @@ class Console extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
     }
 
     /**
@@ -45,6 +44,6 @@ class Console extends ConsoleKernel
     {
         $this->load(__DIR__.'/Commands');
 
-        require base_path('routes/console.php');
+        require_once base_path('routes/console.php');
     }
 }

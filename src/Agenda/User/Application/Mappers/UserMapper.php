@@ -5,10 +5,10 @@ namespace Src\Agenda\User\Application\Mappers;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 use Src\Agenda\User\Domain\Model\User;
-use Src\Agenda\User\Domain\Model\ValueObjects\Avatar;
-use Src\Agenda\User\Domain\Model\ValueObjects\CompanyId;
+use Src\Agenda\User\Domain\Model\ValueObjects\Role;
 use Src\Agenda\User\Domain\Model\ValueObjects\Email;
 use Src\Agenda\User\Domain\Model\ValueObjects\Name;
+use Src\Agenda\User\Domain\Model\ValueObjects\Username;
 use Src\Agenda\User\Infrastructure\EloquentModels\UserEloquentModel;
 
 class UserMapper
@@ -17,10 +17,10 @@ class UserMapper
     {
         return new User(
             id: $user_id,
+            username: new Username($request->string('username')),
             name: new Name($request->string('name')),
             email: new Email($request->string('email')),
-            company_id: new CompanyId($request->input('company_id')),
-            avatar: new Avatar(binary_data: $request->string('avatar'), filename: null),
+            role: new Role($request->string('role')),
             is_admin: $request->boolean('is_admin', false),
             is_active: $request->boolean('is_active', true),
         );
@@ -28,13 +28,13 @@ class UserMapper
 
     public static function fromEloquent(UserEloquentModel $userEloquent): User
     {
-        $avatar = new Avatar(binary_data: null, filename: $userEloquent->avatar);
+        // $avatar = new Avatar(binary_data: null, filename: $userEloquent->avatar);
         return new User(
             id: $userEloquent->id,
+            username: new Username($userEloquent->username),
             name: new Name($userEloquent->name),
             email: new Email($userEloquent->email),
-            company_id: new CompanyId($userEloquent->company_id),
-            avatar: $avatar,
+            role: new Role($userEloquent->role),
             is_admin: $userEloquent->is_admin,
             is_active: $userEloquent->is_active
         );
@@ -42,13 +42,13 @@ class UserMapper
 
     public static function fromAuth(Authenticatable $userEloquent): User
     {
-        $avatar = new Avatar(binary_data: null, filename: $userEloquent->avatar);
+        // $avatar = new Avatar(binary_data: null, filename: $userEloquent->avatar);
         return new User(
             id: $userEloquent->id,
+            username: new Username($userEloquent->username),
             name: new Name($userEloquent->name),
             email: new Email($userEloquent->email),
-            company_id: new CompanyId($userEloquent->company_id),
-            avatar: $avatar,
+            role: new Role($userEloquent->role),
             is_admin: $userEloquent->is_admin,
             is_active: $userEloquent->is_active
         );
@@ -60,10 +60,10 @@ class UserMapper
         if ($user->id) {
             $userEloquent = UserEloquentModel::query()->findOrFail($user->id);
         }
+        $userEloquent->username = $user->username;
         $userEloquent->name = $user->name;
         $userEloquent->email = $user->email;
-        $userEloquent->company_id = $user->company_id->value;
-        $userEloquent->avatar = $user->avatar->filename;
+        $userEloquent->role = $user->role;
         $userEloquent->is_admin = $user->is_admin;
         $userEloquent->is_active = $user->is_active;
         return $userEloquent;
