@@ -1,0 +1,67 @@
+version: "3.8"
+services:
+    app:
+        build:
+            args:
+                user: lordhunter
+                uid: 1001
+            context: .
+            dockerfile: Dockerfile
+        environment:
+            - WPN_WAIT_UNTIL=60
+            - SERVICE_NAME=test-app
+            - SERVICE_TAGS=dev
+        ports:
+            - "8000:8000" # Expose SonarQube web interface
+        image: test-app
+        command: php artisan serve --host=0.0.0.0 --port=8000 # Start Laravel's built-in development server
+        container_name: test-app
+        restart: unless-stopped
+        working_dir: /home/lordhunter/test
+        volumes:
+            - ./:/home/lordhunter/test
+            #- /home/lordunter/destajo-master:/home/lordhunter/destajo-master
+        networks:
+            - test-network
+
+    sonarqube:
+        image: sonarqube:latest
+        container_name: sonarqube
+        ports:
+            - "9000:9000" # Expose SonarQube web interface
+        networks:
+            - test-network
+
+    mysql:
+        image: mysql:latest
+        container_name: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: your-root-password
+            MYSQL_DATABASE: your-database-name
+            MYSQL_USER: your-username
+            MYSQL_PASSWORD: your-password
+        ports:
+            - "3306:3306" # Expose MySQL port
+        volumes:
+            - mysql-data:/var/lib/mysql # Persist MySQL data
+        networks:
+            - test-network
+
+    redis:
+        image: redis:latest
+        container_name: redis
+        ports:
+            - "6382:6379" # Expose Redis port
+        # volumes:
+        #     - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+        # command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+        networks:
+            - test-network
+
+networks:
+    test-network:
+        driver: "bridge"
+        name: test-network
+
+volumes:
+    mysql-data: # Define a named volume for MySQL data persistence
