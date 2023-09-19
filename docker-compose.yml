@@ -12,7 +12,7 @@ services:
             - SERVICE_NAME=test-app
             - SERVICE_TAGS=dev
         ports:
-            - "8000:8000" # Expose SonarQube web interface
+            - "8000:8000"
         image: test-app
         command: php artisan serve --host=0.0.0.0 --port=8000 # Start Laravel's built-in development server
         container_name: test-app
@@ -32,14 +32,18 @@ services:
         networks:
             - test-network
 
-    mysql:
-        image: mysql:latest
-        container_name: mysql
+    mysql-db-server:
+        image: mysql:8.0
+        container_name: mysql-db-server
+        # command: "--default-authentication-plugin=mysql_native_password"
         environment:
             MYSQL_ROOT_PASSWORD: password
             MYSQL_DATABASE: prueba
             MYSQL_USER: test
             MYSQL_PASSWORD: password
+            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql-db-server
         ports:
             - "3306:3306" # Expose MySQL port
         volumes:
