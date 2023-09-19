@@ -36,10 +36,10 @@ services:
         image: mysql:latest
         container_name: mysql
         environment:
-            MYSQL_ROOT_PASSWORD: your-root-password
-            MYSQL_DATABASE: your-database-name
-            MYSQL_USER: your-username
-            MYSQL_PASSWORD: your-password
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: prueba
+            MYSQL_USER: test
+            MYSQL_PASSWORD: password
         ports:
             - "3306:3306" # Expose MySQL port
         volumes:
